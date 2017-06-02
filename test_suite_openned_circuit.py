@@ -1,12 +1,7 @@
 from pages import *
 
+
 class TestSuite:
-    """
-    Данный test-suite включает в себя следующие positive tests открытого контура:
-    testing changes 1111
-    
-    plkljh22226
-    """
 
     def get_page(self, value):
         sleep(1)
@@ -15,15 +10,14 @@ class TestSuite:
 
     @classmethod
     def setup_class(cls):
-        """What happens BEFORE tests"""
+
         cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
-        # cls.driver = webdriver.PhantomJS("C:\Python34\Scripts\phantomjs.exe")
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
 
     @classmethod
     def teardown_class(cls):
-        """What happens AFTER tests"""
+
         cls.driver.quit()
 
     def test_news(self):
@@ -80,7 +74,8 @@ class TestSuite:
         p.click((By.ID, "select2-chosen-1"))
         p.click((By.XPATH, "//li[@role='presentation'][2]"))
         sleep(1)
-        assert "Численность работников, замещавших должности гражданских и муниципальных служащих, и укомплектованность этих должностей" in self.driver.page_source
+        assert "Численность работников, замещавших должности гражданских и " \
+               "муниципальных служащих, и укомплектованность этих должностей" in self.driver.page_source
 
     def test_reserve(self):
         p = MainPage(self.driver)
@@ -88,8 +83,8 @@ class TestSuite:
         p.click_by_text("Дополнительная информация")
         self.driver.back()
         sleep(1)
-        # graphics based on Highcharts and there is no reason to doubt how does it work
-        assert self.driver.find_element(By.XPATH, "//div[@class='PieChart']") and self.driver.find_element(By.ID, "canvas")
+        assert self.driver.find_element(By.XPATH, "//div[@class='PieChart']") \
+               and self.driver.find_element(By.ID, "canvas")
 
     def test_about_site(self):
         p = MainPage(self.driver)

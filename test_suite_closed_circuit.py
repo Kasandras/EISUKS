@@ -3,32 +3,18 @@ import pytest
 
 
 class TestSuite:
-    """
-    Данный test-suite включает в себя следующие positive tests закрытого контура:
-    1. Авторизация;
-    2. Создание нового личного дела;
-    3. Заполнение необходимых полей в созданном личном деле;
-    4. Создание новой ОШС, добавление подразделения и штатных единиц, введение их в действие;
-    5. Назначение ранее созданного личного дела на должность в созданной ОШС;
-    6. Добавление денежного содержания сотруднику;
-    7. Увольнение сотрудника;
-    8. Деавторизация.
-    """
 
     @classmethod
     def setup_class(cls):
-        """What happens BEFORE tests"""
+
         cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
-        # pages
-        cls.main_page = MainPage(cls.driver)
         cls.driver.maximize_window()
-        # cls.driver.implicitly_wait(.5)
         cls.driver.get(Links.main_page)
         cls.account = get_data_by_number(load_data("testData"), "accounts")
 
     @classmethod
     def teardown_class(cls):
-        """What happens AFTER tests"""
+
         cls.driver.quit()
 
     def go_to(self, url):
@@ -38,7 +24,7 @@ class TestSuite:
         print("Переход по ссылке: %s" % url)
 
     @pytest.mark.parametrize("last_name", ["Автоматизация"])
-    def te1st_new_personal_file(self, last_name):
+    def test_new_personal_file(self, last_name):
 
         page = PersonalPage(self.driver)
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", last_name)
@@ -56,7 +42,7 @@ class TestSuite:
         assert page.wait_for_text_appear("ФИО в падежах")
 
     @pytest.mark.parametrize("last_name", ["Автоматизация"])
-    def te1st_personal_file_filling(self, last_name):
+    def test_personal_file_filling(self, last_name):
 
         page = PersonalFilePage(self.driver)
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", last_name)
@@ -79,7 +65,7 @@ class TestSuite:
         assert page.wait_for_text_disappear("Сохранить")
 
     @pytest.mark.parametrize('amount', range(1))
-    def te1st_new_department(self, amount):
+    def test_new_department(self, amount):
 
         data = get_data_by_number(load_data("testData"), "departments")
 
@@ -138,9 +124,9 @@ class TestSuite:
                 break
         assert flag, "Ошибка: На странице присутствует ярлык \"Проект\""
 
-    def tes1t_contest_replacement(self):
+    def test_contest_replacement(self):
         structure_details_page = StructureDetailsPage(self.driver)
-        advertisement_page = AdvertisementPage(self.driver)
+        page = AdvertisementPage(self.driver)
         vacancy_list_page = VacancyListPage(self.driver)
 
         department = get_data_by_number(load_data("testData"), "departments")
@@ -153,53 +139,53 @@ class TestSuite:
         structure_details_page.click_by_text("Показать все")
         structure_details_page.click_by_text("Создать", 2)
         # Основная информация
-        advertisement_page.type(advertisement["type"])
-        advertisement_page.organization(advertisement["organization"])
-        advertisement_page.is_competition(advertisement["isCompetition"])
-        advertisement_page.reason(advertisement["reason"])
-        advertisement_page.division(advertisement["division"])
-        advertisement_page.subdivision(advertisement["subdivision"])
-        advertisement_page.position(advertisement["position"])
+        page.type(advertisement["type"])
+        page.organization(advertisement["organization"])
+        page.is_competition(advertisement["isCompetition"])
+        page.reason(advertisement["reason"])
+        page.division(advertisement["division"])
+        page.subdivision(advertisement["subdivision"])
+        page.position(advertisement["position"])
         # Общие сведения
-        advertisement_page.profile(advertisement["profile"])
-        advertisement_page.okato_region(advertisement["okatoRegion"])
-        advertisement_page.okato_area(advertisement["okatoArea"])
-        advertisement_page.salary_from(advertisement["salaryFrom"])
-        advertisement_page.salary_to(advertisement["salaryTo"])
-        advertisement_page.buiseness_trip(advertisement["buisnessTrip"])
-        advertisement_page.work_schedule(advertisement["workSchedule"])
-        advertisement_page.is_fixed_schedule(advertisement["isFixedSchedule"])
-        advertisement_page.work_contract(advertisement["workContract"])
-        advertisement_page.guarantee(advertisement["guarantee"])
-        advertisement_page.additional_info(advertisement["additionalInfo"])
+        page.profile(advertisement["profile"])
+        page.okato_region(advertisement["okatoRegion"])
+        page.okato_area(advertisement["okatoArea"])
+        page.salary_from(advertisement["salaryFrom"])
+        page.salary_to(advertisement["salaryTo"])
+        page.buiseness_trip(advertisement["buisnessTrip"])
+        page.work_schedule(advertisement["workSchedule"])
+        page.is_fixed_schedule(advertisement["isFixedSchedule"])
+        page.work_contract(advertisement["workContract"])
+        page.guarantee(advertisement["guarantee"])
+        page.additional_info(advertisement["additionalInfo"])
         # Должностные обязанности
-        advertisement_page.click_by_text("Должностные обязанности")
-        advertisement_page.job_responsibility(advertisement["jobResponsibility"])
+        page.click_by_text("Должностные обязанности")
+        page.job_responsibility(advertisement["jobResponsibility"])
         # Квалификационные требования
-        advertisement_page.click_by_text("Квалификационные требования")
-        advertisement_page.requirements(advertisement["requirements"])
-        advertisement_page.experience(advertisement["experience"])
-        advertisement_page.work_experience(advertisement["workExperience"])
-        advertisement_page.knowledge_description(advertisement["knowledgeDescription"])
-        advertisement_page.additional_requirements(advertisement["additionalRequirements"])
+        page.click_by_text("Квалификационные требования")
+        page.requirements(advertisement["requirements"])
+        page.experience(advertisement["experience"])
+        page.work_experience(advertisement["workExperience"])
+        page.knowledge_description(advertisement["knowledgeDescription"])
+        page.additional_requirements(advertisement["additionalRequirements"])
         # Документы
-        advertisement_page.click_by_text("Документы", 2)
-        advertisement_page.registration_address(advertisement["registrationAddress"])
-        advertisement_page.registration_time(advertisement["registrationTime"])
-        advertisement_page.expiry_date(change_date(21))
-        advertisement_page.announcement_date(today())
+        page.click_by_text("Документы", 2)
+        page.registration_address(advertisement["registrationAddress"])
+        page.registration_time(advertisement["registrationTime"])
+        page.expiry_date(change_date(21))
+        page.announcement_date(today())
         # Контакты
-        advertisement_page.click_by_text("Контакты")
-        advertisement_page.post_index(advertisement["postIndex"])
-        advertisement_page.address_mail(advertisement["addressMail"])
-        advertisement_page.phone_1(advertisement["phone1"])
-        advertisement_page.phone_2(advertisement["phone2"])
-        advertisement_page.phone_3(advertisement["phone3"])
-        advertisement_page.email(advertisement["email"])
-        advertisement_page.person(advertisement["person"])
-        advertisement_page.site(advertisement["site"])
-        advertisement_page.additional(advertisement["additional"])
-        advertisement_page.click_by_text("Сохранить")
+        page.click_by_text("Контакты")
+        page.post_index(advertisement["postIndex"])
+        page.address_mail(advertisement["addressMail"])
+        page.phone_1(advertisement["phone1"])
+        page.phone_2(advertisement["phone2"])
+        page.phone_3(advertisement["phone3"])
+        page.email(advertisement["email"])
+        page.person(advertisement["person"])
+        page.site(advertisement["site"])
+        page.additional(advertisement["additional"])
+        page.click_by_text("Сохранить")
         #
         self.go_to(Links.vacancy_list)
         vacancy_list_page.check()
@@ -208,33 +194,33 @@ class TestSuite:
         vacancy_list_page.click_by_text("На публикацию")
 
         LoginPage(self.driver).login("1", "123123/")
-        self.main_page.click_by_text("Управление объявлениями")
+        page.click_by_text("Управление объявлениями")
         vacancy_list_page.check(2)
-        self.main_page.click_by_text("Опубликовать")
+        page.click_by_text("Опубликовать")
         LoginPage(self.driver).login("l&m", "123123/")
         self.go_to(Links.main_page)
         sleep(300)
-        self.main_page.click_by_text("Вакансии")
-        self.main_page.set_text((By.XPATH, "(//input[@type='text'])[2]"), "Automation")
-        self.main_page.click((By.XPATH, "//li[.='Automation']"))
-        self.main_page.click_by_text("Поиск")
-        self.main_page.click((By.XPATH, "//div[@class='vacancy-block vacancy-hovered' and contains(., 'Automation')]"))
-        self.main_page.click_by_text("Откликнуться")
-        self.main_page.click_by_text("Продолжить")
-        self.main_page.set_select("Анкета 667-р 20.07.2015")
-        self.main_page.click_by_text("Откликнуться")
+        page.click_by_text("Вакансии")
+        page.set_text((By.XPATH, "(//input[@type='text'])[2]"), "Automation")
+        page.click((By.XPATH, "//li[.='Automation']"))
+        page.click_by_text("Поиск")
+        page.click((By.XPATH, "//div[@class='vacancy-block vacancy-hovered' and contains(., 'Automation')]"))
+        page.click_by_text("Откликнуться")
+        page.click_by_text("Продолжить")
+        page.set_select("Анкета 667-р 20.07.2015")
+        page.click_by_text("Откликнуться")
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"])
         self.go_to(Links.vacancy_selection)
-        self.main_page.click((By.XPATH, "//a[@data-ng-bind='item.responsesCount']"))
-        self.main_page.click_by_text("Лобода Максим Юрьевич")
+        page.click((By.XPATH, "//a[@data-ng-bind='item.responsesCount']"))
+        page.click_by_text("Лобода Максим Юрьевич")
         self.driver.back()
         vacancy_list_page.check()
-        self.main_page.click_by_text("Пригласить")
-        self.main_page.click_by_text("Направить приглашение")
+        page.click_by_text("Пригласить")
+        page.click_by_text("Направить приглашение")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_appointment(self, user):
+    def test_appointment(self, user):
         """
         Проверяется возможность назначения сотрудника.
         """
@@ -275,7 +261,7 @@ class TestSuite:
     # тесты Головинского
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_rewards(self, user):
+    def test_rewards(self, user):
         """
         Прохождение государственной гражданской службы - Поощрения
         """
@@ -334,7 +320,7 @@ class TestSuite:
         sleep(10)
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_enforcement(self, user):
+    def test_enforcement(self, user):
         """
         Прохождение государственной гражданской службы - Дисциплинарные взыскания
         """
@@ -384,7 +370,7 @@ class TestSuite:
         page.click_by_text("Сохранить")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_dispensary_planning(self, user):
+    def test_dispensary_planning(self, user):
         """
         Прохождение государственной гражданской службы - Планирование диспансеризации
         """
@@ -398,7 +384,7 @@ class TestSuite:
         page.submit()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_dispensary(self, user):
+    def test_dispensary(self, user):
         """
         Прохождение государственной гражданской службы - Диспансеризация
         """
@@ -448,7 +434,7 @@ class TestSuite:
         page.click_by_text("Утвердить")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_disability_periods(self, user):
+    def test_disability_periods(self, user):
         """
         Прохождение государственной гражданской службы - Учет периодов нетрудоспособности
         """
@@ -482,7 +468,7 @@ class TestSuite:
         assert "Заболевание" in self.driver.page_source
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_business_trip(self, user):
+    def test_business_trip(self, user):
         """
         Прохождение государственной гражданской службы - Командировки
         """
@@ -521,7 +507,7 @@ class TestSuite:
                                                       "Начальник управления")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_business_trip_schedule(self, user):
+    def test_business_trip_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График служебных командировок
         """
@@ -534,7 +520,7 @@ class TestSuite:
         assert user in self.driver.page_source
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_holidays(self, user):
+    def test_holidays(self, user):
         """
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         """
@@ -566,7 +552,7 @@ class TestSuite:
                                        "Начальник управления")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_holidays_schedule(self, user):
+    def test_holidays_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График отпусков
         """
@@ -597,7 +583,7 @@ class TestSuite:
         page.accept_alert()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_ranks(self, user):
+    def test_ranks(self, user):
         """
         Прохождение государственной гражданской службы - Присвоение классных чинов
         """
@@ -631,7 +617,7 @@ class TestSuite:
     # end
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_salary_payments(self, user):
+    def test_salary_payments(self, user):
         """
         Формирование кадрового состава - Денежное содержание
         """
@@ -674,7 +660,7 @@ class TestSuite:
         page.click_by_text("Денежное содержание")
         assert "Проект" not in self.driver.page_source
 
-    def te1st_commissions(self):
+    def test_commissions(self):
         """
         Формирование кадрового состава - Комиссии
         """
@@ -738,7 +724,7 @@ class TestSuite:
         assert page.wait_for_text_appear("Карпов Сергей Иванович")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def t1est_dismissal(self, user):
+    def test_dismissal(self, user):
         department = get_data_by_number(load_data("testData"), "departments")
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
         dismissal = employee["dismissal"]
@@ -767,14 +753,14 @@ class TestSuite:
         page.arrangement()
         page.click_by_text("Показать все")
 
-    def t1est_rules_list(self):
+    def test_rules_list(self):
 
         LoginPage(self.driver).login("1", "123123/")
         p = MainPage(self.driver)
         p.click_by_text("Список прав")
         assert "Список прав системы безопасности" in self.driver.page_source
 
-    def te1st_roles_management(self):
+    def test_roles_management(self):
 
         LoginPage(self.driver).login("1", "123123/")
         p = MainPage(self.driver)
@@ -786,23 +772,8 @@ class TestSuite:
         p.set_date((By.XPATH, "//input[@type='search']"), "Тестовая роль")
         # assert "Список прав системы безопасности" in self.driver.page_source
 
-    def te1st_users_management(self):
+    def test_users_management(self):
 
         LoginPage(self.driver).login("1", "123123/")
         p = MainPage(self.driver)
         p.click_by_text("Управление пользователями")
-
-    def test_example(self):
-
-        page = NewPersonnelFilePage(self.driver)
-        LoginPage(self.driver).login("AndRyb", "123123/")
-        page.click_by_text("Учет кадрового состава")
-        page.click_by_text("Ведение электронных личных дел")
-        page.click_by_text("Добавить")
-        page.last_name("Иванов")
-        page.first_name("Иван")
-        page.middle_name("Иванович")
-        page.birthday_date("12.04.1970")
-        page.certificate_number("00193214196")
-        page.account("")
-        page.click_by_text("Сохранить")

@@ -975,7 +975,8 @@ class NewPersonnelFilePage(parent):
         self.set_date(NewPersonnelFileLocators.birthday_date, value, "Дата рождения")
 
     def certificate_number(self, value):
-        self.set_text(NewPersonnelFileLocators.certificate_number, value, "Страховой номер индивидуального лицевого счета (СНИЛС)")
+        self.set_text(NewPersonnelFileLocators.certificate_number,
+                      value, "Страховой номер индивидуального лицевого счета (СНИЛС)")
 
     def account(self, value):
         self.set_text(NewPersonnelFileLocators.account, value, "Учетная запись")
