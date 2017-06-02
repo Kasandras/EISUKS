@@ -1,0 +1,246 @@
+{
+  "accounts": [
+    {
+      "username": "AndRyb",
+      "password": "123123/"
+    },
+    {
+      "username": "yestymike+9@gmail.com",
+      "password": "123123/"
+    },
+    {
+      "username": "mitrofan@rossir.gov.ru",
+      "password": "123123/"
+    },
+    {
+      "username": "Natalya.Gorodnicheva@minstroyrf.ru",
+      "password": "123456*"
+    },
+    {
+      "username": "Solov@mnr.gov.ru",
+      "password": "123456*"
+    },
+    {
+      "username": "antsukh@minsport.gov.ru",
+      "password": "123456*"
+    },
+    {
+      "username": "dymnikova@adm.kaluga.ru",
+      "password": "123456*"
+    },
+    {
+      "username": "a.burzilovskaya@meteorf.ru",
+      "password": "123456*"
+    }
+  ],
+  "employees": [
+    {
+      "lastName": "Автоматизация",
+      "firstName": "Автоматизация",
+      "middleName": "Автоматизация",
+      "gender": "Мужской",
+      "birthday": "04.09.1955",
+      "insuranceCertificateNumber": "00193214196",
+      "username": "",
+      "personalFileNumber": "333",
+      "okato": "123",
+      "criminalRecord": "Нет",
+      "lastNameChanging": "Не менял",
+      "appointment": {
+        "reason": "пп. 1 п. 2 ст.",
+        "duration": false,
+        "dateFrom": "21.01.2017",
+        "trial": false,
+        "contractDate": "21.01.2017",
+        "contractNumber": "123",
+        "order": "322",
+        "date": "21.01.2017",
+        "fullName": "Артемов Игорь Сергеевич",
+        "position": "Начальник отдела"
+      },
+      "dismissal": {
+        "date": "23.01.2017",
+        "reason": "Соглашение сторон служебного контракта",
+        "order": "322",
+        "date": "23.01.2017",
+        "fullName": "Артемов Игорь Сергеевич",
+        "position": "Начальник отдела"
+      },
+      "salaryPayment": {
+        "type": "должностной оклад",
+        "amount": "12.00",
+        "dateFrom": "24.01.2017",
+        "order": "322",
+        "date": "24.01.2017",
+        "fullName": "Артемов Игорь Сергеевич",
+        "position": "Начальник отдела"
+      }
+    }
+  ],
+  "departments": [
+    {
+      "organization": "Automation",
+      "name": "Тестовая ОШС",
+      "fot": "20",
+      "limit": "100",
+      "divisions": [
+        {
+          "parent": "",
+          "name": "Тестовое подразделение 1",
+          "nameGenitive": "Тестового подразделения 1",
+          "nameDative": "Тестовому подразделению 1",
+          "nameAccusative": "Тестовое подразделение 1",
+          "limit": "50",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Специалист",
+              "amount": "3"
+            }
+          ]
+        },
+        {
+          "parent": "",
+          "name": "Тестовое подразделение 2",
+          "nameGenitive": "Тестового подразделения 2",
+          "nameDative": "Тестовому подразделению 2",
+          "nameAccusative": "Тестовое подразделение 2",
+          "limit": "50",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Специалист",
+              "amount": "4"
+            }
+          ]
+        },
+        {
+          "parent": "Тестовое подразделение 2",
+          "name": "Тестовый отдел 1",
+          "nameGenitive": "Тестового отдела 1",
+          "nameDative": "Тестовому отделу 1",
+          "nameAccusative": "Тестовый отдел 1",
+          "limit": "10",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Специалист",
+              "amount": "5"
+            }
+          ]
+        },
+        {
+          "parent": "Тестовое подразделение 2",
+          "name": "Тестовый отдел 2",
+          "nameGenitive": "Тестового отдела 2",
+          "nameDative": "Тестовому отделу 2",
+          "nameAccusative": "Тестовый отдел 2",
+          "limit": "10",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Специалист",
+              "amount": "6"
+            }
+          ]
+        }
+      ],
+      "orderNumber": "123",
+      "orderDate": "21.01.2017",
+      "date": "21.01.2017"
+    }
+  ],
+  "advertisements": [
+    {
+      "type": "Вакансия для замещения вакантной должности",
+      "organization": "",
+      "isCompetition": true,
+      "reason": "",
+      "division": "Тестовое подразделение 2",
+      "subdivision": "Тестовый отдел 1",
+      "position": "Специалист-эксперт",
+      "profile": "Добыча полезных ископаемых",
+      "okatoRegion": "Алтайский край",
+      "okatoArea": "Алтайский район",
+      "salaryFrom": "10",
+      "salaryTo": "20",
+      "buisnessTrip": "10% служебного времени",
+      "workSchedule": "Сутки через 3-ое",
+      "isFixedSchedule": "Нормированный",
+      "workContract": "Бессрочный",
+      "guarantee": "Гарантии",
+      "additionalInfo": "Дополнительная информация",
+      "jobResponsibility": "Краткое описание должностных обязанностей",
+      "requirements": "Начальное профессиональное образование",
+      "experience": "",
+      "workExperience": "",
+      "knowledgeDescription": "Знания и навыки",
+      "additionalRequirements": "Дополнительные требования",
+      "announcementDate": "",
+      "expiryDate": "",
+      "registrationAddress": "Москва",
+      "registrationTime": "московское",
+      "postIndex": "Другое",
+      "addressMail": "vacancy.addressMail",
+      "phone1": "1111111111",
+      "phone2": "2222222222",
+      "phone3": "3333333333",
+      "email": "mail@mail.com",
+      "person": "",
+      "site": "http://www.site.com",
+      "additional": "Дополнительная информация"
+    }
+  ],
+  "commissions": [
+    {
+      "name": "Конкурсная комиссия",
+      "organization": "Automation",
+      "orderDate": "16.02.2017",
+      "orderNumber": "132",
+      "fullName": "Соколов Игорь Евгеньевич",
+      "type": "Конкурсная комиссия на замещение вакантной должности",
+      "startDate": "16.02.2017",
+      "endDate": "22.02.2017",
+      "members": [
+        {
+          "role": "Секретарь",
+          "fullName": "Карпов Сергей Иванович",
+          "isIndependentExpert": true,
+          "organization": "Организация",
+          "position": "Должность",
+          "department": "Подразделение",
+          "phone": "88000000000",
+          "email": "mail@mail.com",
+          "personalFileNumber": "332"
+        }
+      ],
+      "sessions": [
+        {
+          "meeting_date": "17.02.2017",
+          "meeting_time": "12:00",
+          "place": "Москва",
+          "questions": [
+            {
+              "content": "Содержание вопроса",
+              "reporter": "Иванов Иван Иванович",
+              "decision": "Иное решение",
+              "decisionReason": "Нетипичная ситуация"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
