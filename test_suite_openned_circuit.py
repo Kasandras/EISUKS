@@ -3,7 +3,7 @@ from pages import *
 class TestSuite:
     """
     Данный test-suite включает в себя следующие positive tests открытого контура:
-    testing changes
+    testing changes 1111
     """
 
     def get_page(self, value):
