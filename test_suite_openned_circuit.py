@@ -2,7 +2,10 @@ from pages import *
 
 
 class TestSuite:
+    """
+    Содержание test-suite:
 
+    """
     def get_page(self, value):
         sleep(1)
         self.driver.get(value)

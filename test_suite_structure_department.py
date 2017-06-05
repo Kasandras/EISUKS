@@ -3,7 +3,10 @@ import pytest
 
 
 class TestSuite:
+    """
+    Содержание test-suite:
 
+    """
     @classmethod
     def setup_class(cls):
 

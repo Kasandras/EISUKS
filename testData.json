@@ -2,35 +2,17 @@
   "accounts": [
     {
       "username": "AndRyb",
-      "password": "123123/"
+      "password": "123123/",
+      "full_name": "А. В. Рыбин"
     },
     {
       "username": "yestymike+9@gmail.com",
       "password": "123123/"
     },
     {
-      "username": "mitrofan@rossir.gov.ru",
-      "password": "123123/"
-    },
-    {
-      "username": "Natalya.Gorodnicheva@minstroyrf.ru",
-      "password": "123456*"
-    },
-    {
-      "username": "Solov@mnr.gov.ru",
-      "password": "123456*"
-    },
-    {
-      "username": "antsukh@minsport.gov.ru",
-      "password": "123456*"
-    },
-    {
-      "username": "dymnikova@adm.kaluga.ru",
-      "password": "123456*"
-    },
-    {
-      "username": "a.burzilovskaya@meteorf.ru",
-      "password": "123456*"
+      "username": "1",
+      "password": "123123/",
+      "full_name": "А. П. Ф"
     }
   ],
   "employees": [

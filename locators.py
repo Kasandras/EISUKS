@@ -11,26 +11,27 @@ class LoginLocators(object):
     submit = (By.XPATH, "//input[@type='submit']")
 
 
-class PersonalLocators(object):
-    last_name = (By.ID, "lastName")
-    first_name = (By.ID, "firstName")
-    middle_name = (By.ID, "middleName")
-    birthday = (By.ID, "birthDate")
-    insurance_certificate_number = (By.ID, "insuranceCertificateNumber")
-    username = (By.ID, "userName")
-
-
 class PersonalFileLocators(object):
-    general_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[1]")
-    addresses_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[2]")
-    contact_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[3]")
-    last_name = (By.XPATH, "(//input[@type='text'])[1]")
-    first_name = (By.XPATH, "(//input[@type='text'])[2]")
-    middle_name = (By.XPATH, "(//input[@type='text'])[3]")
-    gender = (By.XPATH, "(//span[contains(@id, 'select2-chosen')])[1]")
-    personal_file_number = (By.XPATH, "(//input[@type='text'])[4]")
-    birthday = (By.XPATH, "(//input[@type='text'])[7]")
-    okato = (By.XPATH, "(//input[@type='text'])[10]")
+
+    class New(object):
+        last_name = (By.ID, "lastName")
+        first_name = (By.ID, "firstName")
+        middle_name = (By.ID, "middleName")
+        birthday = (By.ID, "birthDate")
+        insurance_certificate_number = (By.ID, "insuranceCertificateNumber")
+        username = (By.ID, "userName")
+
+    class General(object):
+        general_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[1]")
+        addresses_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[2]")
+        contact_edit = (By.XPATH, "(//a[contains(., 'Редактировать')])[3]")
+        last_name = (By.XPATH, "(//input[@type='text'])[1]")
+        first_name = (By.XPATH, "(//input[@type='text'])[2]")
+        middle_name = (By.XPATH, "(//input[@type='text'])[3]")
+        gender = (By.XPATH, "(//span[contains(@id, 'select2-chosen')])[1]")
+        personal_file_number = (By.XPATH, "(//input[@type='text'])[4]")
+        birthday = (By.XPATH, "(//input[@type='text'])[7]")
+        okato = (By.XPATH, "(//input[@type='text'])[10]")
 
 
 class StructureInfoLocators(object):
@@ -337,10 +338,7 @@ class RanksLocators(object):
     date = (By.XPATH, "//div[@data-ng-model='orc.editmodel.dateStart']/input")
 
 
-class NewPersonnelFileLocators(object):
-    last_name = (By.XPATH, "//input[@id='lastName']")
-    first_name = (By.XPATH, "//input[@id='firstName']")
-    middle_name = (By.XPATH, "//input[@id='middleName']")
-    birthday_date = (By.XPATH, "//input[@id='birthDate']")
-    certificate_number = (By.XPATH, "//input[@id='insuranceCertificateNumber']")
-    account = (By.XPATH, "//input[@id='userName']")
+class RolesManagementLocators(object):
+    search = (By.XPATH, "//input[@type='search']")
+    name = (By.XPATH, "//input[@name='caption']")
+    level = (By.XPATH, "//div[contains(@id, 's2id')]")

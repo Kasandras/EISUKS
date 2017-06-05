@@ -129,6 +129,12 @@ class Browser(object):
         self.wait_for_loading()
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
+    def go_to(self, url):
+        while self.driver.current_url != url:
+            self.driver.get(url)
+            sleep(.1)
+        print("Переход по ссылке: %s" % url)
+
     def wait_for_text_appear(self, text):
         return WebDriverWait(self.driver, self.timeout).until(
             EC.visibility_of_element_located((By.XPATH, "//*[contains(., '%s')]" % text)))

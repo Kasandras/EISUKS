@@ -19,11 +19,7 @@ parent = Browser
 
 class MainPage(parent):
 
-    def logout(self):
-        self.driver.get(Links.main_page)
-        self.wait_for_loading()
-        self.scroll_to_top()
-        self.click((By.XPATH, "//input[@type='submit']"))
+    pass
 
 
 class LoginPage(parent):
@@ -37,8 +33,8 @@ class LoginPage(parent):
     def submit(self):
         self.click(LoginLocators.submit, "Войти")
 
-    def login(self, username, password):
-        self.driver.get(Links.main_page)
+    def login(self, username, password, full_name=None):
+        self.go_to(Links.main_page)
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
             try:
@@ -50,75 +46,84 @@ class LoginPage(parent):
             self.submit()
             self.wait_for_text_appear("Личные данные")
         else:
-            self.scroll_to_top()
-            self.logout()
-            self.login(username, password)
-
-    def logout(self):
-        self.driver.get(Links.main_page)
-        self.wait_for_loading()
-        self.scroll_to_top()
-        self.click((By.XPATH, "//input[@type='submit']"))
-
-
-class PersonalPage(parent):
-
-    def last_name(self, value):
-        self.set_text(PersonalLocators.last_name, value, "Фамилия")
-
-    def first_name(self, value):
-        self.set_text(PersonalLocators.first_name, value, "Имя")
-
-    def middle_name(self, value):
-        self.set_text(PersonalLocators.middle_name, value, "Отчество")
-
-    def birthday(self, value):
-        self.set_date(PersonalLocators.birthday, value, "Дата рождения")
-
-    def insurance_certificate_number(self, value):
-        self.set_text(PersonalLocators.insurance_certificate_number, value, "СНИЛС")
-
-    def username(self, value):
-        self.set_text(PersonalLocators.username, value, "Учетная запись")
+            current_user = self.driver.find_element(By.XPATH, "//a[@href='/Cabinet']")
+            if full_name and (full_name in current_user.text):
+                pass
+            else:
+                self.go_to(Links.main_page)
+                self.wait_for_loading()
+                self.scroll_to_top()
+                self.click((By.XPATH, "//input[@type='submit']"))
+                self.login(username, password)
 
 
 class PersonalFilePage(parent):
 
-    def general_edit(self):
-        self.click(PersonalFileLocators.general_edit, "Редактировать общие сведения")
+    @property
+    def new(self):
+        return self.New(self.driver, self.timeout, self.log)
 
-    def last_name(self, value):
-        self.set_text(PersonalFileLocators.last_name, value, "Фамилия")
+    @property
+    def general(self):
+        return self.General(self.driver, self.timeout, self.log)
 
-    def first_name(self, value):
-        self.set_text(PersonalFileLocators.first_name, value, "Имя")
+    class New(parent):
 
-    def middle_name(self, value):
-        self.set_text(PersonalFileLocators.middle_name, value, "Отчество")
+        def last_name(self, value):
+            self.set_text(PersonalFileLocators.New.last_name, value, "Фамилия")
 
-    def gender(self, value):
-        self.set_select2(PersonalFileLocators.gender, value, "Пол")
+        def first_name(self, value):
+            self.set_text(PersonalFileLocators.New.first_name, value, "Имя")
 
-    def personal_file_number(self, value):
-        self.set_text(PersonalFileLocators.personal_file_number, value, "Номер личного дела")
+        def middle_name(self, value):
+            self.set_text(PersonalFileLocators.New.middle_name, value, "Отчество")
 
-    def birthday(self, value):
-        self.set_date(PersonalFileLocators.birthday, value, "Дата рождения")
+        def birthday(self, value):
+            self.set_date(PersonalFileLocators.New.birthday, value, "Дата рождения")
 
-    def okato(self, value):
-        self.set_text(PersonalFileLocators.okato, value, "Место рождения, код по ОКАТО")
+        def insurance_certificate_number(self, value):
+            self.set_text(PersonalFileLocators.New.insurance_certificate_number, value, "СНИЛС")
 
-    def criminal_record(self, value):
-        self.set_select(value, 1, "Наличие судимости")
+        def username(self, value):
+            self.set_text(PersonalFileLocators.New.username, value, "Учетная запись")
 
-    def last_name_changing(self, value):
-        self.set_select(value, 2, "Сведения об изменении ФИО")
+    class General(parent):
 
-    def addresses_edit(self):
-        self.click(PersonalFileLocators.addresses_edit, "Редактировать адреса")
+        def general_edit(self):
+            self.click(PersonalFileLocators.General.general_edit, "Редактировать общие сведения")
 
-    def contacts_edit(self):
-        self.click(PersonalFileLocators.contact_edit, "Редактировать контактную информацию")
+        def last_name(self, value):
+            self.set_text(PersonalFileLocators.General.last_name, value, "Фамилия")
+
+        def first_name(self, value):
+            self.set_text(PersonalFileLocators.General.first_name, value, "Имя")
+
+        def middle_name(self, value):
+            self.set_text(PersonalFileLocators.General.middle_name, value, "Отчество")
+
+        def gender(self, value):
+            self.set_select2(PersonalFileLocators.General.gender, value, "Пол")
+
+        def personal_file_number(self, value):
+            self.set_text(PersonalFileLocators.General.personal_file_number, value, "Номер личного дела")
+
+        def birthday(self, value):
+            self.set_date(PersonalFileLocators.General.birthday, value, "Дата рождения")
+
+        def okato(self, value):
+            self.set_text(PersonalFileLocators.General.okato, value, "Место рождения, код по ОКАТО")
+
+        def criminal_record(self, value):
+            self.set_select(value, 1, "Наличие судимости")
+
+        def last_name_changing(self, value):
+            self.set_select(value, 2, "Сведения об изменении ФИО")
+
+        def addresses_edit(self):
+            self.click(PersonalFileLocators.General.addresses_edit, "Редактировать адреса")
+
+        def contacts_edit(self):
+            self.click(PersonalFileLocators.General.contact_edit, "Редактировать контактную информацию")
 
 
 class StructureInfoPage(parent):
@@ -166,6 +171,15 @@ class StructureDetailsPage(parent):
 
     def department_select(self, value):
         self.click((By.XPATH, "//h4[contains(normalize-space(), '%s')]" % value))
+
+    def projects_check(self):
+        flag = True
+        for i in self.driver.find_elements(By.XPATH, "//small[.='Проект']"):
+            if i.is_displayed():
+                webdriver.ActionChains(self.driver).move_to_element(i).perform()
+                flag = False
+                break
+        return flag
 
 
 class DepartmentPage(parent):
@@ -960,23 +974,13 @@ class RanksPage(parent):
         self.set_date(RanksLocators.date, value, "Дата присвоения")
 
 
-class NewPersonnelFilePage(parent):
+class RolesManagementPage(parent):
 
-    def last_name(self, value):
-        self.set_text(NewPersonnelFileLocators.last_name, value, "Фамилия")
+    def search(self, value):
+        self.set_text(RolesManagementLocators.search, value+Keys.RETURN, "Роль")
 
-    def first_name(self, value):
-        self.set_text(NewPersonnelFileLocators.first_name, value, "Имя")
+    def name(self, value):
+        self.set_text(RolesManagementLocators.name, value, "Наименование")
 
-    def middle_name(self, value):
-        self.set_text(NewPersonnelFileLocators.middle_name, value, "Отчество")
-
-    def birthday_date(self, value):
-        self.set_date(NewPersonnelFileLocators.birthday_date, value, "Дата рождения")
-
-    def certificate_number(self, value):
-        self.set_text(NewPersonnelFileLocators.certificate_number,
-                      value, "Страховой номер индивидуального лицевого счета (СНИЛС)")
-
-    def account(self, value):
-        self.set_text(NewPersonnelFileLocators.account, value, "Учетная запись")
+    def level(self, value):
+        self.set_select2(RolesManagementLocators.level, value, "Уровень доверия")
