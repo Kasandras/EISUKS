@@ -342,3 +342,196 @@ class RolesManagementLocators(object):
     search = (By.XPATH, "//input[@type='search']")
     name = (By.XPATH, "//input[@name='caption']")
     level = (By.XPATH, "//div[contains(@id, 's2id')]")
+
+
+class SearchVacancyLocators:
+    type_source_vacancy = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+    name_source_vacancy = (By.XPATH, "(//input[@type='text'])[2]")
+    name_vacant_position = (By.XPATH, "(//input[@type='text'])[3]")
+    type_vacancy = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+    profile_activity_organization = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+    field_professional_activity = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+    key_word = (By.XPATH, "(//input[@type='text'])[7]")
+    category_job = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+    group_job = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+    subject_workplace = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+    region_workplace = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+    salary_from = (By.XPATH, "(//input[@type='text'])[12]")
+    salary_to = (By.XPATH, "(//input[@type='text'])[13]")
+    business_trip = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
+    work_day = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")
+    day_start_accept_document_from = (By.XPATH, "(//input[@type='text'])[16]")
+    day_start_accept_document_to = (By.XPATH, "(//input[@type='text'])[17]")
+    day_stop_accept_document_from = (By.XPATH, "(//input[@type='text'])[18]")
+    day_stop_accept_document_to = (By.XPATH, "(//input[@type='text'])[19]")
+    level_education = (By.XPATH, "(//div[contains(@id, 's2id')])[11]")
+    service_experience = (By.XPATH, "(//div[contains(@id, 's2id')])[12]")
+    work_experience_speciality = (By.XPATH, "(//div[contains(@id, 's2id')])[13]")
+
+
+class ControlVacancyLocators:
+    status_response = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+
+
+class DocumentsLocators:
+
+    class Documents(object):
+        name_document = (By.XPATH, "//div[contains(@id, 's2id')]")
+
+    class PersonalMain(object):
+        selection_radio = (By.XPATH, "//td//input[@type='radio']")
+        lastname = (By.XPATH, "//input[@name='lastName']")
+        firstname = (By.XPATH, "//input[@name='firstName']")
+        middlename = (By.XPATH, "//input[@name='middleName']")
+        gender = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        individual_taxpayer_number = (By.XPATH, "//input[@name='taxCertificateNumber']")
+        insurance_certificate_number = (By.XPATH, "//input[@name='insuranceCertificateNumber']")
+        birthdate = (By.XPATH, "//input[@id='birthDate']")
+        citizenship = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        birthplace = (By.XPATH, "//input[@ng-model='model.generalInformation.birthPlace']")
+        maritalstatuses = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+
+    class PersonalContact(object):
+        work_phone = (By.XPATH, "//input[@ng-model='model.workPhone']")
+        mobile_phone = (By.XPATH, "//input[@ng-model='model.mobilePhone']")
+        additional_phone = (By.XPATH, "//input[@ng-model='model.additionalPhone']")
+        fax = (By.XPATH, "//input[@ng-model='model.fax']")
+        work_email = (By.XPATH, "//input[@ng-model='model.workEmail']")
+        personal_email = (By.XPATH, "//input[@ng-model='model.personalEmail']")
+        web_address = (By.XPATH, "//input[@ng-model='model.webAddress']")
+        permanent_registration = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        permanent_registration_reg = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        temp_registration_sub = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        temp_registration_reg = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        fact_registration_sub = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        fact_registration_reg = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+
+    class IdentificationDocument(object):
+        type_document = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        series = (By.XPATH, "//input[@data-ng-model='editmodel.series']")
+        number = (By.XPATH, "//input[@data-ng-model='editmodel.number']")
+        date_issued = (By.XPATH, "//input[@id='dateIssued']")
+        date_end = (By.XPATH, "//input[@id='dateEnd']")
+        issue_by = (By.XPATH, "//textarea[@data-ng-model='editmodel.issuedBy']")
+        issue_code = (By.XPATH, "//input[@data-ng-model='editmodel.issuedCode']")
+
+    class Education(object):
+
+        class Main(object):
+            education_level = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+            education = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+            education_form = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+            place_institution = (By.XPATH, "//input[@data-ng-model='editmodel.place']")
+            full_name_institution = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+            start_date_education = (By.XPATH, "//input[@data-ng-model='editmodel.startDate']")
+            end_date_education = (By.XPATH, "//input[@data-ng-model='editmodel.endDate']")
+            education_directions = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+            faculty = (By.XPATH, "//input[@data-ng-model='editmodel.faculty']")
+            education_doc_number = (By.XPATH, "//input[@data-ng-model='editmodel.educationDocNumber']")
+            education_doc_date = (By.XPATH, "//input[@id='educationDocDate']")
+            speciality = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+            qualification = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+            specialization = (By.XPATH, "//input[@data-ng-model='editmodel.specialization']")
+            is_main = (By.XPATH, "//input[@data-ng-model='editmodel.isMain']")
+
+        class Egc(object):
+            egc_education = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+            egc_place = (By.XPATH, "(//input[@data-ng-model='editmodel.place'])[2]")
+            egc_name_institution = (By.XPATH, "//input[@data-ng-model='editmodel.institutionText']")
+            egc_start_date = (By.XPATH, "//input[@id='egc_startDate']")
+            egc_end_date = (By.XPATH, "//input[@id='egc_endDate']")
+            egc_academic_degree = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+            egc_academic_degree_date = (By.XPATH, "//input[@id='academicDegreeDate']")
+            egc_knowledge_branches = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
+            egc_diplom_number = (By.XPATH, "//input[@data-ng-model='editmodel.diplomNumber']")
+            egc_diplom_date = (By.XPATH, "//input[@id='egc_diplomDate']")
+
+        class Degree(object):
+            academic_statuses = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")
+            diplom_number = (By.XPATH, "(//input[@data-ng-model='editmodel.diplomNumber'])[2]")
+            assigment_date = (By.XPATH, "//div[@data-ng-model='editmodel.assigmentDate']/input")
+
+        class Languages(object):
+            languages = (By.XPATH, "(//div[contains(@id, 's2id')])[11]")
+            language_degrees = (By.XPATH, "(//div[contains(@id, 's2id')])[12]")
+
+        class Dpo(object):
+            education_direction = (By.XPATH, "(//div[contains(@id, 's2id')])[13]")
+            education_kind = (By.XPATH, "(//div[contains(@id, 's2id')])[14]")
+            kind = (By.XPATH, "(//input[@data-ng-model='editmodel.speciality'])[2]")
+            name_program = (By.XPATH, "//input[@data-ng-model='editmodel.title']")
+            education_form = (By.XPATH, "(//div[contains(@id, 's2id')])[15]")
+            place = (By.XPATH, "(//input[@data-ng-model='editmodel.place'])[3]")
+            name_institution = (By.XPATH, "(//input[@data-ng-model='editmodel.institutionText'])[2]")
+            start_date = (By.XPATH, "(//div[contains(@id, 's2id')])[16]")
+            end_date = (By.XPATH, "(//div[contains(@id, 's2id')])[17]")
+            hours = (By.XPATH, "//input[@data-ng-model='editmodel.hours']")
+            document_number = (By.XPATH, "//input[@data-ng-model='editmodel.documentNumber']")
+            document_date = (By.XPATH, "//div[@data-ng-model='editmodel.documentDate']/input")
+            funding_sources = (By.XPATH, "(//div[contains(@id, 's2id')])[18]")
+
+    class LaborActivity(object):
+        begin_date = (By.XPATH, "//div[@ng-model='lac.editmodel.beginDate']/input")
+        end_date = (By.XPATH, "//div[@ng-model='lac.editmodel.endDate']/input")
+        post = (By.XPATH, "//input[@ng-model='lac.editmodel.post']")
+        organization = (By.XPATH, "//input[@ng-model='lac.editmodel.organization']")
+        address_organization = (By.XPATH, "//input[@ng-model='lac.editmodel.addressOrganization']")
+        employees_number = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        subject = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        region = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        profile = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        is_elective = (By.XPATH, "//input[@ng-model='lac.editmodel.isElective']")
+        post_level = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        activity_area = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+        structural_division = (By.XPATH, "//input[@id='structuralDivision']")
+        responsibilities = (By.XPATH, "//input[@id='responsibilities']")
+
+    class ClassRank(object):
+        has_class_rank = (By.XPATH, "//input[@ng-model='model.hasClassRank']")
+        class_rank = (By.XPATH, "//input[@ng-model='model.classRank']")
+        assigned_date = (By.XPATH, "//div[@ng-model='model.classRankAssignedDate']/input")
+        assigned_by = (By.XPATH, "//input[@ng-model='model.classRankAssignedBy']")
+        has_government_service = (By.XPATH, "//input[@ng-model='model.hasGovernmentService']")
+        org_sub_types = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+        organization_name = (By.XPATH, "//input[@ng-model='model.organizationName']")
+        computer_skills = (By.XPATH, "//textarea[@ng-model='model.computerSkills']")
+        publications = (By.XPATH, "//textarea[@ng-model='model.publications']")
+        recommendations = (By.XPATH, "//textarea[@ng-model='model.recommendations']")
+
+    class Specialization(object):
+        work = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+        is_main = (By.XPATH, "(//input[@ng-model='editmodel.isMain'])[1]")
+        is_add = (By.XPATH, "(//input[@ng-model='model.organizationName'])[2]")
+
+    class Award(object):
+        type = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        name = (By.XPATH, "//textarea[@ng-model='awd.editmodel.name']")
+        date = (By.XPATH, "//div[@ng-model='awd.editmodel.dateAwarding']/input")
+
+    class StateSecret(object):
+        admission_form = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        approval_number = (By.XPATH, "//input[@ng-model='sst.editmodel.approvalNumber']")
+        issue_date = (By.XPATH, "//div[@ng-model='sst.editmodel.issueDate']/input")
+
+    class Military(object):
+        rank = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        duty = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        has_service = (By.XPATH, "//input[@ng-model='model.hasMilitaryService']")
+        service_from = (By.XPATH, "//div[@data-ng-model='model.militaryServiceFrom']/input")
+        service_to = (By.XPATH, "//div[@data-ng-model='model.militaryServiceTo']/input")
+        arm_kind = (By.XPATH, "//input[@ng-model='model.armKind']")
+
+    class Kin(object):
+        ship = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        lastname = (By.XPATH, "//input[@name='lastName']")
+        firstname = (By.XPATH, "//input[@name='firstName']")
+        middlename = (By.XPATH, "//input[@name='middleName']")
+        name_changes = (By.XPATH, "//textarea[@ng-model='rin.editmodel.nameChanges']")
+        birth_date = (By.XPATH, "//div[@ng-model='rin.editmodel.birthDate']/input")
+        birth_country = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        birth_region = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        birth_area = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        birth_place = (By.XPATH, "//input[@data-ng-model='rin.editmodel.birthPlace']")
+        work_place = (By.XPATH, "//textarea[@ng-model='rin.editmodel.workPlace']")
+        living_country = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        living_address = (By.XPATH, "//input[@data-ng-model='rin.editmodel.livingAddress']")

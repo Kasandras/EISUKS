@@ -984,3 +984,623 @@ class RolesManagementPage(parent):
 
     def level(self, value):
         self.set_select2(RolesManagementLocators.level, value, "Уровень доверия")
+
+
+class SearchVacancyPage(parent):
+    def type_source_vacancy(self, value):
+        self.set_select2_alt(SearchVacancyLocators.type_source_vacancy, value, "Тип источника вакансии")
+
+    def name_source_vacancy(self, value):
+        self.set_text(SearchVacancyLocators.name_source_vacancy, value, "Наименование источника вакансии")
+
+    def name_vacant_position(self, value):
+        self.set_text(SearchVacancyLocators.name_vacant_position, value, "Наименование вакантной должности")
+
+    def type_vacancy(self, value):
+        self.set_select2_alt(SearchVacancyLocators.type_vacancy, value, "Тип вакансии")
+
+    def substitution_competition(self, value):
+        self.set_select(value, 1, "Замещение по конкурсу")
+
+    def profile_activity_organization(self, value):
+        self.set_select2_alt(SearchVacancyLocators.profile_activity_organization,
+                             value, "Профиль деятельности организации")
+
+    def field_professional_activity(self, value):
+        self.set_select2_alt(SearchVacancyLocators.field_professional_activity,
+                             value, "Область профессиональной деятельности")
+
+    def key_word(self, value):
+        self.set_text(SearchVacancyLocators.key_word, value, "Ключевое слово")
+
+    def category_job(self, value):
+        self.set_select2_alt(SearchVacancyLocators.category_job, value, "Категория должности")
+
+    def group_job(self, value):
+        self.set_select2_alt(SearchVacancyLocators.group_job, value, "Группа должности")
+
+    def subject_workplace(self, value):
+        self.set_select2(SearchVacancyLocators.subject_workplace, value, "Расположение рабочего места (субъект)")
+
+    def region_workplace(self, value):
+        self.set_select2(SearchVacancyLocators.region_workplace, value, "Расположение рабочего места (регион)")
+
+    def salary_from(self, value):
+        self.set_text(SearchVacancyLocators.salary_from, value, "Размер оплаты труда от")
+
+    def salary_to(self, value):
+        self.set_text(SearchVacancyLocators.salary_to, value, "Размер оплаты труда до")
+
+    def business_trip(self, value):
+        self.set_select2(SearchVacancyLocators.business_trip, value, "Командировки")
+
+    def work_day(self, value):
+        self.set_select2(SearchVacancyLocators.work_day, value, "Рабочий день")
+
+    def type_service_contract(self, value):
+        self.set_select(value, 2, "Тип служебного контракта (трудового договора)")
+
+    def normal_workday(self, value):
+        self.set_select(value, 3, "Нормированный рабочий день")
+
+    def day_start_accept_document_from(self, value):
+        self.set_date(SearchVacancyLocators.day_start_accept_document_from, value, "Дата начала приема документов с")
+
+    def day_start_accept_document_to(self, value):
+        self.set_date(SearchVacancyLocators.day_start_accept_document_to, value, "Дата начала приема документов по")
+
+    def day_stop_accept_document_from(self, value):
+        self.set_date(SearchVacancyLocators.day_stop_accept_document_from, value, "Дата окончания приема документов с")
+
+    def day_stop_accept_document_to(self, value):
+        self.set_date(SearchVacancyLocators.day_stop_accept_document_to, value, "Дата окончания приема документов по")
+
+    def level_education(self, value):
+        self.set_select2_alt(SearchVacancyLocators.level_education, value, "Уровень образования")
+
+    def service_experience(self, value):
+        self.set_select2_alt(SearchVacancyLocators.service_experience, value, "Стаж государственной службы")
+
+    def work_experience_speciality(self, value):
+        self.set_select2_alt(SearchVacancyLocators.work_experience_speciality, value, "Опыт работы по специальности")
+
+
+class ControlVacancyPage(parent):
+    def checkbox_selection_vacancy_second(self):
+        self.table_select_row("Выбрана вакансия вторая")
+
+    def status_response(self, value):
+        self.set_select2_alt(ControlVacancyLocators.status_response, value, "Статус отклика")
+
+    def is_date_vacancy(self):
+        self.wait_for_loading()
+        elements = self.driver.find_elements_by_xpath("//tr[@class='ng-scope']//td[7]")
+        texts = []
+        for i in elements:
+            texts.append(i.text.split()[0])
+        return str(datetime.date.today().day) in texts
+
+
+class DocumentsPage(parent):
+    @property
+    def documents(self):
+        return self.Documents(self.driver, self.timeout, self.log)
+
+    @property
+    def personal_main(self):
+        return self.PersonalMain(self.driver, self.timeout, self.log)
+
+    @property
+    def personal_contact(self):
+        return self.PersonalContact(self.driver, self.timeout, self.log)
+
+    @property
+    def identification_document(self):
+        return self.IdentificationDocument(self.driver, self.timeout, self.log)
+
+    @property
+    def education(self):
+        return self.Education(self.driver, self.timeout, self.log)
+
+    @property
+    def labor_activity(self):
+        return self.LaborActivity(self.driver, self.timeout, self.log)
+
+    @property
+    def class_rank(self):
+        return self.ClassRank(self.driver, self.timeout, self.log)
+
+    @property
+    def specialization(self):
+        return self.Specialization(self.driver, self.timeout, self.log)
+
+    @property
+    def award(self):
+        return self.Award(self.driver, self.timeout, self.log)
+
+    @property
+    def state_secret(self):
+        return self.StateSecret(self.driver, self.timeout, self.log)
+
+    @property
+    def military(self):
+        return self.Military(self.driver, self.timeout, self.log)
+
+    @property
+    def kin(self):
+        return self.Kin(self.driver, self.timeout, self.log)
+
+    def has_appform(self):
+        self.driver.get(Links.appform)
+        self.wait_for_loading()
+        if "Анкета 667" in self.driver.page_source:
+            self.click_by_text("Анкета 667")
+            self.wait_for_loading()
+        else:
+            self.click_by_text("Добавить")
+            self.wait_for_text_appear("Загрузить")
+
+    class Documents(parent):
+
+        def name_document(self, value):
+            self.set_select2(DocumentsLocators.Documents.name_document, value, "Название")
+
+    class PersonalMain(parent):
+
+        def lastname(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.lastname, value, "Фамилия")
+
+        def firstname(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.firstname, value, "Имя")
+
+        def middlename(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.middlename, value, "Отчество")
+
+        def gender(self, value):
+            self.set_select2(DocumentsLocators.PersonalMain.gender, value, "Пол")
+
+        def individual_taxpayer_number(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.individual_taxpayer_number, value, "СНИЛС")
+
+        def insurance_certificate_number(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.insurance_certificate_number, value, "СНИЛС")
+
+        def birthdate(self, value):
+            self.set_date(DocumentsLocators.PersonalMain.birthdate, value, "Дата рождения")
+
+        def citizenship(self, value):
+            self.set_select2(DocumentsLocators.PersonalMain.citizenship, value, "Гражданство")
+
+        def change_citizenship(self, value):
+            self.set_select(value, 1, "Изменение гражданства")
+
+        def birthplace(self, value):
+            self.set_text(DocumentsLocators.PersonalMain.birthplace, value, "Место рождения")
+
+        def wasconvicted(self, value):
+            self.set_select(value, 2, "Наличие судимостей")
+
+        def maritalstatuses(self, value):
+            self.set_select2(DocumentsLocators.PersonalMain.maritalstatuses, value, "Семейное положение")
+
+        def namewaschanged(self, value):
+            self.set_select(value, 3, "Сведения об изменении ФИО")
+
+        def wasabroad(self, value):
+            self.set_select(value, 4, "Пребывание за границей")
+
+        def selection_radio(self):
+            self.click(DocumentsLocators.PersonalMain.selection_radio, "Выбор анкеты")
+
+    class PersonalContact(parent):
+
+        def work_phone(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.work_phone, value, "Рабочий телефон")
+
+        def mobile_phone(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.mobile_phone, value, "Мобильный телефон")
+
+        def additional_phone(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.additional_phone, value, "Дополнительный телефон")
+
+        def fax(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.fax, value, "Факс")
+
+        def work_email(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.work_email, value, "Рабочая электронная почта")
+
+        def personal_email(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.personal_email, value, "Персональная электронная почта")
+
+        def web_address(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.web_address, value, "Персональная интернет-страница")
+
+        def permanent_registration_sub(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.permanent_registration, value, "Постоянная регистрация - субъект")
+
+        def permanent_registration_reg(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.permanent_registration_reg, value, "Постоянная регистрация - регион")
+
+        def temp_registration_sub(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.temp_registration_sub, value, "Временная регистрация - субъект")
+
+        def temp_registration_reg(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.temp_registration_reg, value, "Временная регистрация - регион")
+
+        def fact_registration_sub(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.fact_registration_sub, value, "Фактическое проживание - субъект")
+
+        def fact_registration_reg(self, value):
+            self.set_select2(
+                DocumentsLocators.PersonalContact.fact_registration_reg, value, "Фактическое проживание - регион")
+
+    class IdentificationDocument(parent):
+
+        def type_document(self, value):
+            self.set_select2(DocumentsLocators.IdentificationDocument.type_document, value, "Тип документа")
+
+        def series(self, value):
+            self.set_text(DocumentsLocators.IdentificationDocument.series, value, "Серия")
+
+        def number(self, value):
+            self.set_text(DocumentsLocators.IdentificationDocument.number, value, "Номер")
+
+        def date_issued(self, value):
+            self.set_date(DocumentsLocators.IdentificationDocument.date_issued, value, "Дата выдачи")
+
+        def date_end(self, value):
+            self.set_date(DocumentsLocators.IdentificationDocument.date_end, value, "Дата окончания действия")
+
+        def issue_by(self, value):
+            self.set_text(DocumentsLocators.IdentificationDocument.issue_by, value, "Кем выдан")
+
+        def issue_code(self, value):
+            self.set_text(DocumentsLocators.IdentificationDocument.issue_code, value, "Код подразделения")
+
+    class Education(parent):
+
+        @property
+        def main(self):
+            return self.Main(self.driver, self.timeout, self.log)
+
+        @property
+        def egc(self):
+            return self.Egc(self.driver, self.timeout, self.log)
+
+        @property
+        def degree(self):
+            return self.Degree(self.driver, self.timeout, self.log)
+
+        @property
+        def languages(self):
+            return self.Languages(self.driver, self.timeout, self.log)
+
+        @property
+        def dpo(self):
+            return self.Dpo(self.driver, self.timeout, self.log)
+
+        class Main(parent):
+            def education_level(self, value):
+                self.set_select2(DocumentsLocators.Education.Main.education_level, value, "Образовательный уровень")
+
+            def education(self, value):
+                self.set_select2(DocumentsLocators.Education.Main.education, value, "Образование")
+
+            def education_form(self, value):
+                self.set_select2(DocumentsLocators.Education.Main.education_form, value, "Форма обучения")
+
+            def place_institution(self, value):
+                self.set_text(
+                    DocumentsLocators.Education.Main.place_institution, value, "Расположение учебного заведения")
+
+            def full_name_institution(self, value):
+                self.set_select2(
+                    DocumentsLocators.Education.Main.full_name_institution, value, "Полное название учебного заведения")
+
+            def start_date_education(self, value):
+                self.set_text(DocumentsLocators.Education.Main.start_date_education, value, "Год начала")
+
+            def end_date_education(self, value):
+                self.set_text(DocumentsLocators.Education.Main.end_date_education, value, "Год окончания")
+
+            def education_directions(self, value):
+                self.set_select2(
+                    DocumentsLocators.Education.Main.education_directions, value, "Направление образования (форма 1ГС)")
+
+            def faculty(self, value):
+                self.set_text(DocumentsLocators.Education.Main.faculty, value, "Факультет")
+
+            def education_doc_number(self, value):
+                self.set_text(DocumentsLocators.Education.Main.education_doc_number, value, "Номер диплома")
+
+            def education_doc_date(self, value):
+                self.set_date(DocumentsLocators.Education.Main.education_doc_date, value, "Дата выдачи диплома")
+
+            def speciality(self, value):
+                self.set_select2(
+                    DocumentsLocators.Education.Main.speciality, value,
+                    "Специальность / направление подготовки по диплому")
+
+            def qualification(self, value):
+                self.set_select2(DocumentsLocators.Education.Main.qualification, value, "Квалификация по диплому")
+
+            def specialization(self, value):
+                self.set_text(DocumentsLocators.Education.Main.specialization, value, "Специализация по диплому")
+
+            def is_main(self, value):
+                self.set_checkbox(DocumentsLocators.Education.Main.is_main, value, "Основное")
+
+        class Egc(parent):
+            def education(self, value):
+                self.set_select2(
+                    DocumentsLocators.Education.Egc.egc_education, value, "Послевузовское профессиональное образование")
+
+            def place(self, value):
+                self.set_text(DocumentsLocators.Education.Egc.egc_place, value, "Расположение учебного заведения")
+
+            def name_institution(self, value):
+                self.set_text(DocumentsLocators.Education.Egc.egc_name_institution, value,
+                              "Название учебного заведения")
+
+            def start_date(self, value):
+                self.set_text(DocumentsLocators.Education.Egc.egc_start_date, value, "Год начала")
+
+            def end_date(self, value):
+                self.set_text(DocumentsLocators.Education.Egc.egc_end_date, value, "Год окончания")
+
+            def academic_degree(self, value):
+                self.set_select2(DocumentsLocators.Education.Egc.egc_academic_degree, value, "Ученая степень")
+
+            def academic_degree_date(self, value):
+                self.set_date_enter(
+                    DocumentsLocators.Education.Egc.egc_academic_degree_date, value, "Дата присвоения ученой степени")
+
+            def knowledge_branches(self, value):
+                self.set_select2(DocumentsLocators.Education.Egc.egc_knowledge_branches, value, "Отрасль наук")
+
+            def diplom_number(self, value):
+                self.set_text(DocumentsLocators.Education.Egc.egc_diplom_number, value, "Номер диплома")
+
+            def diplom_date(self, value):
+                self.set_date_enter(DocumentsLocators.Education.Egc.egc_diplom_date, value, "Дата выдачи диплома")
+
+        class Degree(parent):
+            def academic_statuses(self, value):
+                self.set_select2(DocumentsLocators.Education.Degree.academic_statuses, value, "Учёное звание")
+
+            def diplom_number(self, value):
+                self.set_text(DocumentsLocators.Education.Degree.diplom_number, value, "Номер аттестата")
+
+            def assigment_date(self, value):
+                self.set_date_enter(
+                    DocumentsLocators.Education.Degree.assigment_date, value, "Дата присвоения ученого звания")
+
+        class Languages(parent):
+            def languages(self, value):
+                self.set_select2(DocumentsLocators.Education.Languages.languages, value, "Язык")
+
+            def language_degrees(self, value):
+                self.set_select2(DocumentsLocators.Education.Languages.language_degrees, value, "Уровень владения")
+
+        class Dpo(parent):
+            def education_direction(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.education_direction, value, "Направление подготовки")
+
+            def education_kind(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.education_kind, value, "Вид образовательной программы")
+
+            def kind(self, value):
+                self.set_text(DocumentsLocators.Education.Dpo.kind, value, "Вид повышения квалификации")
+
+            def name_program(self, value):
+                self.set_text(DocumentsLocators.Education.Dpo.name_program, value, "Название программы")
+
+            def education_form(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.education_form, value, "Форма обучения")
+
+            def place(self, value):
+                self.set_text(DocumentsLocators.Education.Dpo.place, value, "Расположение учебного заведения")
+
+            def name_institution(self, value):
+                self.set_text(
+                    DocumentsLocators.Education.Dpo.name_institution, value, "Наименование учебного заведения")
+
+            def start_date(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.start_date, value, "Год начала")
+
+            def end_date(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.end_date, value, "Год окончания")
+
+            def hours(self, value):
+                self.set_text(DocumentsLocators.Education.Dpo.hours, value, "Количество часов")
+
+            def document_number(self, value):
+                self.set_text(
+                    DocumentsLocators.Education.Dpo.document_number, value, "Документ о ДПО (наименование, номер)")
+
+            def document_date(self, value):
+                self.set_date_enter(DocumentsLocators.Education.Dpo.document_date, value, "Дата документа о ДПО")
+
+            def funding_sources(self, value):
+                self.set_select2(DocumentsLocators.Education.Dpo.funding_sources, value, "Источник финансирования")
+
+    class LaborActivity(parent):
+
+        def start_date(self, value):
+            self.set_date(DocumentsLocators.LaborActivity.begin_date, value, "Начало деятельности")
+
+        def end_date(self, value):
+            self.set_date(DocumentsLocators.LaborActivity.end_date, value, "Окончание деятельности")
+
+        def post(self, value):
+            self.set_text(DocumentsLocators.LaborActivity.post, value, "Должность")
+
+        def organization(self, value):
+            self.set_text(DocumentsLocators.LaborActivity.organization, value, "Организация")
+
+        def address_organization(self, value):
+            self.set_text(DocumentsLocators.LaborActivity.address_organization, value, "Адрес организации")
+
+        def employees_number(self, value):
+            self.set_select2(DocumentsLocators.LaborActivity.employees_number, value, "Количество сотрудников")
+
+        def subject(self, value):
+            self.set_select2(DocumentsLocators.LaborActivity.subject, value, "Субъект расположения организации")
+
+        def region(self, value):
+            self.set_select2(DocumentsLocators.LaborActivity.region, value, "Регион расположения организации")
+
+        def profile(self, value):
+            self.set_select2(DocumentsLocators.LaborActivity.profile, value, "Профиль деятельности организации")
+
+        def is_elective(self, value):
+            self.move_to_element(self.find((By.XPATH, "//button[.='Сохранить']")))
+            self.set_checkbox(DocumentsLocators.LaborActivity.is_elective, value, "Выборная должность")
+
+        def post_level(self, value):
+            self.set_select2(DocumentsLocators.LaborActivity.post_level, value, "Уровень должности")
+
+        def activity_area(self, value):
+            self.set_select2(
+                DocumentsLocators.LaborActivity.activity_area, value, "Область профессиональной деятельности")
+
+        def structural_division(self, value):
+            self.set_text(DocumentsLocators.LaborActivity.structural_division, value, "Подразделение")
+
+        def responsibilities(self, value):
+            self.set_text(DocumentsLocators.LaborActivity.responsibilities, value, "Функции/обязанности")
+
+    class ClassRank(parent):
+
+        def has_class_rank(self, value):
+            self.set_checkbox(DocumentsLocators.ClassRank.has_class_rank, value, "Имеется ли классный чин")
+
+        def class_rank(self, value):
+            self.set_text(DocumentsLocators.ClassRank.class_rank, value, "Классный чин")
+
+        def assigned_date(self, value):
+            self.set_date_enter(DocumentsLocators.ClassRank.assigned_date, value, "Когда присвоен")
+
+        def assigned_by(self, value):
+            self.set_text(DocumentsLocators.ClassRank.assigned_by, value, "Кем присвоен")
+
+        def has_government_service(self, value):
+            self.set_checkbox(
+                DocumentsLocators.ClassRank.has_government_service, value, "Государственная или муниципальная служба")
+
+        def org_sub_types(self, value):
+            self.set_select2(DocumentsLocators.ClassRank.org_sub_types, value, "Направление")
+
+        def organization_name(self, value):
+            self.set_text(DocumentsLocators.ClassRank.organization_name, value, "Организация")
+
+        def computer_skills(self, value):
+            self.set_text(DocumentsLocators.ClassRank.computer_skills, value, "Владение персональным компьютером")
+
+        def publications(self, value):
+            self.set_text(DocumentsLocators.ClassRank.publications, value, "Публикации")
+
+        def recommendations(self, value):
+            self.set_text(DocumentsLocators.ClassRank.recommendations, value, "Рекомендации")
+
+    class Specialization(parent):
+
+        def specialization(self, value):
+            self.set_select2(DocumentsLocators.Specialization.work, value, "Специализация")
+
+        def is_main(self, value):
+            self.set_checkbox(DocumentsLocators.Specialization.is_main, value, "Основная")
+
+        def is_add(self, value):
+            self.set_checkbox(DocumentsLocators.Specialization.is_add, value, "Дополнительная")
+
+    class Award(parent):
+
+        def type(self, value):
+            self.set_select2(DocumentsLocators.Award.type, value, "Вид")
+
+        def name(self, value):
+            self.set_text(DocumentsLocators.Award.name, value, "Наименование")
+
+        def date(self, value):
+            self.set_text(DocumentsLocators.Award.date, value, "Дата")
+
+    class StateSecret(parent):
+
+        def admission_form(self, value):
+            self.set_select2(DocumentsLocators.StateSecret.admission_form, value, "Форма допуска")
+
+        def approval_number(self, value):
+            self.set_text(DocumentsLocators.StateSecret.approval_number, value, "Номер допуска")
+
+        def issue_date(self, value):
+            self.set_date_enter(DocumentsLocators.StateSecret.issue_date, value, "Дата")
+
+    class Military(parent):
+
+        def rank(self, value):
+            self.set_select2(DocumentsLocators.Military.rank, value, "Воинское звание")
+
+        def duty(self, value):
+            self.set_select2(DocumentsLocators.Military.duty, value, "Воинская обязанность")
+
+        def has_service(self, value):
+            self.set_checkbox(
+                DocumentsLocators.Military.has_service, value, "Проходили ли срочную военную службу?")
+
+        def service_from(self, value):
+            self.set_date_tab(DocumentsLocators.Military.service_from, value, "Начало службы")
+
+        def service_to(self, value):
+            self.set_date_enter(DocumentsLocators.Military.service_to, value, "Род войск")
+
+        def arm_kind(self, value):
+            self.set_text(DocumentsLocators.Military.arm_kind, value, "Окончание службы")
+
+    class Kin(parent):
+
+        def kin_ship(self, value):
+            self.set_select2(DocumentsLocators.Kin.ship, value, "Степень родства")
+
+        def lastname(self, value):
+            self.set_text(DocumentsLocators.Kin.lastname, value, "Фамилия")
+
+        def firstname(self, value):
+            self.set_text(DocumentsLocators.Kin.firstname, value, "Имя")
+
+        def middlename(self, value):
+            self.set_text(DocumentsLocators.Kin.middlename, value, "Отчество")
+
+        def name_changes(self, value):
+            self.set_text(
+                DocumentsLocators.Kin.name_changes, value, "Изменения ФИО (старое значение, дата, причина)")
+
+        def birth_country(self, value):
+            self.set_select2(DocumentsLocators.Kin.birth_country, value, "Место рождения (страна)")
+
+        def birth_region(self, value):
+            self.set_select2(DocumentsLocators.Kin.birth_region, value, "Место рождения (субъект)")
+
+        def birth_area(self, value):
+            self.set_select2(DocumentsLocators.Kin.birth_area, value, "Место рождения (район)")
+
+        def birth_place(self, value):
+            self.set_text(DocumentsLocators.Kin.birth_place, value, "Место рождения")
+
+        def work_place(self, value):
+            self.set_text(DocumentsLocators.Kin.work_place, value, "Место работы (наим. и ад. орг.), должность")
+
+        def living_country(self, value):
+            self.set_select2(DocumentsLocators.Kin.living_country, value, "Cтрана проживания")
+
+        def living_address(self, value):
+            self.set_text(DocumentsLocators.Kin.living_address, value, "Домашний адрес")
+
+        def birth_date(self, value):
+            self.set_date_enter(DocumentsLocators.Kin.birth_date, value, "Дата рождения")
+

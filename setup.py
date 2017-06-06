@@ -37,3 +37,4 @@ class Links(object):
     holidays = main_page + "Staff/HolidayStaffProcedure"
     holidays_schedule = main_page + "TimeSheet/HolidaySchedule#/list"
     ranks = main_page + "Staff/RankStaffProcedure"
+    appform = main_page + "Documents/Home#/layout/applicationForm/list"
