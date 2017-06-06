@@ -772,25 +772,26 @@ class TestSuite:
         Управление пользователями
         """
         LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
-        p = MainPage(self.driver)
-        p.click_by_text("Управление пользователями")
+
+        page = MainPage(self.driver)
+        page.click_by_text("Управление пользователями")
 
     def test_roles_management(self):
         """
         Управление ролями
         """
         LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+
         page = RolesManagementPage(self.driver, 3)
         page.click_by_text("Управление ролями")
         page.search("Тестовая роль")
-        flag = True
-        try:
-            while flag:
+        while True:
+            try:
                 page.table_row_radio()
                 page.click_by_text("Удалить")
                 page.click_by_text("Да")
-        except:
-            flag = False
+            except (EC.NoSuchElementException, TimeoutException):
+                break
         page.click_by_text("Добавить")
         page.name("Тестовая роль")
         page.level("Высокий")
@@ -802,6 +803,7 @@ class TestSuite:
         Список прав
         """
         LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
-        p = MainPage(self.driver)
-        p.click_by_text("Список прав")
+
+        page = MainPage(self.driver)
+        page.click_by_text("Список прав")
         assert "Список прав системы безопасности" in self.driver.page_source

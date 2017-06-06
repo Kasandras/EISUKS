@@ -48,7 +48,7 @@ class LoginPage(parent):
         else:
             current_user = self.driver.find_element(By.XPATH, "//a[@href='/Cabinet']")
             if full_name and (full_name in current_user.text):
-                pass
+                self.go_to(Links.dashboard)
             else:
                 self.go_to(Links.main_page)
                 self.wait_for_loading()
