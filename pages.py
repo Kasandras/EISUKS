@@ -1,6 +1,7 @@
 from locators import *
 from setup import *
 from framework import *
+import datetime
 
 
 def change_date(amount=0):
@@ -34,12 +35,12 @@ class LoginPage(parent):
         self.click(LoginLocators.submit, "Войти")
 
     def login(self, username, password, full_name=None):
-        self.go_to(Links.main_page)
+        self.scroll_to_top()
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
             try:
                 self.click_by_text("Войти", 2)
-            except EC.NoSuchElementException:
+            except ec.NoSuchElementException:
                 pass
             self.username(username)
             self.password(password)
@@ -48,10 +49,9 @@ class LoginPage(parent):
         else:
             current_user = self.driver.find_element(By.XPATH, "//a[@href='/Cabinet']")
             if full_name and (full_name in current_user.text):
-                self.go_to(Links.dashboard)
+                pass
             else:
                 self.go_to(Links.main_page)
-                self.wait_for_loading()
                 self.scroll_to_top()
                 self.click((By.XPATH, "//input[@type='submit']"))
                 self.login(username, password)
@@ -1603,4 +1603,3 @@ class DocumentsPage(parent):
 
         def birth_date(self, value):
             self.set_date_enter(DocumentsLocators.Kin.birth_date, value, "Дата рождения")
-

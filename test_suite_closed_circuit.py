@@ -28,10 +28,11 @@ class TestSuite:
         Управление ролями
         Список прав
     """
+
+    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+
     @classmethod
     def setup_class(cls):
-
-        cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.account = get_data_by_number(load_data("testData"), "accounts")
@@ -39,7 +40,6 @@ class TestSuite:
 
     @classmethod
     def teardown_class(cls):
-
         cls.driver.quit()
 
     def go_to(self, url):
@@ -53,11 +53,11 @@ class TestSuite:
         """
         Учет кадрового состава - Ведение электронных личных дел
         """
-        page = PersonalFilePage(self.driver)
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", last_name)
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
         self.go_to(Links.personal_files)
+        page = PersonalFilePage(self.driver)
         page.click_by_text("Добавить")
         page.new.last_name(employee["lastName"])
         page.new.first_name(employee["firstName"])
@@ -775,6 +775,20 @@ class TestSuite:
 
         page = MainPage(self.driver)
         page.click_by_text("Управление пользователями")
+        page.search("45554@3334.ru")
+        page.table_row_checkbox()
+        page.click_by_text("Управление ролями")
+        page.click_by_value("Добавить")
+        page.set_checkbox((By.XPATH, "//li[contains(., 'Кадровая служба')]//input"), True, "Кадрова служба")
+        page.set_text((By.XPATH, "//input[@type='text']"), "Росгосотчетность", "Организация")
+        page.click((By.XPATH, "//div[@role='option']"))
+        page.click_by_value("Далее")
+        page.wait_for_text_appear("Кадровая служба")
+        page.click_by_value("Удалить")
+        page.set_checkbox_by_order(3)
+        page.set_checkbox_by_order(4)
+        page.click_by_value("Далее")
+        assert "Кадровая служба" not in self.driver.page_source
 
     def test_roles_management(self):
         """
@@ -790,7 +804,7 @@ class TestSuite:
                 page.table_row_radio()
                 page.click_by_text("Удалить")
                 page.click_by_text("Да")
-            except (EC.NoSuchElementException, TimeoutException):
+            except (ec.NoSuchElementException, TimeoutException):
                 break
         page.click_by_text("Добавить")
         page.name("Тестовая роль")
