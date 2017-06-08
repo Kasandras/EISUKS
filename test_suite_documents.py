@@ -4,10 +4,16 @@ from setup import *
 
 class TestSuite:
 
+    """""
+    Тест по сценарию "Документы".
+    Описывает работу раздела "Документы" (добавление документов, добавление и заполнение анкет)
+    """""
+
+    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+
     @classmethod
     def setup_class(cls):
         """What happens BEFORE tests"""
-        cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
 

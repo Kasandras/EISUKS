@@ -1,7 +1,6 @@
 from locators import *
 from setup import *
 from framework import *
-import datetime
 
 
 def change_date(amount=0):
@@ -35,12 +34,12 @@ class LoginPage(parent):
         self.click(LoginLocators.submit, "Войти")
 
     def login(self, username, password, full_name=None):
-        self.scroll_to_top()
+        self.go_to(Links.main_page)
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
             try:
                 self.click_by_text("Войти", 2)
-            except ec.NoSuchElementException:
+            except EC.NoSuchElementException:
                 pass
             self.username(username)
             self.password(password)
@@ -49,9 +48,10 @@ class LoginPage(parent):
         else:
             current_user = self.driver.find_element(By.XPATH, "//a[@href='/Cabinet']")
             if full_name and (full_name in current_user.text):
-                pass
+                self.go_to(Links.dashboard)
             else:
                 self.go_to(Links.main_page)
+                self.wait_for_loading()
                 self.scroll_to_top()
                 self.click((By.XPATH, "//input[@type='submit']"))
                 self.login(username, password)
@@ -1603,3 +1603,48 @@ class DocumentsPage(parent):
 
         def birth_date(self, value):
             self.set_date_enter(DocumentsLocators.Kin.birth_date, value, "Дата рождения")
+
+
+class ProfilePage(parent):
+
+    def lastname(self, value):
+        self.set_text(ProfileLocators.lastname, value, "Фамилия")
+
+    def firstname(self, value):
+        self.set_text(ProfileLocators.firstname, value, "Имя")
+
+    def middlename(self, value):
+        self.set_text(ProfileLocators.middlename, value, "Отчество")
+
+    def birthdate(self, value):
+        self.set_date_tab(ProfileLocators.birthdate, value, "Дата рождения")
+
+    def insurance_certificate_number(self, value):
+        self.set_text(ProfileLocators.insurance_certificate_number, value, "СНИЛС")
+
+    def individual_taxpayer_number(self, value):
+        self.set_text(ProfileLocators.individual_taxpayer_number, value, "ИНН")
+
+    def email(self, value):
+        self.set_text(ProfileLocators.email, value, "Электронная почта")
+
+    def passport_info(self, value):
+        self.set_text(ProfileLocators.passport_info, value, "Паспортные данные")
+
+    def registration_address(self, value):
+        self.set_text(ProfileLocators.registration_address, value, "Адрес регистрации")
+
+    def actual_address(self, value):
+        self.set_text(ProfileLocators.actual_address, value, "Адрес проживания")
+
+    def old_password(self, value):
+        self.set_text(ProfileLocators.old_password, value, "Пароль")
+
+    def password(self, value):
+        self.set_text(ProfileLocators.password, value, "Новый пароль")
+
+    def password_confirm(self, value):
+        self.set_text(ProfileLocators.password_confirm, value, "Подтверждение пароля")
+
+    def change(self):
+        self.click(ProfileLocators.change)

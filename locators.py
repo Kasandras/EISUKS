@@ -535,3 +535,20 @@ class DocumentsLocators:
         work_place = (By.XPATH, "//textarea[@ng-model='rin.editmodel.workPlace']")
         living_country = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
         living_address = (By.XPATH, "//input[@data-ng-model='rin.editmodel.livingAddress']")
+
+
+class ProfileLocators:
+    lastname = (By.XPATH, "//input[@ng-model='model.lastName']")
+    firstname = (By.XPATH, "//input[@ng-model='model.firstName']")
+    middlename = (By.XPATH, "//input[@ng-model='model.middleName']")
+    birthdate = (By.XPATH, "//input[@id='birthDate']")
+    insurance_certificate_number = (By.XPATH, "//input[@ng-model='model.insuranceCertificateNumber']")
+    individual_taxpayer_number = (By.XPATH, "//input[@ng-model='model.inn']")
+    email = (By.XPATH, "//input[@ng-model='model.email']")
+    passport_info = (By.XPATH, "//input[@ng-model='model.passportInfo']")
+    registration_address = (By.XPATH, "//input[@ng-model='model.registrationAddress']")
+    actual_address = (By.XPATH, "//input[@ng-model='model.actualAddress']")
+    old_password = (By.XPATH, "//input[@name='OldPassword']")
+    password = (By.XPATH, "//input[@name='Password']")
+    password_confirm = (By.XPATH, "//input[@name='PasswordConfirm']")
+    change = (By.XPATH, "//input[@type='submit']")
