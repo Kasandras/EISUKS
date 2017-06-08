@@ -1,6 +1,7 @@
 from locators import *
 from setup import *
 from framework import *
+import datetime
 
 
 def change_date(amount=0):
@@ -39,7 +40,7 @@ class LoginPage(parent):
             self.click_by_text("Войти")
             try:
                 self.click_by_text("Войти", 2)
-            except EC.NoSuchElementException:
+            except ec.NoSuchElementException:
                 pass
             self.username(username)
             self.password(password)
