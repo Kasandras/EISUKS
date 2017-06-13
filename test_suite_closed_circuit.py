@@ -28,10 +28,11 @@ class TestSuite:
         Управление ролями
         Список прав
     """
+
+    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+
     @classmethod
     def setup_class(cls):
-
-        cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.account = get_data_by_number(load_data("testData"), "accounts")
@@ -39,7 +40,6 @@ class TestSuite:
 
     @classmethod
     def teardown_class(cls):
-
         cls.driver.quit()
 
     def go_to(self, url):
@@ -53,11 +53,11 @@ class TestSuite:
         """
         Учет кадрового состава - Ведение электронных личных дел
         """
-        page = PersonalFilePage(self.driver)
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", last_name)
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
         self.go_to(Links.personal_files)
+        page = PersonalFilePage(self.driver)
         page.click_by_text("Добавить")
         page.new.last_name(employee["lastName"])
         page.new.first_name(employee["firstName"])
@@ -767,6 +767,103 @@ class TestSuite:
         page.arrangement()
         page.click_by_text("Показать все")
 
+    def test_organizations(self):
+        """
+        Справочники и классификаторы - Организации
+        """
+        LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+
+        page = OrganizationsPage(self.driver)
+        page.click_by_text("Справочники и классификаторы")
+        page.click_by_text("Организации")
+        page.filter.name("Федеральная таможенная служба")
+        page.filter.click_by_text("Поиск")
+        page.click((By.XPATH, "//a[@title='Редактировать']"), "")
+        page.click_by_text("Отмена")
+        page.click_by_text("Добавить организацию")
+
+        page.new.code("133")
+        page.new.name("Специалисты - Федеральная таможенная служба")
+        page.new.name_genitive("Специалистов - Федеральной таможенной службы")
+        page.new.name_dative("Специалистам - Федеральной таможенной службе")
+        page.new.name_accusative("Специалиста - Федеральную таможенную службу")
+        page.new.short_name("Специалисты - Федеральная таможенная служба")
+        page.new.source_type("Городской округ")
+        page.new.region("Алтайский край")
+        page.new.area("Алтайский район")
+        page.new.profile("Текстильное производство")
+        page.new.code_okogu("Президент Российской Федерации")
+        page.new.code_okpo("12")
+        page.new.limit("100")
+        page.new.positions_registry("Реестр должностей муниципальной службы")
+        page.new.site("www.specialist.fts.ru")
+        page.new.contacts("8 (495) 111-11-11")
+        page.new.participate_in_rotation(True)
+        page.new.is_expired(True)
+        page.new.for_public_open_part(True)
+        page.new.creation_order_number(today())
+        page.new.creation_order_date(today())
+        page.new.creation_date(today())
+        page.new.click_by_text("Сохранить")
+
+        page.filter.status("Проект")
+        page.filter.name("Специалисты - Федеральная таможенная служба")
+        page.filter.click_by_text("Поиск")
+        page.edit.open()
+        page.click_by_text("Ввести в действие")
+        page.scroll_to_top()
+
+        page.edit.click_by_text("Направления деятельности и функции")
+        page.edit.activity.click_by_text("Добавить")
+        page.edit.activity.direction("Работа с обращениями граждан")
+        page.edit.activity.click_by_text("Сохранить")
+
+        page.edit.click_by_text("Должности")
+        page.edit.positions.click_by_text("Добавить")
+        page.edit.positions.filter("Должности")
+        page.edit.positions.position("Специалист")
+        page.edit.positions.holiday_for_irregular_day("11")
+        page.edit.positions.code("123")
+        page.edit.positions.name("Специалист")
+        page.edit.positions.short_name("Спец")
+        page.edit.positions.name_genitive("Специалиста")
+        page.edit.positions.name_dative("Специалисту")
+        page.edit.positions.name_accusative("Специалиста")
+        page.edit.positions.name_instrumental("Специалистом")
+        page.edit.positions.can_be_rotated(True)
+        page.edit.positions.submit_information_on_the_income(True)
+        page.edit.positions.click_by_text("Сохранить")
+
+        page.edit.click_by_text("Курирующий государственный орган")
+        page.edit.curator.applications("Руководство")
+        page.edit.curator.click_by_text("Сохранить")
+
+        page.edit.click_by_text("Шаблон вакансии")
+        page.edit.template.region("Алтайский край")
+        page.edit.template.area("Алейский район")
+        page.edit.template.business_trips("Нет")
+        # page.edit.template.working_days("Нормированный")
+        page.edit.template.working_schedule("Сутки через 3-ое")
+        # page.edit.template.type("Бессрочный")
+        page.edit.template.location("Москва")
+        page.edit.template.time("11:00")
+        page.edit.template.post_index("")
+        page.edit.template.web_site("http://www.site.com")
+        page.edit.template.click_by_text("Сохранить")
+        page.edit.template.wait_for_text_appear("Данные успешно сохранены")
+
+        page.edit.click_by_text("К списку справочников")
+        page.click_by_text("Организации")
+        page.filter.status("Действующий")
+        page.filter.name("Специалисты - Федеральная таможенная служба")
+        page.filter.click_by_text("Поиск")
+        page.edit.open()
+        page.edit.attributes.abolition_order_number("321")
+        page.edit.attributes.abolition_order_date(today())
+        page.edit.attributes.abolition_date(today())
+        page.edit.attributes.click_by_text("Упразднить")
+        page.edit.attributes.click_by_text("Сохранить")
+
     def test_users_management(self):
         """
         Управление пользователями
@@ -775,6 +872,20 @@ class TestSuite:
 
         page = MainPage(self.driver)
         page.click_by_text("Управление пользователями")
+        page.search("45554@3334.ru")
+        page.table_row_checkbox()
+        page.click_by_text("Управление ролями")
+        page.click_by_value("Добавить")
+        page.set_checkbox((By.XPATH, "//li[contains(., 'Кадровая служба')]//input"), True, "Кадрова служба")
+        page.set_text((By.XPATH, "//input[@type='text']"), "Росгосотчетность", "Организация")
+        page.click((By.XPATH, "//div[@role='option']"))
+        page.click_by_value("Далее")
+        page.wait_for_text_appear("Кадровая служба")
+        page.click_by_value("Удалить")
+        page.set_checkbox_by_order(3)
+        page.set_checkbox_by_order(4)
+        page.click_by_value("Далее")
+        assert "Кадровая служба" not in self.driver.page_source
 
     def test_roles_management(self):
         """
@@ -790,7 +901,7 @@ class TestSuite:
                 page.table_row_radio()
                 page.click_by_text("Удалить")
                 page.click_by_text("Да")
-            except (EC.NoSuchElementException, TimeoutException):
+            except (ec.NoSuchElementException, TimeoutException):
                 break
         page.click_by_text("Добавить")
         page.name("Тестовая роль")

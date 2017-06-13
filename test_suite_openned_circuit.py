@@ -6,6 +6,8 @@ class TestSuite:
     Содержание test-suite:
 
     """
+    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+
     def get_page(self, value):
         sleep(1)
         self.driver.get(value)
@@ -13,14 +15,11 @@ class TestSuite:
 
     @classmethod
     def setup_class(cls):
-
-        cls.driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
 
     @classmethod
     def teardown_class(cls):
-
         cls.driver.quit()
 
     def test_news(self):
@@ -30,8 +29,9 @@ class TestSuite:
         same_news = self.driver.find_element(By.ID, "affix")
         same_news.find_element(By.XPATH, ".//a").click()
         p.click_by_text("Новости")
-        p.set_text((By.ID, "newsFrom"), "30.07.2015")
-        p.set_date((By.ID, "newsTo"), "30.07.2016")
+        p.set_date((By.ID, "newsFrom"), "30.07.2015")
+        p.set_date_tab((By.ID, "newsTo"), "30.07.2016")
+        sleep(1)
         p.click_by_text("Поиск")
 
     def test_documents(self):
@@ -86,8 +86,8 @@ class TestSuite:
         p.click_by_text("Дополнительная информация")
         self.driver.back()
         sleep(1)
-        assert self.driver.find_element(By.XPATH, "//div[@class='PieChart']") \
-               and self.driver.find_element(By.ID, "canvas")
+        assert self.driver.find_element(By.XPATH,
+                                        "//div[@class='PieChart']") and self.driver.find_element(By.ID, "canvas")
 
     def test_about_site(self):
         p = MainPage(self.driver)
@@ -237,7 +237,8 @@ class TestSuite:
         p.click_by_text("Национальный исследовательский университет \"Высшая школа экономики\"")
         sleep(1)
         self.driver.back()
-        p.click_by_text("Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации")
+        p.click_by_text("Российская академия народного хозяйства и "
+                        "государственной службы при Президенте Российской Федерации")
         sleep(1)
         self.driver.back()
         p.click_by_text("Финансовый университет при Правительстве Российской Федерации")
@@ -261,7 +262,8 @@ class TestSuite:
         sleep(5)
 
     def test_test_for_control(self):
-        self.driver.get("http://gossluzhba1.qtestweb.office.quarta-vk.ru/testing/app#/testing/run/action/3e13a2e8-2594-484a-8d81-7238b10af68c")
+        self.driver.get("http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
+                        "testing/app#/testing/run/action/3e13a2e8-2594-484a-8d81-7238b10af68c")
         p = MainPage(self.driver)
         p.click((By.XPATH, "(//input[@type='radio'])[4]"), "Выбор варианта ответа")
         sleep(1)
@@ -273,4 +275,5 @@ class TestSuite:
         sleep(1)
         p.click((By.XPATH, "//input[@type='button']"))
         sleep(5)
-        assert "Отвечено верно на 1 из 3 вопросов, что составляет 33% от общего числа заданных вопросов в тесте" in self.driver.page_source
+        assert "Отвечено верно на 1 из 3 вопросов, что составляет 33%" \
+               " от общего числа заданных вопросов в тесте" in self.driver.page_source
