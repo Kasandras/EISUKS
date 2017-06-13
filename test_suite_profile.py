@@ -1,5 +1,6 @@
 from pages import *
 from setup import *
+import pytest
 
 
 class TestSuite:
@@ -20,26 +21,33 @@ class TestSuite:
         """What happens AFTER tests"""
         cls.driver.quit()
 
-    def test_profile(self):
-        LoginPage(self.driver).login("ahabanovaal@gmail.com", "123123/")
+    @pytest.mark.parametrize("user_name", ["ahabanovaal@gmail.com"])
+    def test_profile(self, user_name):
+        """
+        Профиль (тестирование раздела "Профиль")
+        """
         page = ProfilePage(self.driver)
+        user = get_data_by_value(load_data("drozdovData")["users"], "accounts", "username", user_name)
+        profile = get_data_by_value(load_data("drozdovData")["members"], "profiles", "lastName", "Шабанова")
+
+        LoginPage(self.driver).login(user["username"], user["password"], user["full_name"])
         page.click_by_text("Профиль", 2)
         page.click_by_text("Редактировать")
-        page.upload_photo("C:\\Users\\drozdoviv\\Desktop\\1.jpg")
-        page.lastname("Шабанова")
-        page.firstname("Анна")
-        page.middlename("Леонидовна")
-        page.birthdate("18061988")
-        page.insurance_certificate_number("00102456767")
-        page.individual_taxpayer_number("6449013711")
-        page.email("ahabanovaal@gmail.com")
-        page.passport_info('4455 625896 Выдан ОВД "Замоскворечье" 14.09.2006')
-        page.registration_address("г.Москва, Ленинградский проспект, д. 46, кв. 211")
-        page.actual_address("г.Москва, Ленинградский проспект, д. 46, кв. 211")
+        page.upload_photo(profile["upload_photo"])
+        page.last_name(profile["lastName"])
+        page.first_name(profile["firstName"])
+        page.middle_name(profile["middleName"])
+        page.birth_date(profile["birthDate"])
+        page.insurance_certificate_number(profile["insurance_certificate_number"])
+        page.individual_taxpayer_number(profile["individual_taxpayer_number"])
+        page.email(profile["email"])
+        page.passport_info(profile['passport_info'])
+        page.registration_address(profile["registration_address"])
+        page.actual_address(profile["actual_address"])
         page.click_by_text("Сохранить")
         page.click_by_text("Изменить пароль")
-        page.old_password("123123/")
-        page.password("123123/")
-        page.password_confirm("123123/")
+        page.old_password(profile["old_password"])
+        page.password(profile["password"])
+        page.password_confirm(profile["password_confirm"])
         page.change()
         assert "Пароль изменен" in self.driver.page_source

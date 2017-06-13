@@ -1607,16 +1607,16 @@ class DocumentsPage(parent):
 
 class ProfilePage(parent):
 
-    def lastname(self, value):
+    def last_name(self, value):
         self.set_text(ProfileLocators.lastname, value, "Фамилия")
 
-    def firstname(self, value):
+    def first_name(self, value):
         self.set_text(ProfileLocators.firstname, value, "Имя")
 
-    def middlename(self, value):
+    def middle_name(self, value):
         self.set_text(ProfileLocators.middlename, value, "Отчество")
 
-    def birthdate(self, value):
+    def birth_date(self, value):
         self.set_date_tab(ProfileLocators.birthdate, value, "Дата рождения")
 
     def insurance_certificate_number(self, value):
