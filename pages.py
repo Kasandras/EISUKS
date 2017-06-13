@@ -1649,3 +1649,315 @@ class ProfilePage(parent):
 
     def change(self):
         self.click(ProfileLocators.change)
+
+
+class OrganizationsPage(parent):
+
+    @property
+    def filter(self):
+        return self.Filter(self.driver, self.timeout, self.log)
+
+    @property
+    def new(self):
+        return self.New(self.driver, self.timeout, self.log)
+
+    @property
+    def edit(self):
+        return self.Edit(self.driver, self.timeout, self.log)
+
+    class Filter(parent):
+
+        def status(self, value):
+            self.select2_clear((By.XPATH, "//div[contains(@id, 's2id')]"))
+            self.click((By.XPATH, "//div[contains(@id, 's2id')]"))
+            self.set_text((By.XPATH, "//input"), value, "Статус")
+            self.click((By.XPATH, "//div[@role='option']"))
+
+        def name(self, value):
+            self.set_text((By.XPATH, "//input[@ng-model='query.filter.name']"), value, "Наименование")
+            sleep(1)
+
+    class New(parent):
+
+        def code(self, value):
+            self.set_text(OrganizationsLocators.New.code, value, "Код")
+
+        def name(self, value):
+            self.set_text(OrganizationsLocators.New.name, value, "Наименование")
+
+        def name_genitive(self, value):
+            self.set_text(OrganizationsLocators.New.name_genitive, value, "Наименование в родительном падеже")
+
+        def name_dative(self, value):
+            self.set_text(OrganizationsLocators.New.name_dative, value, "Наименование в дательном падеже")
+
+        def name_accusative(self, value):
+            self.set_text(OrganizationsLocators.New.name_accusative, value, "Наименование в винительном падеже")
+
+        def short_name(self, value):
+            self.set_text(OrganizationsLocators.New.short_name, value, "Краткое наименование")
+
+        def source_type(self, value):
+            self.set_select2(OrganizationsLocators.New.source_type, value, "Тип источника данных")
+
+        def region(self, value):
+            self.set_select2(OrganizationsLocators.New.region, value, "Субъект")
+
+        def area(self, value):
+            self.set_select2(OrganizationsLocators.New.area, value, "Район")
+
+        def profile(self, value):
+            self.set_select2(OrganizationsLocators.New.profile, value, "Профиль деятельности")
+
+        def code_okogu(self, value):
+            self.set_select2(OrganizationsLocators.New.code_okogu, value, "Код ОКОГУ")
+
+        def code_okpo(self, value):
+            self.set_text(OrganizationsLocators.New.code_okpo, value, "Код ОКПО")
+
+        def limit(self, value):
+            self.set_text(OrganizationsLocators.New.limit,
+                          value, "Лимит количества подключаемых к Порталу пользователей")
+
+        def positions_registry(self, value):
+            self.set_select2(OrganizationsLocators.New.positions_registry, value, "Раздел реестра должностей")
+
+        def site(self, value):
+            self.set_text(OrganizationsLocators.New.site, value, "Официальный сайт")
+
+        def contacts(self, value):
+            self.set_text(OrganizationsLocators.New.contacts, value, "Контактные сведения")
+
+        def participate_in_rotation(self, value):
+            self.set_checkbox(OrganizationsLocators.New.participate_in_rotation, value, "Участвует в ротации")
+
+        def is_expired(self, value):
+            self.set_checkbox(OrganizationsLocators.New.is_expired, value, "Создается на срок")
+
+        def for_public_open_part(self, value):
+            self.set_checkbox(OrganizationsLocators.New.for_public_open_part,
+                              value, "Опубликовать сведения в открытой части")
+
+        def creation_order_number(self, value):
+            self.set_date(OrganizationsLocators.New.creation_order_number, value, "Номер документа")
+
+        def creation_order_date(self, value):
+            self.set_date(OrganizationsLocators.New.creation_order_date, value, "Дата документа")
+
+        def creation_date(self, value):
+            self.set_date_tab(OrganizationsLocators.New.creation_date, value, "Ввести в действие с")
+
+    class Edit(parent):
+
+        @property
+        def attributes(self):
+            return self.Attributes(self.driver, self.timeout, self.log)
+
+        @property
+        def activity(self):
+            return self.Activity(self.driver, self.timeout, self.log)
+
+        @property
+        def positions(self):
+            return self.Positions(self.driver, self.timeout, self.log)
+
+        @property
+        def curator(self):
+            return self.Curator(self.driver, self.timeout, self.log)
+
+        @property
+        def template(self):
+            return self.Template(self.driver, self.timeout, self.log)
+
+        def open(self):
+            self.click((By.XPATH, "//td//a//span[@class='custom-icon-edit']"), "Редактировать")
+
+        class Attributes(parent):
+
+            def code(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.code, value, "Код")
+
+            def name(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.name, value, "Наименование")
+
+            def name_genitive(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.name_genitive,
+                              value, "Наименование в родительном падеже")
+
+            def name_dative(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.name_dative,
+                              value, "Наименование в дательном падеже")
+
+            def name_accusative(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.name_accusative,
+                              value, "Наименование в винительном падеже")
+
+            def short_name(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.short_name, value, "Краткое наименование")
+
+            def source_type(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.source_type, value, "Тип источника данных")
+
+            def region(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.region, value, "Субъект")
+
+            def area(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.area, value, "Район")
+
+            def profile(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.profile, value, "Профиль деятельности")
+
+            def code_okogu(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.code_okogu, value, "Код ОКОГУ")
+
+            def code_okpo(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.code_okpo, value, "Код ОКПО")
+
+            def limit(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.limit, value,
+                              "Лимит количества подключаемых к Порталу пользователей")
+
+            def positions_registry(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Attributes.positions_registry,
+                                 value, "Раздел реестра должностей")
+
+            def site(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.site, value, "Официальный сайт")
+
+            def contacts(self, value):
+                self.set_text(OrganizationsLocators.Edit.Attributes.contacts, value, "Контактные сведения")
+
+            def participate_in_rotation(self, value):
+                self.set_checkbox(OrganizationsLocators.Edit.Attributes.participate_in_rotation,
+                                  value, "Участвует в ротации")
+
+            def is_expired(self, value):
+                self.set_checkbox(OrganizationsLocators.Edit.Attributes.is_expired, value, "Создается на срок")
+
+            def for_public_open_part(self, value):
+                self.set_checkbox(OrganizationsLocators.Edit.Attributes.for_public_open_part, value,
+                                  "Опубликовать сведения в открытой части")
+
+            def creation_order_number(self, value):
+                self.set_date(OrganizationsLocators.Edit.Attributes.creation_order_number, value, "Номер документа")
+
+            def creation_order_date(self, value):
+                self.set_date(OrganizationsLocators.Edit.Attributes.creation_order_date, value, "Дата документа")
+
+            def creation_date(self, value):
+                self.set_date_tab(OrganizationsLocators.Edit.Attributes.creation_date, value, "Ввести в действие с")
+
+            def abolition_order_number(self, value):
+                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_number, value, "Номер документа")
+
+            def abolition_order_date(self, value):
+                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
+
+            def abolition_date(self, value):
+                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_date, value, "Упразднить с")
+
+        class Activity(parent):
+
+            def direction(self, value):
+                self.set_select2((By.XPATH, "//*[@id='s2id_activity']"),
+                                 value, "Направление деятельности")
+
+        class Positions(parent):
+
+            def filter(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.filter,
+                                 value, "Фильтр по разделу реестра должностей")
+
+            def position(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.position, value, "Должность")
+
+            def holiday_for_irregular_day(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.holiday_for_irregular_day,
+                              value, "Продолжительность отпуска за ненормированный день")
+
+            def code(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.code, value, "Код")
+
+            def name(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.name, value, "Наименование полное")
+
+            def short_name(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.short_name, value, "Наименование краткое")
+
+            def name_genitive(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.name_genitive,
+                              value, "Наименования в родительном падеже")
+
+            def name_dative(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.name_dative,
+                              value, "Наименование в дательном падеже")
+
+            def name_accusative(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.name_accusative,
+                              value, "Наименование в винительном падеже")
+
+            def name_instrumental(self, value):
+                self.set_text(OrganizationsLocators.Edit.Positions.name_instrumental,
+                              value, "Наименование в творительном падеже")
+
+            def type(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.type, value, "Вид должности")
+
+            def group(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.group, value, "Группа должности")
+
+            def can_be_rotated(self, value):
+                self.set_checkbox(OrganizationsLocators.Edit.Positions.can_be_rotated, value, "Подлежит ротации")
+
+            def submit_information_on_the_income(self, value):
+                self.set_checkbox(OrganizationsLocators.Edit.Positions.submit_information_on_the_income, value,
+                                  "Назначенные сотрудники подают справки о доходах и расходах")
+
+            def professional_experience(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.professional_experience,
+                                 value, "Требования к стажу по специальности")
+
+            def government_experience(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.government_experience,
+                                 value, "Требования к стажу государственной службы")
+
+            def education_level(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Positions.education_level,
+                                 value, "Требования к образованию")
+
+        class Curator(parent):
+
+            def applications(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Curator.applications, value, "Заявки на ДПО")
+
+        class Template(parent):
+
+            def region(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.region, value, "Расположение рабочего места")
+
+            def area(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.area, value, "Расположение рабочего места")
+
+            def business_trips(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.business_trips, value, "Командировки")
+
+            def working_days(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.working_days, value, "Рабочий день")
+
+            def working_schedule(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.working_schedule, value, "Рабочее время")
+
+            def type(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.type, value, "Тип служебного контракта (трудового договора)")
+
+            def location(self, value):
+                self.set_text(OrganizationsLocators.Edit.Template.location, value, "Место приема документов")
+
+            def time(self, value):
+                self.set_text(OrganizationsLocators.Edit.Template.time, value, "Время приема документов")
+
+            def post_index(self, value):
+                self.set_select2(OrganizationsLocators.Edit.Template.post_index, value, "Почтовый адрес")
+
+            def web_site(self, value):
+                self.set_text(OrganizationsLocators.Edit.Template.web_site, value, "Интернет-сайт")

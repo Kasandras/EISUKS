@@ -552,3 +552,96 @@ class ProfileLocators:
     password = (By.XPATH, "//input[@name='Password']")
     password_confirm = (By.XPATH, "//input[@name='PasswordConfirm']")
     change = (By.XPATH, "//input[@type='submit']")
+
+
+class OrganizationsLocators(object):
+
+    class New(object):
+        code = (By.XPATH, "//input[@name='code']")
+        name = (By.XPATH, "//input[@name='name']")
+        name_genitive = (By.XPATH, "//input[@name='nameGenitive']")
+        name_dative = (By.XPATH, "//input[@name='nameDative']")
+        name_accusative = (By.XPATH, "//input[@name='nameAccusative']")
+        short_name = (By.XPATH, "//input[@name='shortName']")
+        source_type = (By.XPATH, "//div[@id='s2id_subType']")
+        region = (By.XPATH, "//div[@id='s2id_okatoRegion']")
+        area = (By.XPATH, "//div[@id='s2id_okatoArea']")
+        profile = (By.XPATH, "//div[@id='s2id_okved']")
+        code_okogu = (By.XPATH, "//*[@id='s2id_okogu']")
+        code_okpo = (By.XPATH, "//input[@id='codeOkpo']")
+        limit = (By.XPATH, "//input[@name='limitHR']")
+        positions_registry = (By.XPATH, "//div[@id='s2id_postSection']")
+        site = (By.XPATH, "//input[@name='officialWebsite']")
+        contacts = (By.XPATH, "//input[@name='сontactInformation']")
+        participate_in_rotation = (By.XPATH, "//*[@name='participateInRotation']")
+        is_expired = (By.XPATH, "//*[@name='isExpired']")
+        for_public_open_part = (By.XPATH, "//*[@name='forPublicOpenPart']")
+        creation_order_number = (By.XPATH, "//*[@id='creationOrderNumber']")
+        creation_order_date = (By.XPATH, "//*[@id='creationOrderDate']")
+        creation_date = (By.XPATH, "//*[@id='creationDate']")
+
+    class Edit(object):
+
+        class Attributes(object):
+            code = (By.XPATH, "//input[@name='code']")
+            name = (By.XPATH, "//input[@name='name']")
+            name_genitive = (By.XPATH, "//input[@name='nameGenitive']")
+            name_dative = (By.XPATH, "//input[@name='nameDative']")
+            name_accusative = (By.XPATH, "//input[@name='nameAccusative']")
+            short_name = (By.XPATH, "//input[@name='shortName']")
+            source_type = (By.XPATH, "//div[@id='s2id_subType']")
+            region = (By.XPATH, "//div[@id='s2id_okatoRegion']")
+            area = (By.XPATH, "//div[@id='s2id_okatoArea']")
+            profile = (By.XPATH, "//div[@id='s2id_okved']")
+            code_okogu = (By.XPATH, "//*[@id='s2id_okogu']")
+            code_okpo = (By.XPATH, "//input[@id='codeOkpo']")
+            limit = (By.XPATH, "//input[@name='limitHR']")
+            positions_registry = (By.XPATH, "//div[@id='s2id_postSection']")
+            site = (By.XPATH, "//input[@name='officialWebsite']")
+            contacts = (By.XPATH, "//input[@name='сontactInformation']")
+            participate_in_rotation = (By.XPATH, "//*[@name='participateInRotation']")
+            is_expired = (By.XPATH, "//*[@name='isExpired']")
+            for_public_open_part = (By.XPATH, "//*[@name='forPublicOpenPart']")
+            creation_order_number = (By.XPATH, "//*[@id='creationOrderNumber']")
+            creation_order_date = (By.XPATH, "//*[@id='creationOrderDate']")
+            creation_date = (By.XPATH, "//*[@id='creationDate']")
+            abolition_order_number = (By.XPATH, "//*[@id='abolitionOrderNumber']")
+            abolition_order_date = (By.XPATH, "//*[@id='abolitionOrderDate']")
+            abolition_date = (By.XPATH, "//*[@id='abolitionDate']")
+
+        class Activity(object):
+            pass
+
+        class Positions(object):
+            filter = (By.XPATH, "//div[contains(@id, 's2id')]")
+            position = (By.XPATH, "//*[@id='s2id_post']")
+            holiday_for_irregular_day = (By.XPATH, "//input[@id='holidayForIrregularDay']")
+            code = (By.XPATH, "//input[@id='code']")
+            name = (By.XPATH, "//input[@id='name']")
+            short_name = (By.XPATH, "//input[@id='shortName']")
+            name_genitive = (By.XPATH, "//input[@id='nameGenitive']")
+            name_dative = (By.XPATH, "//input[@id='nameDative']")
+            name_accusative = (By.XPATH, "//input[@id='nameAccusative']")
+            name_instrumental = (By.XPATH, "//input[@ng-model='model.nameInstrumental']")
+            type = (By.XPATH, "//*[@id='s2id_type']")
+            group = (By.XPATH, "//*[@id='s2id_positionGroup']")
+            can_be_rotated = (By.XPATH, "//input[@ng-model='model.canBeRotated']")
+            submit_information_on_the_income = (By.XPATH, "//*[@ng-model='model.submitInformationOnTheIncome']")
+            professional_experience = (By.XPATH, "//*[@id='s2id_professionalExperience']")
+            government_experience = (By.XPATH, "//*[@id='s2id_governmentExperience']")
+            education_level = (By.XPATH, "//*[@id='s2id_educationLevel']")
+
+        class Curator(object):
+            applications = (By.XPATH, "//div[contains(@id, 's2id')]")
+
+        class Template(object):
+            region = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+            area = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+            business_trips = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+            working_days = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+            working_schedule = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+            type = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+            location = (By.XPATH, "//input[@data-ng-model='model.registrationAddress']")
+            time = (By.XPATH, "//input[@data-ng-model='model.registrationTime']")
+            post_index = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+            web_site = (By.XPATH, "//input[@data-ng-model='model.webSite']")
