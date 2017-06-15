@@ -16,6 +16,10 @@ def get_data_by_number(data, parent, number=0):
     return data[parent][number]
 
 
+class Settings(object):
+    path_to_driver = "chromedriver.exe"
+
+
 class Links(object):
     main_page = "http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
     dashboard = main_page + "Dashboard/Hr"

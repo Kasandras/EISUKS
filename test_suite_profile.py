@@ -8,7 +8,7 @@ class TestSuite:
     Тест по сценарию "Профиль".
     Описывает работу с разделом "Профиль" (заполнение формы, изменение пароля)
     """
-    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):

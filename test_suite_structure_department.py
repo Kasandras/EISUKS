@@ -10,7 +10,7 @@ class TestSuite:
     @classmethod
     def setup_class(cls):
 
-        cls.driver = webdriver.Chrome("C:\Python36\Scripts\chromedriver.exe")
+        cls.driver = webdriver.Chrome(Settings.path_to_driver)
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.account = get_data_by_number(load_data("testData"), "accounts")

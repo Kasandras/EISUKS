@@ -10,7 +10,7 @@ class TestSuite:
     принятие и отклонение приглашений, поиск результатов)
     """""
 
-    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):

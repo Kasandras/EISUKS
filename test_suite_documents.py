@@ -9,7 +9,7 @@ class TestSuite:
     Описывает работу раздела "Документы" (добавление документов, добавление и заполнение анкет)
     """""
 
-    driver = webdriver.Chrome("C:\Python34\Scripts\chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):
