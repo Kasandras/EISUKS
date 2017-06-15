@@ -17,5 +17,3 @@ More detailed info at official documentation: https://docs.pytest.org/en/latest/
 #### Requirements:
      pytest
      selenium
-
-![okfuckit](https://media.giphy.com/media/wZCXWRgkF1UYg/200.gif)
