@@ -173,12 +173,23 @@ class StructureDetailsPage(parent):
     def department_select(self, value):
         self.click((By.XPATH, "//h4[contains(normalize-space(), '%s')]" % value))
 
-    def projects_check(self):
-        flag = True
-        for i in self.driver.find_elements(By.XPATH, "//small[.='Проект']"):
-            if i.is_displayed():
-                webdriver.ActionChains(self.driver).move_to_element(i).perform()
-                flag = False
+    def projects_check(self, timeout=300, interval=1):
+        count = 0
+        while True:
+            flag = True
+            self.wait_for_loading()
+            self.click_by_text("Показать все")
+            sleep(1)
+            for i in self.driver.find_elements(By.XPATH, "//small[.='Проект']"):
+                if i.is_displayed():
+                    webdriver.ActionChains(self.driver).move_to_element(i).perform()
+                    flag = False
+                    break
+            count += interval
+            sleep(interval)
+            self.driver.refresh()
+            print(flag)
+            if (count >= timeout) or (flag == True):
                 break
         return flag
 
