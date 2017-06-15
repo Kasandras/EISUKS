@@ -189,7 +189,7 @@ class StructureDetailsPage(parent):
             sleep(interval)
             self.driver.refresh()
             print(flag)
-            if (count >= timeout) or (flag == True):
+            if (count >= timeout) or flag:
                 break
         return flag
 
@@ -1859,7 +1859,8 @@ class OrganizationsPage(parent):
                 self.set_date_tab(OrganizationsLocators.Edit.Attributes.creation_date, value, "Ввести в действие с")
 
             def abolition_order_number(self, value):
-                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_number, value, "Номер документа")
+                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_number,
+                                  value, "Номер документа")
 
             def abolition_order_date(self, value):
                 self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
@@ -1959,7 +1960,8 @@ class OrganizationsPage(parent):
                 self.set_select2(OrganizationsLocators.Edit.Template.working_schedule, value, "Рабочее время")
 
             def type(self, value):
-                self.set_select2(OrganizationsLocators.Edit.Template.type, value, "Тип служебного контракта (трудового договора)")
+                self.set_select2(OrganizationsLocators.Edit.Template.type,
+                                 value, "Тип служебного контракта (трудового договора)")
 
             def location(self, value):
                 self.set_text(OrganizationsLocators.Edit.Template.location, value, "Место приема документов")
