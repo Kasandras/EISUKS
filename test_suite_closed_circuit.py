@@ -28,15 +28,16 @@ class TestSuite:
         Управление ролями
         Список прав
     """
-
     driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("testData"), "accounts")
-        cls.admin = get_data_by_value(load_data("testData"), "accounts", "username", "1")
+        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")
+        cls.hr = get_data_by_number(cls.data, "accounts", 0)
+        cls.admin = get_data_by_number(cls.data, "accounts", 1)
+        cls.user = get_data_by_number(cls.data, "accounts", 2)
 
     @classmethod
     def teardown_class(cls):
@@ -49,13 +50,13 @@ class TestSuite:
         print("Переход по ссылке: %s" % url)
 
     @pytest.mark.parametrize("last_name", ["Автоматизация"])
-    def test_new_personal_file(self, last_name):
+    def tes1t_new_personal_file(self, last_name):
         """
         Учет кадрового состава - Ведение электронных личных дел
         """
-        employee = get_data_by_value(load_data("testData"), "employees", "lastName", last_name)
+        employee = get_data_by_value(self.data, "employees", "lastName", last_name)
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         self.go_to(Links.personal_files)
         page = PersonalFilePage(self.driver)
         page.click_by_text("Добавить")
@@ -79,43 +80,43 @@ class TestSuite:
         page.general.click_by_text("Сохранить")
         assert page.wait_for_text_disappear("Сохранить")
 
-    def test_new_department(self):
+    def tes1t_new_department(self):
         """
         Организационно-штатная структура - Формирование организационно-штатной структуры
         """
-        data = get_data_by_number(load_data("testData"), "departments")
+        data = get_data_by_number(self.data, "departments")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         self.go_to(Links.staff_structure)
         page = StructureInfoPage(self.driver)
         page.wait_for_text_appear("Структура")
         page.click_by_text("Добавить")
-        # p.organization(data["organization"])
+        page.organization(data["organization"])
         page.name(data["name"])
         page.fot(data["fot"])
         page.limit(data["limit"])
         page.click_by_text("Сохранить")
         page.click_by_text(data["name"])
-        for i in data["divisions"]:
+        for division in data["divisions"]:
             StructureDetailsPage(self.driver).forming()
-            if i["parent"]:
-                element = page.wait_for_element_appear((By.XPATH, "//tr[contains(., '%s')]" % i["parent"]))
+            if division["parent"]:
+                element = page.wait_for_element_appear((By.XPATH, "//tr[contains(., '%s')]" % division["parent"]))
                 element.find_element(By.XPATH, ".//input[@type='checkbox']").click()
             page.click_by_text("Добавить")
             page = DepartmentPage(self.driver)
-            page.name(i["name"])
-            page.name_genitive(i["nameGenitive"])
-            page.name_dative(i["nameDative"])
-            page.name_accusative(i["nameAccusative"])
-            page.limit(i["limit"])
-            page.code(i["code"])
-            page.launch_date(i["launchDate"])
-            page.order_number(i["orderNumber"])
-            page.order_date(i["orderDate"])
+            page.name(division["name"])
+            page.name_genitive(division["nameGenitive"])
+            page.name_dative(division["nameDative"])
+            page.name_accusative(division["nameAccusative"])
+            page.limit(division["limit"])
+            page.code(division["code"])
+            page.launch_date(division["launchDate"])
+            page.order_number(division["orderNumber"])
+            page.order_date(division["orderDate"])
             page.click_by_text("Штатная численность")
-            for j in i["staffAmount"]:
-                page.position(j["position"])
-                page.amount(j["amount"])
+            for staff in division["staffAmount"]:
+                page.position(staff["position"])
+                page.amount(staff["amount"])
                 page.click_by_text("Добавить", 2)
             page.click_by_text("Сохранить")
         page = StructureDetailsPage(self.driver)
@@ -133,15 +134,15 @@ class TestSuite:
         assert page.projects_check(), "Ошибка: На странице присутствует ярлык \"Проект\""
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_appointment(self, user):
+    def tes1t_appointment(self, user):
         """
         Формирование кадрового состава - Назначение на должность
         """
-        department = get_data_by_number(load_data("testData"), "departments")
-        employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
-        appointment = employee["appointment"]
+        department = get_data_by_number(self.data, "departments")
+        employee = get_data_by_value(self.data, "employees", "lastName", user)
+        data = employee["appointment"]
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = StructureDetailsPage(self.driver)
         self.go_to(Links.staff_structure)
         page.click_by_text(department["name"])
@@ -151,19 +152,19 @@ class TestSuite:
 
         page = AppointmentPage(self.driver)
         page.full_name(user)
-        page.reason(appointment["reason"])
-        page.duration(appointment["duration"])
-        page.date_from(appointment["dateFrom"])
-        page.trial(appointment["trial"])
-        page.contract_date(appointment["contractDate"])
-        page.contract_number(appointment["contractNumber"])
+        page.reason(data["reason"])
+        page.duration(data["duration"])
+        page.date_from(data["dateFrom"])
+        page.trial(data["trial"])
+        page.contract_date(data["contractDate"])
+        page.contract_number(data["contractNumber"])
         page.click_by_text("Сохранить")
         self.go_to(Links.appointment)
         OrdersPage(self.driver).submit(user,
-                                       appointment["order"],
-                                       appointment["date"],
-                                       appointment["fullName"],
-                                       appointment["position"])
+                                       data["orderNumber"],
+                                       data["orderDate"],
+                                       data["orderBy"],
+                                       data["orderByPosition"])
         self.go_to(Links.staff_structure)
         page = StructureDetailsPage(self.driver)
         page.click_by_text(department["name"])
@@ -172,13 +173,15 @@ class TestSuite:
         page.wait_for_text_appear("Создать")
 
     # тесты Головинского
-
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_ranks(self, user):
+    def te1st_ranks(self, user):
         """
         Прохождение государственной гражданской службы - Присвоение классных чинов
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["ranks"]
+
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+
         page = RanksPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -187,18 +190,18 @@ class TestSuite:
         page.scroll_to_top()
         page.click_by_text("Добавить")
         page.set_select("Проект приказа на присвоение классного чина")
-        page.condition("Очередной классный чин")
-        page.type("Классные чины")
-        page.organization("Automation")
-        page.date(today())
+        page.condition(data["condition"])
+        page.type(data["type"])
+        page.organization(data["organization"])
+        page.date(data["date"])
         page.click_by_text("Сохранить")
 
         self.go_to(Links.ranks)
         OrdersPage(self.driver).submit(user,
-                                       "123",
-                                       today(),
-                                       "Карякин Игорь Сергеевич",
-                                       "Начальник")
+                                       data["orderNumber"],
+                                       data["orderDate"],
+                                       data["orderBy"],
+                                       data["orderByPosition"])
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
         page.click_by_text(user)
@@ -206,11 +209,13 @@ class TestSuite:
         page.scroll_to_top()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_holidays(self, user):
+    def te1st_holidays(self, user):
         """
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["holidays"]
+
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = HolidaysPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -219,30 +224,30 @@ class TestSuite:
         page.scroll_to_top()
         page.click_by_text("Добавить")
 
-        page.statement_date(today())
-        page.base("Заявление")
-        page.type("ежегодный отпуск")
-        page.date_from(today())
-        page.count_days("14")
-        page.is_pay_once(True)
-        page.is_material_aid(True)
+        page.statement_date(data["statementDate"])
+        page.base(data["base"])
+        page.type(data["type"])
+        page.date_from(data["dateFrom"])
+        page.count_days(data["countDays"])
+        page.is_pay_once(data["isPayOnce"])
+        page.is_material_aid(data["isMaterialAid"])
         page.click_by_text("Расчет")
         page.click_by_text("Сохранить")
         page.accept_alert()
 
         self.go_to(Links.holidays)
         OrdersPage(self.driver).submit(user,
-                                       "12",
-                                       today(),
-                                       "Парамонов Лев Петрович",
-                                       "Начальник управления")
+                                       data["orderNumber"],
+                                       data["orderDate"],
+                                       data["orderBy"],
+                                       data["orderByPosition"])
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_holidays_schedule(self, user):
+    def te1st_holidays_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График отпусков
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = HolidaysPage(self.driver)
         self.go_to(Links.holidays_schedule)
         page.click_by_text("Включить режим редактирования")
@@ -269,11 +274,13 @@ class TestSuite:
         page.accept_alert()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_business_trip(self, user):
+    def tes1t_business_trip(self, user):
         """
         Прохождение государственной гражданской службы - Командировки
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["businessTrips"]
+
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = BusinessTripPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -282,37 +289,37 @@ class TestSuite:
         page.scroll_to_top()
 
         page.click_by_text("Добавить")
-        page.date_start("04.04.2016")
-        page.date_end("15.04.2016")
-        page.days_amount_without_road("10")
-        page.source_financing("За счёт средств выделенных гос. органу")
-        page.purpose("Обучение")
-        page.reason("Заявление")
-        page.route("Москва - Санкт-Петербург")
-        page.task_number("137")
-        page.task_date("30.03.2016")
+        page.date_start(data["dateStart"])
+        page.date_end(data["dateEnd"])
+        page.days_amount_without_road(data["daysAmountWithoutRoad"])
+        page.source_financing(data["sourceFinancing"])
+        page.purpose(data["purpose"])
+        page.reason(data["reason"])
+        page.route(data["route"])
+        page.task_number(data["taskNumber"])
+        page.task_date(data["taskDate"])
         page.click_by_text("Добавить", 2)
-        page.routes.country("Россия")
-        page.routes.organization("Федеральная таможенная служба")
-        page.routes.days_amount("12")
-        page.routes.date_start("04.04.2016")
-        page.routes.date_end("15.04.2016")
+        page.routes.country(data["routeCountry"])
+        page.routes.organization(data["routeOrganization"])
+        page.routes.days_amount(data["routeDaysAmount"])
+        page.routes.date_start(data["routeDateStart"])
+        page.routes.date_end(data["routeDateEnd"])
         page.routes.submit()
         page.scroll_to_top()
         page.submit()
         self.go_to(Links.business_trips)
         OrdersPage(self.driver).submit_business_trips(user,
-                                                      "127",
-                                                      "25.03.2016",
-                                                      "Парамонов Лев Петрович",
-                                                      "Начальник управления")
+                                                      data["orderNumber"],
+                                                      data["orderDate"],
+                                                      data["orderBy"],
+                                                      data["orderByPosition"])
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_business_trip_schedule(self, user):
+    def tes1t_business_trip_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График служебных командировок
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = BusinessTripPage(self.driver)
         self.go_to(Links.business_trips_index)
         page.click_by_text("Фильтр")
@@ -325,7 +332,9 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Учет периодов нетрудоспособности
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["disabilityPeriodsz"]
+
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = DisabilityPeriodsPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -334,32 +343,32 @@ class TestSuite:
         page.scroll_to_top()
 
         page.click_by_text("Добавить")
-        page.list_number("232898")
-        page.by("Государственное бюджетное учреждение здравоохранения \"Городская поликлиника № 12\"")
-        page.period_from("16.03.2016")
-        page.period_to("22.03.2016")
-        page.reason("Травма")
+        page.list_number(data["listNumber"])
+        page.by(data["by"])
+        page.period_from(data["periodFrom"])
+        page.period_to(data["periodTo"])
+        page.reason(data["reason"])
         page.submit()
 
         self.go_to(Links.dashboard)
         page.click_by_text("Прохождение государственной гражданской службы")
         page.click_by_text("Учет периодов нетрудоспособности")
         page.click_by_text("Фильтр")
-        page.set_text((By.XPATH, "(//input[@type='text'])[8]"), "232898", "Номер листа")
+        page.set_text((By.XPATH, "(//input[@type='text'])[8]"), data["listNumber"], "Номер листа")
         page.click_by_text("Применить")
         page.table_row_radio()
         page.click_by_text("Редактировать")
-        page.editing.reason("Заболевание")
+        page.editing.reason(data["reasonFix"])
         page.editing.submit()
         page.wait_for_text_appear("Фильтр")
-        assert "Заболевание" in self.driver.page_source
+        assert data["reasonFix"] in self.driver.page_source
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
     def test_dispensary_planning(self, user):
         """
         Прохождение государственной гражданской службы - Планирование диспансеризации
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = DispensaryPlanningPage(self.driver)
         self.go_to(Links.dispensary_planning)
         page.table_select_user(user)
@@ -373,7 +382,9 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Диспансеризация
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["dispensary"]
+
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = DispensaryPage(self.driver)
         self.go_to(Links.dispensary_list)
         page.click_by_text("Проект")
@@ -382,19 +393,19 @@ class TestSuite:
 
         page.table_row_checkbox()
         page.click_by_text("Редактировать")
-        page.dispensary_date(today())
-        page.reference_date(today())
-        page.reference_number("123")
-        page.is_healthy(True)
+        page.dispensary_date(data["dispensaryDate"])
+        page.reference_date(data["referenceDate"])
+        page.reference_number(data["referenceNumber"])
+        page.is_healthy(data["isHealthy"])
         page.click_by_text("Сохранить")
         page.click_by_text("Назад")
 
         page.table_row_checkbox()
         page.click_by_text("Редактировать")
-        page.dispensary_date(today())
-        page.reference_date(today())
-        page.reference_number("321")
-        page.is_healthy(False)
+        page.dispensary_date(data["dispensaryDate"])
+        page.reference_date(data["referenceDate"])
+        page.reference_number(data["referenceNumberFix"])
+        page.is_healthy(data["isHealthy"])
         page.click_by_text("Сохранить")
         page.click_by_text("Назад")
 
@@ -405,11 +416,11 @@ class TestSuite:
 
         page.table_row_radio()
         page.click_by_text("Редактировать")
-        page.date_from(today())
-        page.date_to(today())
-        page.order_date(today())
-        page.order_number("123")
-        page.institution("Лечебное учреждение 1")
+        page.date_from(data["dateFrom"])
+        page.date_to(data["dateTo"])
+        page.order_date(data["orderDate"])
+        page.order_number(data["orderNumber"])
+        page.institution(data["institution"])
         page.by(user)
         page.click_by_text("Сохранить")
         sleep(1)
@@ -423,7 +434,7 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Дисциплинарные взыскания
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = EnforcementPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
@@ -473,7 +484,7 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Поощрения
         """
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = AwardsPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
@@ -526,7 +537,6 @@ class TestSuite:
         page.click_by_text(user)
         page.click_by_text("Награды и поощрения")
         sleep(10)
-
     # end
 
     def tes1t_contest_replacement(self):
@@ -540,7 +550,7 @@ class TestSuite:
         department = get_data_by_number(load_data("testData"), "departments")
         advertisement = get_data_by_number(load_data("testData"), "advertisements")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         self.go_to(Links.staff_structure)
         structure_details_page.click_by_text(department["name"])
         structure_details_page.arrangement()
@@ -618,7 +628,7 @@ class TestSuite:
         page.set_select("Анкета 667-р 20.07.2015")
         page.click_by_text("Откликнуться")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"])
         self.go_to(Links.vacancy_selection)
         page.click((By.XPATH, "//a[@data-ng-bind='item.responsesCount']"))
         page.click_by_text("Лобода Максим Юрьевич")
@@ -634,7 +644,7 @@ class TestSuite:
         page = CommissionsPage(self.driver)
         data = get_data_by_number(load_data("testData"), "commissions")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         self.go_to(Links.commissions)
         page.click_by_text("Добавить")
         page.name(data["name"])
@@ -696,38 +706,38 @@ class TestSuite:
         Формирование кадрового состава - Денежное содержание
         """
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
-        salary_payment = employee["salaryPayment"]
+        data = employee["salaryPayment"]
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = SalaryPaymentsPage(self.driver)
         self.go_to(Links.personal_files)
         page.search(employee["lastName"])
         page.click_by_text(user)
         page.click_by_text("Денежное содержание")
         page.click_by_text("Добавить")
-        page.type(salary_payment["type"])
-        page.amount(salary_payment["amount"])
-        page.date_from(salary_payment["dateFrom"])
+        page.type(data["type"])
+        page.amount(data["amount"])
+        page.date_from(data["dateFrom"])
         page.click_by_text("Сохранить")
         page.wait_for_text_disappear("Сохранить")
         page.table_row_radio()
         page.click_by_text("Редактировать")
-        page.amount("14")
+        page.amount(data["amountFix"])
         page.click_by_text("Сохранить")
         page.table_row_radio()
         page.click_by_text("Удалить")
         page.click_by_text("Да")
         page.click_by_text("Добавить")
-        page.type(salary_payment["type"])
-        page.amount(salary_payment["amount"])
-        page.date_from(salary_payment["dateFrom"])
+        page.type(data["type"])
+        page.amount(data["amount"])
+        page.date_from(data["dateFrom"])
         page.click_by_text("Сохранить")
         self.go_to(Links.salary_payments)
         OrdersPage(self.driver).submit(user,
-                                       salary_payment["order"],
-                                       salary_payment["date"],
-                                       salary_payment["fullName"],
-                                       salary_payment["position"])
+                                       data["orderNumber"],
+                                       data["orderDate"],
+                                       data["orderBy"],
+                                       data["orderByPosition"])
         self.go_to(Links.personal_files)
         page.search(user)
         page.click_by_text(user)
@@ -743,7 +753,7 @@ class TestSuite:
         employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
         dismissal = employee["dismissal"]
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
         page = PersonalFileDismissalPage(self.driver)
         self.go_to(Links.personal_files)
         page.search(user)
@@ -868,7 +878,7 @@ class TestSuite:
         """
         Управление пользователями
         """
-        LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
 
         page = MainPage(self.driver)
         page.click_by_text("Управление пользователями")
@@ -891,7 +901,7 @@ class TestSuite:
         """
         Управление ролями
         """
-        LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
 
         page = RolesManagementPage(self.driver, 3)
         page.click_by_text("Управление ролями")
@@ -913,7 +923,7 @@ class TestSuite:
         """
         Список прав
         """
-        LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
 
         page = MainPage(self.driver)
         page.click_by_text("Список прав")

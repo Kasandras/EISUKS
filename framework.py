@@ -6,6 +6,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
+import datetime
+
+
+def today():
+    return datetime.date.today().strftime("%d.%m.%Y")
 
 
 class Browser(object):
@@ -19,6 +24,13 @@ class Browser(object):
         try:
             WebDriverWait(self.driver, 3).until(ec.alert_is_present())
             self.driver.switch_to_alert().accept()
+        except TimeoutException:
+            pass
+
+    def decline_alert(self):
+        try:
+            WebDriverWait(self.driver, 3).until(ec.alert_is_present())
+            self.driver.switch_to_alert().decline()
         except TimeoutException:
             pass
 
@@ -55,14 +67,6 @@ class Browser(object):
         if value and self.log:
             print("[%s] [%s] нажатие на элемент" % (strftime("%H:%M:%S", localtime()), value))
 
-    def find(self, locator):
-        return self.wait_for_element_appear(locator)
-
-    def get_page(self, value):
-        self.wait_for_loading()
-        sleep(1.5)
-        self.driver.get(value)
-
     def go_to(self, url):
         while self.driver.current_url != url:
             self.driver.get(url)
@@ -80,10 +84,6 @@ class Browser(object):
     def scroll_to_bottom(self):
         self.wait_for_loading()
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-    def scroll_to(self):
-        self.wait_for_loading()
-        self.driver.execute_script("window.scrollTo(0, 10);")
 
     def search(self, value):
         self.wait_for_loading()
@@ -111,24 +111,8 @@ class Browser(object):
 
     def set_date(self, locator, value, label=None):
         if value:
-            self.wait_for_loading()
-            element = self.wait_for_element_appear(locator)
-            element.clear()
-            element.send_keys(value + Keys.LEFT_ALT)
-            if label and self.log:
-                print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
-
-    def set_date_enter(self, locator, value, label=None):
-        if value:
-            self.wait_for_loading()
-            element = self.wait_for_element_appear(locator)
-            element.clear()
-            element.send_keys(value + Keys.RETURN)
-            if label and self.log:
-                print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
-
-    def set_date_tab(self, locator, value, label=None):
-        if value:
+            if value == "=":
+                value = today()
             self.wait_for_loading()
             element = self.wait_for_element_appear(locator)
             element.clear()
@@ -201,12 +185,14 @@ class Browser(object):
         self.set_checkbox(locator, True, label)
 
     def table_row_checkbox(self, order=1):
+        self.wait_for_loading()
         sleep(1)
         locator = (By.XPATH, "(//td/input[@type='checkbox'])[%s]" % order)
         self.set_checkbox(locator, True)
         sleep(1)
 
     def table_row_radio(self, order=1):
+        self.wait_for_loading()
         sleep(1)
         locator = (By.XPATH, "(//td/input[@type='radio'])[%s]" % order)
         self.set_radio(locator)

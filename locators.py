@@ -35,7 +35,7 @@ class PersonalFileLocators(object):
 
 
 class StructureInfoLocators(object):
-    organization = (By.ID, "select2-chosen-3")
+    organization = (By.XPATH, "//div[contains(@id, 's2id')]")
     name = (By.ID, "name")
     fot = (By.ID, "payroll")
     limit = (By.ID, "staffLimit")
