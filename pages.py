@@ -34,7 +34,11 @@ class LoginPage(parent):
     def submit(self):
         self.click(LoginLocators.submit, "Войти")
 
-    def login(self, username, password, full_name=None):
+    def login(self, username=None, password=None, full_name=None, data=None):
+        if data:
+            username = data["username"]
+            password = data["password"]
+            full_name = data["fullName"]
         self.go_to(Links.main_page)
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
@@ -175,6 +179,7 @@ class StructureDetailsPage(parent):
 
     def projects_check(self, timeout=300, interval=1):
         count = 0
+        print("Проверка статусов [Интервал=%sс Таймаут=%sс]:" % (interval, timeout))
         while True:
             flag = True
             self.wait_for_loading()
@@ -188,7 +193,6 @@ class StructureDetailsPage(parent):
             count += interval
             sleep(interval)
             self.driver.refresh()
-            print(flag)
             if (count >= timeout) or flag:
                 break
         return flag
@@ -529,7 +533,13 @@ class CommissionsPage(parent):
 
 class OrdersPage(parent):
 
-    def submit(self, full_name, order, date, by, position):
+    def submit(self, full_name, order="123", date="=",
+               by="Иванов Иван Иванович", position="Начальник", data=None):
+        if data:
+            order = data["orderNumber"]
+            date = data["orderDate"]
+            by = data["orderBy"]
+            position = data["orderByPosition"]
         self.click_by_text("Фильтр")
         self.set_text((By.XPATH, "//input[@type='text']"), full_name, "Фамилия Имя Отчество")
         self.click_by_text("Применить")
@@ -548,7 +558,13 @@ class OrdersPage(parent):
         self.table_row_checkbox()
         self.click_by_text("Завершить")
 
-    def submit_business_trips(self, full_name, order, date, by, position):
+    def submit_business_trips(self, full_name, order="123", date="=",
+                              by="Иванов Иван Иванович", position="Начальник", data=None):
+        if data:
+            order = data["orderNumber"]
+            date = data["orderDate"]
+            by = data["orderBy"]
+            position = data["orderByPosition"]
         self.click_by_text("Фильтр")
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[1]"), full_name, "Фамилия Имя Отчество")
         self.click_by_text("Применить")
@@ -994,8 +1010,15 @@ class RolesManagementPage(parent):
     def name(self, value):
         self.set_text(RolesManagementLocators.name, value, "Наименование")
 
+    def is_require_organization(self, value):
+        self.set_checkbox(RolesManagementLocators.is_require_organization,
+                          value, "Привязывается к организации/подразделению")
+
     def level(self, value):
         self.set_select2(RolesManagementLocators.level, value, "Уровень доверия")
+
+    def roles(self, value):
+        self.set_select2(RolesManagementLocators.roles, value, "Роли")
 
 
 class SearchVacancyPage(parent):

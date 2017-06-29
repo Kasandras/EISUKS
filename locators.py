@@ -341,7 +341,9 @@ class RanksLocators(object):
 class RolesManagementLocators(object):
     search = (By.XPATH, "//input[@type='search']")
     name = (By.XPATH, "//input[@name='caption']")
+    is_require_organization = (By.XPATH, "//input[@type='checkbox']")
     level = (By.XPATH, "//div[contains(@id, 's2id')]")
+    roles = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
 
 
 class SearchVacancyLocators:

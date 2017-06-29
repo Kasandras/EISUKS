@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from pages import *
 import pytest
 
@@ -50,43 +52,43 @@ class TestSuite:
         print("Переход по ссылке: %s" % url)
 
     @pytest.mark.parametrize("last_name", ["Автоматизация"])
-    def tes1t_new_personal_file(self, last_name):
+    def test_new_personal_file(self, last_name):
         """
         Учет кадрового состава - Ведение электронных личных дел
         """
-        employee = get_data_by_value(self.data, "employees", "lastName", last_name)
+        data = get_data_by_value(self.data, "employees", "lastName", last_name)
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         self.go_to(Links.personal_files)
         page = PersonalFilePage(self.driver)
         page.click_by_text("Добавить")
-        page.new.last_name(employee["lastName"])
-        page.new.first_name(employee["firstName"])
-        page.new.middle_name(employee["middleName"])
-        page.new.birthday(employee["birthday"])
-        page.new.insurance_certificate_number(employee["insuranceCertificateNumber"])
-        page.new.username(employee["username"])
+        page.new.last_name(data["lastName"])
+        page.new.first_name(data["firstName"])
+        page.new.middle_name(data["middleName"])
+        page.new.birthday(data["birthday"])
+        page.new.insurance_certificate_number(data["insuranceCertificateNumber"])
+        page.new.username(data["username"])
         page.new.click_by_text("Сохранить")
         page.general.general_edit()
-        page.general.last_name(employee["lastName"])
-        page.general.first_name(employee["firstName"])
-        page.general.middle_name(employee["middleName"])
-        page.general.personal_file_number(employee["personalFileNumber"])
-        page.general.birthday(employee["birthday"])
-        page.general.okato(employee["okato"])
-        page.general.criminal_record(employee["criminalRecord"])
-        page.general.last_name_changing(employee["lastNameChanging"])
-        page.general.gender(employee["gender"])
+        page.general.last_name(data["lastName"])
+        page.general.first_name(data["firstName"])
+        page.general.middle_name(data["middleName"])
+        page.general.personal_file_number(data["personalFileNumber"])
+        page.general.birthday(data["birthday"])
+        page.general.okato(data["okato"])
+        page.general.criminal_record(data["criminalRecord"])
+        page.general.last_name_changing(data["lastNameChanging"])
+        page.general.gender(data["gender"])
         page.general.click_by_text("Сохранить")
         assert page.wait_for_text_disappear("Сохранить")
 
-    def tes1t_new_department(self):
+    def test_new_department(self):
         """
         Организационно-штатная структура - Формирование организационно-штатной структуры
         """
         data = get_data_by_number(self.data, "departments")
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         self.go_to(Links.staff_structure)
         page = StructureInfoPage(self.driver)
         page.wait_for_text_appear("Структура")
@@ -134,15 +136,14 @@ class TestSuite:
         assert page.projects_check(), "Ошибка: На странице присутствует ярлык \"Проект\""
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_appointment(self, user):
+    def test_appointment(self, user):
         """
         Формирование кадрового состава - Назначение на должность
         """
         department = get_data_by_number(self.data, "departments")
-        employee = get_data_by_value(self.data, "employees", "lastName", user)
-        data = employee["appointment"]
+        data = get_data_by_value(self.data, "employees", "lastName", user)["appointment"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = StructureDetailsPage(self.driver)
         self.go_to(Links.staff_structure)
         page.click_by_text(department["name"])
@@ -160,11 +161,7 @@ class TestSuite:
         page.contract_number(data["contractNumber"])
         page.click_by_text("Сохранить")
         self.go_to(Links.appointment)
-        OrdersPage(self.driver).submit(user,
-                                       data["orderNumber"],
-                                       data["orderDate"],
-                                       data["orderBy"],
-                                       data["orderByPosition"])
+        OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.staff_structure)
         page = StructureDetailsPage(self.driver)
         page.click_by_text(department["name"])
@@ -174,13 +171,13 @@ class TestSuite:
 
     # тесты Головинского
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_ranks(self, user):
+    def test_ranks(self, user):
         """
         Прохождение государственной гражданской службы - Присвоение классных чинов
         """
         data = get_data_by_value(self.data, "employees", "lastName", user)["ranks"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
 
         page = RanksPage(self.driver)
         self.go_to(Links.personal_files)
@@ -197,11 +194,7 @@ class TestSuite:
         page.click_by_text("Сохранить")
 
         self.go_to(Links.ranks)
-        OrdersPage(self.driver).submit(user,
-                                       data["orderNumber"],
-                                       data["orderDate"],
-                                       data["orderBy"],
-                                       data["orderByPosition"])
+        OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
         page.click_by_text(user)
@@ -209,13 +202,13 @@ class TestSuite:
         page.scroll_to_top()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_holidays(self, user):
+    def test_holidays(self, user):
         """
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         """
         data = get_data_by_value(self.data, "employees", "lastName", user)["holidays"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = HolidaysPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -236,18 +229,14 @@ class TestSuite:
         page.accept_alert()
 
         self.go_to(Links.holidays)
-        OrdersPage(self.driver).submit(user,
-                                       data["orderNumber"],
-                                       data["orderDate"],
-                                       data["orderBy"],
-                                       data["orderByPosition"])
+        OrdersPage(self.driver).submit(user, data=data)
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def te1st_holidays_schedule(self, user):
+    def test_holidays_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График отпусков
         """
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = HolidaysPage(self.driver)
         self.go_to(Links.holidays_schedule)
         page.click_by_text("Включить режим редактирования")
@@ -274,13 +263,13 @@ class TestSuite:
         page.accept_alert()
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_business_trip(self, user):
+    def test_business_trip(self, user):
         """
         Прохождение государственной гражданской службы - Командировки
         """
         data = get_data_by_value(self.data, "employees", "lastName", user)["businessTrips"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = BusinessTripPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -308,18 +297,14 @@ class TestSuite:
         page.scroll_to_top()
         page.submit()
         self.go_to(Links.business_trips)
-        OrdersPage(self.driver).submit_business_trips(user,
-                                                      data["orderNumber"],
-                                                      data["orderDate"],
-                                                      data["orderBy"],
-                                                      data["orderByPosition"])
+        OrdersPage(self.driver).submit_business_trips(user, data=data)
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def tes1t_business_trip_schedule(self, user):
+    def test_business_trip_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График служебных командировок
         """
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = BusinessTripPage(self.driver)
         self.go_to(Links.business_trips_index)
         page.click_by_text("Фильтр")
@@ -332,9 +317,9 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Учет периодов нетрудоспособности
         """
-        data = get_data_by_value(self.data, "employees", "lastName", user)["disabilityPeriodsz"]
+        data = get_data_by_value(self.data, "employees", "lastName", user)["disabilityPeriods"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = DisabilityPeriodsPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Назначенные")
@@ -368,7 +353,7 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Планирование диспансеризации
         """
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = DispensaryPlanningPage(self.driver)
         self.go_to(Links.dispensary_planning)
         page.table_select_user(user)
@@ -384,7 +369,7 @@ class TestSuite:
         """
         data = get_data_by_value(self.data, "employees", "lastName", user)["dispensary"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = DispensaryPage(self.driver)
         self.go_to(Links.dispensary_list)
         page.click_by_text("Проект")
@@ -430,11 +415,13 @@ class TestSuite:
         page.click_by_text("Утвердить")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    def test_enforcement(self, user):
+    def test_enforcements(self, user):
         """
         Прохождение государственной гражданской службы - Дисциплинарные взыскания
         """
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["enforcements"]
+
+        LoginPage(self.driver).login(data=self.hr)
         page = EnforcementPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
@@ -443,26 +430,22 @@ class TestSuite:
         page.scroll_to_top()
         page.click_by_text("Добавить")
 
-        page.reason("Дисциплинарный проступок")
-        page.order_number("32")
-        page.order_date(today())
-        page.period_from(today())
-        page.period_to(today())
-        page.action_date(today())
-        page.action("Опоздание")
-        page.explanatory_date(today())
-        page.enforcement_reason("За совершение дисциплинарного проступка")
-        page.type("Замечание")
-        page.copy_date(today())
-        page.enforcement_date(today())
+        page.reason(data["reason"])
+        page.order_number(data["number"])
+        page.order_date(data["date"])
+        page.period_from(data["periodFrom"])
+        page.period_to(data["periodTo"])
+        page.action_date(data["actionDate"])
+        page.action(data["action"])
+        page.explanatory_date(data["explanatoryDate"])
+        page.enforcement_reason(data["enforcementReason"])
+        page.type(data["type"])
+        page.copy_date(data["copyDate"])
+        page.enforcement_date(data["enforcementDate"])
         page.click_by_text("Сохранить")
 
         self.go_to(Links.enforcement)
-        OrdersPage(self.driver).submit(user,
-                                       "123",
-                                       today(),
-                                       "Иванов Иван",
-                                       "Cпециалист")
+        OrdersPage(self.driver).submit(user, data=data)
 
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
@@ -472,11 +455,11 @@ class TestSuite:
         page.table_row_radio()
         page.click_by_text("Редактировать")
 
-        page.enforcement_expire_auto("")
-        page.enforcement_expire_date(today())
-        page.enforcement_expire_reason("Объявление благодарности")
-        page.enforcement_expire_order_date(today())
-        page.enforcement_expire_order_number("465")
+        page.enforcement_expire_auto(data["enforcementExpireAuto"])
+        page.enforcement_expire_date(data["enforcementExpireDate"])
+        page.enforcement_expire_reason(data["enforcementExpireReason"])
+        page.enforcement_expire_order_date(data["enforcementExpireOrderDate"])
+        page.enforcement_expire_order_number(data["enforcementExpireOrderNumber"])
         page.click_by_text("Сохранить")
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
@@ -484,7 +467,9 @@ class TestSuite:
         """
         Прохождение государственной гражданской службы - Поощрения
         """
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        data = get_data_by_value(self.data, "employees", "lastName", user)["rewards"]
+
+        LoginPage(self.driver).login(data=self.hr)
         page = AwardsPage(self.driver)
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
@@ -493,45 +478,41 @@ class TestSuite:
 
         page.scroll_to_top()
         page.click_by_text("Добавить")
-        page.awards.type("Объявление благодарности с выплатой единовременного поощрения")
-        page.awards.name("Благодарность Руководителя")
-        page.awards.date(today())
-        page.awards.amount("10000")
-        page.awards.unit("руб.")
-        page.awards.note("За эффективную работу")
-        page.awards.should_be(True)
+        page.awards.type(data["awardsType"])
+        page.awards.name(data["awardsName"])
+        page.awards.date(data["awardsDate"])
+        page.awards.amount(data["awardsAmount"])
+        page.awards.unit(data["awardsUnit"])
+        page.awards.note(data["awardsNote"])
+        page.awards.should_be(data["awardsShouldBe"])
         page.awards.submit()
 
         page.click_by_text("Добавить", 2)
-        page.state_awards.type("Присвоение почетных званий Российской Федерации")
-        page.state_awards.name("Почетный юрист Российской Федерации")
-        page.state_awards.list_date(today())
-        page.state_awards.date(today())
-        page.state_awards.order_number("159")
-        page.state_awards.order_date(today())
-        page.state_awards.award_number("")
-        page.state_awards.certificate_number("159/951")
-        page.state_awards.awarding_date(today())
-        page.state_awards.note("")
+        page.state_awards.type(data["stateAwardsType"])
+        page.state_awards.name(data["stateAwardsName"])
+        page.state_awards.list_date(data["stateAwardsListDate"])
+        page.state_awards.date(data["stateAwardsDate"])
+        page.state_awards.order_number(data["stateAwardsOrderNumber"])
+        page.state_awards.order_date(data["stateAwardsOrderDate"])
+        page.state_awards.award_number(data["stateAwardsNumber"])
+        page.state_awards.certificate_number(data["stateAwardsCertificateNumber"])
+        page.state_awards.awarding_date(data["stateAwardsAwardingDate"])
+        page.state_awards.note(data["stateAwardsNote"])
         page.state_awards.submit()
 
         page.click_by_text("Добавить", 3)
-        page.department_awards.type("Иные виды поощрений")
-        page.department_awards.name("Медаль «За отличие в службе» Федеральной службы железнодорожных войск")
-        page.department_awards.order_number("523")
-        page.department_awards.order_date(today())
-        page.department_awards.award_number("12")
-        page.department_awards.certificate_number("523/325")
-        page.department_awards.awarding_date(today())
-        page.department_awards.note("")
+        page.department_awards.type(data["departmentAwardsType"])
+        page.department_awards.name(data["departmentAwardsName"])
+        page.department_awards.order_number(data["departmentAwardsOrderNumber"])
+        page.department_awards.order_date(data["departmentAwardsOrderDate"])
+        page.department_awards.award_number(data["departmentAwardsAwardNumber"])
+        page.department_awards.certificate_number(data["departmentAwardsCertificateNumber"])
+        page.department_awards.awarding_date(data["departmentAwardsAwardingDate"])
+        page.department_awards.note(data["departmentAwardsNote"])
         page.department_awards.submit()
 
         self.go_to(Links.awards)
-        OrdersPage(self.driver).submit(user,
-                                       "123",
-                                       today(),
-                                       "Иванов Иван",
-                                       "Cпециалист")
+        OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.personal_files)
         page.click_by_text("Все")
         page.click_by_text(user)
@@ -550,7 +531,7 @@ class TestSuite:
         department = get_data_by_number(load_data("testData"), "departments")
         advertisement = get_data_by_number(load_data("testData"), "advertisements")
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         self.go_to(Links.staff_structure)
         structure_details_page.click_by_text(department["name"])
         structure_details_page.arrangement()
@@ -642,9 +623,9 @@ class TestSuite:
         Формирование кадрового состава - Комиссии
         """
         page = CommissionsPage(self.driver)
-        data = get_data_by_number(load_data("testData"), "commissions")
+        data = get_data_by_number(self.data, "commissions")
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         self.go_to(Links.commissions)
         page.click_by_text("Добавить")
         page.name(data["name"])
@@ -658,35 +639,35 @@ class TestSuite:
         page.click_by_text("Сохранить")
         page.table_row_checkbox()
         page.click_by_text("Редактировать")
-        for i in data["members"]:
+        for member in data["members"]:
             page.members.click_by_text("Добавить")
-            page.members.role(i["role"])
-            page.members.full_name(i["fullName"])
-            page.members.is_independent_expert(i["isIndependentExpert"])
-            page.members.organization(i["organization"])
-            page.members.position(i["position"])
-            page.members.department(i["department"])
-            page.members.phone(i["phone"])
-            page.members.email(i["email"])
-            page.members.personal_file_number(i["personalFileNumber"])
+            page.members.role(member["role"])
+            page.members.full_name(member["fullName"])
+            page.members.is_independent_expert(member["isIndependentExpert"])
+            page.members.organization(member["organization"])
+            page.members.position(member["position"])
+            page.members.department(member["department"])
+            page.members.phone(member["phone"])
+            page.members.email(member["email"])
+            page.members.personal_file_number(member["personalFileNumber"])
             page.members.click_by_text("Сохранить")
-        for i in data["sessions"]:
+        for session in data["sessions"]:
             page.sessions.click_by_text("Добавить", 2)
             page.sessions.scroll_to_top()
-            page.sessions.meeting_time(i["meeting_time"])
-            page.sessions.place(i["place"])
+            page.sessions.meeting_time(session["meeting_time"])
+            page.sessions.place(session["place"])
             page.sessions.meeting_date(today())
             page.sessions.click_by_text("Сохранить")
             page.sessions.questions_amount()
-            for j in i["questions"]:
+            for question in session["questions"]:
                 page.sessions.click_by_text("Добавить")
-                page.sessions.content(j["content"])
-                page.sessions.reporter(j["reporter"])
+                page.sessions.content(question["content"])
+                page.sessions.reporter(question["reporter"])
                 page.sessions.click_by_text("Сохранить")
                 page.sessions.table_row_checkbox()
                 page.sessions.click_by_text("Вынести решение")
-                page.sessions.decision(j["decision"])
-                page.sessions.decision_reason(j["decisionReason"])
+                page.sessions.decision(question["decision"])
+                page.sessions.decision_reason(question["decisionReason"])
                 page.sessions.click_by_text("Сохранить")
                 page.sessions.click_by_text("Назад")
         page.click_by_text("Назад")
@@ -698,20 +679,19 @@ class TestSuite:
         page.click_by_text("Да")
         page.wait_for_text_appear("Операция успешно выполнена")
         self.go_to(Links.independent_experts)
-        assert page.wait_for_text_appear("Карпов Сергей Иванович")
+        assert page.wait_for_text_appear(data["members"][0]["fullName"])
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
     def test_salary_payments(self, user):
         """
         Формирование кадрового состава - Денежное содержание
         """
-        employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
-        data = employee["salaryPayment"]
+        data = get_data_by_value(self.data, "employees", "lastName", user)["salaryPayment"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = SalaryPaymentsPage(self.driver)
         self.go_to(Links.personal_files)
-        page.search(employee["lastName"])
+        page.search(user)
         page.click_by_text(user)
         page.click_by_text("Денежное содержание")
         page.click_by_text("Добавить")
@@ -733,11 +713,7 @@ class TestSuite:
         page.date_from(data["dateFrom"])
         page.click_by_text("Сохранить")
         self.go_to(Links.salary_payments)
-        OrdersPage(self.driver).submit(user,
-                                       data["orderNumber"],
-                                       data["orderDate"],
-                                       data["orderBy"],
-                                       data["orderByPosition"])
+        OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.personal_files)
         page.search(user)
         page.click_by_text(user)
@@ -749,11 +725,10 @@ class TestSuite:
         """
         Формирование кадрового состава - Увольнение с гражданской службы, расторжение контракта
         """
-        department = get_data_by_number(load_data("testData"), "departments")
-        employee = get_data_by_value(load_data("testData"), "employees", "lastName", user)
-        dismissal = employee["dismissal"]
+        department = get_data_by_number(self.data, "departments")
+        data = get_data_by_value(self.data, "employees", "lastName", user)["dismissal"]
 
-        LoginPage(self.driver).login(self.hr["username"], self.hr["password"], self.hr["full_name"])
+        LoginPage(self.driver).login(data=self.hr)
         page = PersonalFileDismissalPage(self.driver)
         self.go_to(Links.personal_files)
         page.search(user)
@@ -762,15 +737,11 @@ class TestSuite:
         page.check()
         page.click_by_text("Освободить")
         page = DismissalPage(self.driver)
-        page.date(dismissal["date"])
-        page.reason(dismissal["reason"])
+        page.date(data["date"])
+        page.reason(data["reason"])
         page.click_by_text("Сохранить")
         self.go_to(Links.dismissal)
-        OrdersPage(self.driver).submit(user,
-                                       dismissal["order"],
-                                       dismissal["date"],
-                                       dismissal["fullName"],
-                                       dismissal["position"])
+        OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.staff_structure)
         page = StructureDetailsPage(self.driver)
         page.click_by_text(department["name"])
@@ -781,7 +752,9 @@ class TestSuite:
         """
         Справочники и классификаторы - Организации
         """
-        LoginPage(self.driver).login("1", "123123/", "А. П. Ф")
+        data = get_data_by_number(self.data, "organizations")
+
+        LoginPage(self.driver).login(data=self.admin)
 
         page = OrganizationsPage(self.driver)
         page.click_by_text("Справочники и классификаторы")
@@ -792,85 +765,87 @@ class TestSuite:
         page.click_by_text("Отмена")
         page.click_by_text("Добавить организацию")
 
-        page.new.code("133")
-        page.new.name("Специалисты - Федеральная таможенная служба")
-        page.new.name_genitive("Специалистов - Федеральной таможенной службы")
-        page.new.name_dative("Специалистам - Федеральной таможенной службе")
-        page.new.name_accusative("Специалиста - Федеральную таможенную службу")
-        page.new.short_name("Специалисты - Федеральная таможенная служба")
-        page.new.source_type("Городской округ")
-        page.new.region("Алтайский край")
-        page.new.area("Алтайский район")
-        page.new.profile("Текстильное производство")
-        page.new.code_okogu("Президент Российской Федерации")
-        page.new.code_okpo("12")
-        page.new.limit("100")
-        page.new.positions_registry("Реестр должностей муниципальной службы")
-        page.new.site("www.specialist.fts.ru")
-        page.new.contacts("8 (495) 111-11-11")
-        page.new.participate_in_rotation(True)
-        page.new.is_expired(True)
-        page.new.for_public_open_part(True)
-        page.new.creation_order_number(today())
-        page.new.creation_order_date(today())
-        page.new.creation_date(today())
+        page.new.code(data["code"])
+        page.new.name(data["name"])
+        page.new.name_genitive(data["nameGenitive"])
+        page.new.name_dative(data["nameDative"])
+        page.new.name_accusative(data["nameAccusative"])
+        page.new.short_name(data["shortName"])
+        page.new.source_type(data["sourceType"])
+        page.new.region(data["region"])
+        page.new.area(data["area"])
+        page.new.profile(data["profile"])
+        page.new.code_okogu(data["codeOKOGU"])
+        page.new.code_okpo(data["codeOKPO"])
+        page.new.limit(data["limit"])
+        page.new.positions_registry(data["positionsRegistry"])
+        page.new.site(data["site"])
+        page.new.contacts(data["contacts"])
+        page.new.participate_in_rotation(data["participateInRotation"])
+        page.new.is_expired(data["isExpired"])
+        page.new.for_public_open_part(data["forPublicOpenPart"])
+        page.new.creation_order_number(data["creationOrderNumber"])
+        page.new.creation_order_date(data["creationOrderDate"])
+        page.new.creation_date(data["creationDate"])
         page.new.click_by_text("Сохранить")
 
         page.filter.status("Проект")
-        page.filter.name("Специалисты - Федеральная таможенная служба")
+        page.filter.name(data["name"])
         page.filter.click_by_text("Поиск")
         page.edit.open()
         page.click_by_text("Ввести в действие")
         page.scroll_to_top()
 
         page.edit.click_by_text("Направления деятельности и функции")
-        page.edit.activity.click_by_text("Добавить")
-        page.edit.activity.direction("Работа с обращениями граждан")
-        page.edit.activity.click_by_text("Сохранить")
+        for direction in data["directions"]:
+            page.edit.activity.click_by_text("Добавить")
+            page.edit.activity.direction(direction["type"])
+            page.edit.activity.click_by_text("Сохранить")
 
         page.edit.click_by_text("Должности")
-        page.edit.positions.click_by_text("Добавить")
-        page.edit.positions.filter("Должности")
-        page.edit.positions.position("Специалист")
-        page.edit.positions.holiday_for_irregular_day("11")
-        page.edit.positions.code("123")
-        page.edit.positions.name("Специалист")
-        page.edit.positions.short_name("Спец")
-        page.edit.positions.name_genitive("Специалиста")
-        page.edit.positions.name_dative("Специалисту")
-        page.edit.positions.name_accusative("Специалиста")
-        page.edit.positions.name_instrumental("Специалистом")
-        page.edit.positions.can_be_rotated(True)
-        page.edit.positions.submit_information_on_the_income(True)
-        page.edit.positions.click_by_text("Сохранить")
+        for position in data["positions"]:
+            page.edit.positions.click_by_text("Добавить")
+            page.edit.positions.filter(position["filter"])
+            page.edit.positions.position(position["position"])
+            page.edit.positions.holiday_for_irregular_day(position["holidayForIrregularDay"])
+            page.edit.positions.code(position["code"])
+            page.edit.positions.name(position["name"])
+            page.edit.positions.short_name(position["shortName"])
+            page.edit.positions.name_genitive(position["nameGenitive"])
+            page.edit.positions.name_dative(position["nameDative"])
+            page.edit.positions.name_accusative(position["nameAccusative"])
+            page.edit.positions.name_instrumental(position["nameInstrumental"])
+            page.edit.positions.can_be_rotated(position["canBeRotated"])
+            page.edit.positions.submit_information_on_the_income(position["submitInformation"])
+            page.edit.positions.click_by_text("Сохранить")
 
         page.edit.click_by_text("Курирующий государственный орган")
-        page.edit.curator.applications("Руководство")
+        page.edit.curator.applications(data["curator"])
         page.edit.curator.click_by_text("Сохранить")
 
         page.edit.click_by_text("Шаблон вакансии")
-        page.edit.template.region("Алтайский край")
-        page.edit.template.area("Алейский район")
-        page.edit.template.business_trips("Нет")
-        # page.edit.template.working_days("Нормированный")
-        page.edit.template.working_schedule("Сутки через 3-ое")
-        # page.edit.template.type("Бессрочный")
-        page.edit.template.location("Москва")
-        page.edit.template.time("11:00")
-        page.edit.template.post_index("")
-        page.edit.template.web_site("http://www.site.com")
+        page.edit.template.region(data["templateRegion"])
+        page.edit.template.area(data["templateArea"])
+        page.edit.template.business_trips(data["templateBusinessTrips"])
+        page.edit.template.working_days(data["templateWorkingDays"])
+        page.edit.template.working_schedule(data["templateWorkingSchedule"])
+        page.edit.template.type(data["templateType"])
+        page.edit.template.location(data["templateLocation"])
+        page.edit.template.time(data["templateTime"])
+        page.edit.template.post_index(data["templatePostIndex"])
+        page.edit.template.web_site(data["templateWebSite"])
         page.edit.template.click_by_text("Сохранить")
         page.edit.template.wait_for_text_appear("Данные успешно сохранены")
 
         page.edit.click_by_text("К списку справочников")
         page.click_by_text("Организации")
         page.filter.status("Действующий")
-        page.filter.name("Специалисты - Федеральная таможенная служба")
+        page.filter.name(data["name"])
         page.filter.click_by_text("Поиск")
         page.edit.open()
-        page.edit.attributes.abolition_order_number("321")
-        page.edit.attributes.abolition_order_date(today())
-        page.edit.attributes.abolition_date(today())
+        page.edit.attributes.abolition_order_number(data["abolitionOrderNumber"])
+        page.edit.attributes.abolition_order_date(data["abolitionOrderDate"])
+        page.edit.attributes.abolition_date(data["abolitionDate"])
         page.edit.attributes.click_by_text("Упразднить")
         page.edit.attributes.click_by_text("Сохранить")
 
@@ -878,7 +853,7 @@ class TestSuite:
         """
         Управление пользователями
         """
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
+        LoginPage(self.driver).login(data=self.admin)
 
         page = MainPage(self.driver)
         page.click_by_text("Управление пользователями")
@@ -901,11 +876,13 @@ class TestSuite:
         """
         Управление ролями
         """
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
+        data = get_data_by_value(self.data, "roles")
+
+        LoginPage(self.driver).login(data=self.admin)
 
         page = RolesManagementPage(self.driver, 3)
         page.click_by_text("Управление ролями")
-        page.search("Тестовая роль")
+        page.search(data["name"])
         while True:
             try:
                 page.table_row_radio()
@@ -914,16 +891,18 @@ class TestSuite:
             except (ec.NoSuchElementException, TimeoutException):
                 break
         page.click_by_text("Добавить")
-        page.name("Тестовая роль")
-        page.level("Высокий")
+        page.name(data["name"])
+        page.is_require_organization(data["isRequireOrganization"])
+        page.level(data["level"])
+        page.roles(data["roles"])
         page.click_by_text("Сохранить")
-        page.search("Тестовая роль")
+        page.search(data["name"])
 
     def test_rules_list(self):
         """
         Список прав
         """
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
+        LoginPage(self.driver).login(data=self.admin)
 
         page = MainPage(self.driver)
         page.click_by_text("Список прав")
