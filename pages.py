@@ -545,6 +545,7 @@ class OrdersPage(parent):
         self.click_by_text("Применить")
         self.table_row_checkbox()
         self.click_by_text("Включить в приказ")
+        sleep(5)
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[3]"), position, "Должность подписанта")
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[2]"), by, "ФИО подписанта")
         self.set_date((By.XPATH, "(//input[@type='text'])[2]"), date, "Дата приказа")
@@ -618,6 +619,7 @@ class AwardsPage(parent):
         def submit(self):
             self.click(AwardsLocators.Awards.submit, "Сохранить")
             self.wait_for_element_disappear(AwardsLocators.Awards.submit)
+            sleep(1)
 
     class StateAwards(parent):
 
@@ -746,7 +748,10 @@ class EnforcementPage(parent):
 class DispensaryPlanningPage(parent):
 
     def table_select_user(self, value):
+        sleep(1)
         self.set_checkbox((By.XPATH, "//tr[contains(., '%s')]//input" % value), True, "Выбор сотрудника")
+        sleep(1)
+        self.scroll_to_top()
 
     def date_from(self, value):
         self.set_text(DispensaryPlanningLocators.date_from, value, "Дата начала")
@@ -1392,7 +1397,7 @@ class DocumentsPage(parent):
                 self.set_select2(DocumentsLocators.Education.Egc.egc_academic_degree, value, "Ученая степень")
 
             def academic_degree_date(self, value):
-                self.set_date_enter(
+                self.set_date(
                     DocumentsLocators.Education.Egc.egc_academic_degree_date, value, "Дата присвоения ученой степени")
 
             def knowledge_branches(self, value):
@@ -1402,7 +1407,7 @@ class DocumentsPage(parent):
                 self.set_text(DocumentsLocators.Education.Egc.egc_diplom_number, value, "Номер диплома")
 
             def diplom_date(self, value):
-                self.set_date_enter(DocumentsLocators.Education.Egc.egc_diplom_date, value, "Дата выдачи диплома")
+                self.set_date(DocumentsLocators.Education.Egc.egc_diplom_date, value, "Дата выдачи диплома")
 
         class Degree(parent):
             def academic_statuses(self, value):
@@ -1412,7 +1417,7 @@ class DocumentsPage(parent):
                 self.set_text(DocumentsLocators.Education.Degree.diplom_number, value, "Номер аттестата")
 
             def assigment_date(self, value):
-                self.set_date_enter(
+                self.set_date(
                     DocumentsLocators.Education.Degree.assigment_date, value, "Дата присвоения ученого звания")
 
         class Languages(parent):
@@ -1459,7 +1464,7 @@ class DocumentsPage(parent):
                     DocumentsLocators.Education.Dpo.document_number, value, "Документ о ДПО (наименование, номер)")
 
             def document_date(self, value):
-                self.set_date_enter(DocumentsLocators.Education.Dpo.document_date, value, "Дата документа о ДПО")
+                self.set_date(DocumentsLocators.Education.Dpo.document_date, value, "Дата документа о ДПО")
 
             def funding_sources(self, value):
                 self.set_select2(DocumentsLocators.Education.Dpo.funding_sources, value, "Источник финансирования")
@@ -1494,7 +1499,7 @@ class DocumentsPage(parent):
             self.set_select2(DocumentsLocators.LaborActivity.profile, value, "Профиль деятельности организации")
 
         def is_elective(self, value):
-            self.move_to_element(self.find((By.XPATH, "//button[.='Сохранить']")))
+            self.move_to_element(self.wait_for_element_appear((By.XPATH, "//button[.='Сохранить']")))
             self.set_checkbox(DocumentsLocators.LaborActivity.is_elective, value, "Выборная должность")
 
         def post_level(self, value):
@@ -1519,7 +1524,7 @@ class DocumentsPage(parent):
             self.set_text(DocumentsLocators.ClassRank.class_rank, value, "Классный чин")
 
         def assigned_date(self, value):
-            self.set_date_enter(DocumentsLocators.ClassRank.assigned_date, value, "Когда присвоен")
+            self.set_date(DocumentsLocators.ClassRank.assigned_date, value, "Когда присвоен")
 
         def assigned_by(self, value):
             self.set_text(DocumentsLocators.ClassRank.assigned_by, value, "Кем присвоен")
@@ -1574,7 +1579,7 @@ class DocumentsPage(parent):
             self.set_text(DocumentsLocators.StateSecret.approval_number, value, "Номер допуска")
 
         def issue_date(self, value):
-            self.set_date_enter(DocumentsLocators.StateSecret.issue_date, value, "Дата")
+            self.set_date(DocumentsLocators.StateSecret.issue_date, value, "Дата")
 
     class Military(parent):
 
@@ -1589,10 +1594,10 @@ class DocumentsPage(parent):
                 DocumentsLocators.Military.has_service, value, "Проходили ли срочную военную службу?")
 
         def service_from(self, value):
-            self.set_date_tab(DocumentsLocators.Military.service_from, value, "Начало службы")
+            self.set_date(DocumentsLocators.Military.service_from, value, "Начало службы")
 
         def service_to(self, value):
-            self.set_date_enter(DocumentsLocators.Military.service_to, value, "Род войск")
+            self.set_date(DocumentsLocators.Military.service_to, value, "Род войск")
 
         def arm_kind(self, value):
             self.set_text(DocumentsLocators.Military.arm_kind, value, "Окончание службы")
@@ -1637,7 +1642,7 @@ class DocumentsPage(parent):
             self.set_text(DocumentsLocators.Kin.living_address, value, "Домашний адрес")
 
         def birth_date(self, value):
-            self.set_date_enter(DocumentsLocators.Kin.birth_date, value, "Дата рождения")
+            self.set_date(DocumentsLocators.Kin.birth_date, value, "Дата рождения")
 
 
 class ProfilePage(parent):
@@ -1652,7 +1657,7 @@ class ProfilePage(parent):
         self.set_text(ProfileLocators.middlename, value, "Отчество")
 
     def birth_date(self, value):
-        self.set_date_tab(ProfileLocators.birthdate, value, "Дата рождения")
+        self.set_date(ProfileLocators.birthdate, value, "Дата рождения")
 
     def insurance_certificate_number(self, value):
         self.set_text(ProfileLocators.insurance_certificate_number, value, "СНИЛС")
@@ -1779,7 +1784,7 @@ class OrganizationsPage(parent):
             self.set_date(OrganizationsLocators.New.creation_order_date, value, "Дата документа")
 
         def creation_date(self, value):
-            self.set_date_tab(OrganizationsLocators.New.creation_date, value, "Ввести в действие с")
+            self.set_date(OrganizationsLocators.New.creation_date, value, "Ввести в действие с")
 
     class Edit(parent):
 
@@ -1879,17 +1884,17 @@ class OrganizationsPage(parent):
                 self.set_date(OrganizationsLocators.Edit.Attributes.creation_order_date, value, "Дата документа")
 
             def creation_date(self, value):
-                self.set_date_tab(OrganizationsLocators.Edit.Attributes.creation_date, value, "Ввести в действие с")
+                self.set_date(OrganizationsLocators.Edit.Attributes.creation_date, value, "Ввести в действие с")
 
             def abolition_order_number(self, value):
-                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_number,
+                self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_number,
                                   value, "Номер документа")
 
             def abolition_order_date(self, value):
-                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
+                self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
 
             def abolition_date(self, value):
-                self.set_date_tab(OrganizationsLocators.Edit.Attributes.abolition_date, value, "Упразднить с")
+                self.set_date(OrganizationsLocators.Edit.Attributes.abolition_date, value, "Упразднить с")
 
         class Activity(parent):
 

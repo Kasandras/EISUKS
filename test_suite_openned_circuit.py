@@ -30,7 +30,7 @@ class TestSuite:
         same_news.find_element(By.XPATH, ".//a").click()
         p.click_by_text("Новости")
         p.set_date((By.ID, "newsFrom"), "30.07.2015")
-        p.set_date_tab((By.ID, "newsTo"), "30.07.2016")
+        p.set_date((By.ID, "newsTo"), "30.07.2016")
         sleep(1)
         p.click_by_text("Поиск")
 

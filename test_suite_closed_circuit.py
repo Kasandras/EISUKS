@@ -128,7 +128,6 @@ class TestSuite:
         page.launch_date(data["date"])
         page.click_by_text("Ввести в действие")
         self.go_to(Links.staff_structure)
-        sleep(30)
         page = StructureDetailsPage(self.driver)
         page.click_by_text(data["name"])
         page.click_by_text("Показать все")
@@ -390,11 +389,12 @@ class TestSuite:
         page.dispensary_date(data["dispensaryDate"])
         page.reference_date(data["referenceDate"])
         page.reference_number(data["referenceNumberFix"])
-        page.is_healthy(data["isHealthy"])
+        page.is_healthy(False)
         page.click_by_text("Сохранить")
         page.click_by_text("Назад")
 
         page.table_row_checkbox()
+        page.scroll_to_top()
         page.click_by_text("Формирование приказа об увольнении")
         self.driver.back()
         page.click_by_text("Назад")
@@ -487,6 +487,7 @@ class TestSuite:
         page.awards.should_be(data["awardsShouldBe"])
         page.awards.submit()
 
+        page.scroll_to_top()
         page.click_by_text("Добавить", 2)
         page.state_awards.type(data["stateAwardsType"])
         page.state_awards.name(data["stateAwardsName"])
@@ -500,6 +501,7 @@ class TestSuite:
         page.state_awards.note(data["stateAwardsNote"])
         page.state_awards.submit()
 
+        page.scroll_to_top()
         page.click_by_text("Добавить", 3)
         page.department_awards.type(data["departmentAwardsType"])
         page.department_awards.name(data["departmentAwardsName"])
@@ -517,7 +519,6 @@ class TestSuite:
         page.click_by_text("Все")
         page.click_by_text(user)
         page.click_by_text("Награды и поощрения")
-        sleep(10)
     # end
 
     def tes1t_contest_replacement(self):
@@ -736,6 +737,7 @@ class TestSuite:
         page.click_by_text("Сведения о назначении и освобождении от должности")
         page.check()
         page.click_by_text("Освободить")
+        page.scroll_to_top()
         page = DismissalPage(self.driver)
         page.date(data["date"])
         page.reason(data["reason"])
@@ -857,12 +859,12 @@ class TestSuite:
 
         page = MainPage(self.driver)
         page.click_by_text("Управление пользователями")
-        page.search("45554@3334.ru")
+        page.search("Иван")
         page.table_row_checkbox()
         page.click_by_text("Управление ролями")
         page.click_by_value("Добавить")
         page.set_checkbox((By.XPATH, "//li[contains(., 'Кадровая служба')]//input"), True, "Кадрова служба")
-        page.set_text((By.XPATH, "//input[@type='text']"), "Росгосотчетность", "Организация")
+        page.set_text((By.XPATH, "//input[@type='text']"), "Федеральная таможенная служба", "Организация")
         page.click((By.XPATH, "//div[@role='option']"))
         page.click_by_value("Далее")
         page.wait_for_text_appear("Кадровая служба")
@@ -870,19 +872,18 @@ class TestSuite:
         page.set_checkbox_by_order(3)
         page.set_checkbox_by_order(4)
         page.click_by_value("Далее")
-        assert "Кадровая служба" not in self.driver.page_source
 
     def test_roles_management(self):
         """
         Управление ролями
         """
-        data = get_data_by_value(self.data, "roles")
+        data = get_data_by_number(self.data, "roles")
 
         LoginPage(self.driver).login(data=self.admin)
 
         page = RolesManagementPage(self.driver, 3)
         page.click_by_text("Управление ролями")
-        page.search(data["name"])
+        page.search(data["name"]+Keys.RETURN)
         while True:
             try:
                 page.table_row_radio()
