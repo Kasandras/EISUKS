@@ -1,7 +1,5 @@
 from pages import *
 from setup import *
-import pytest
-
 
 class TestSuite:
     """
@@ -15,22 +13,21 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
+        cls.account = get_data_by_number(load_data("drozdovData")["users"], "accounts", 2)
 
     @classmethod
     def teardown_class(cls):
         """What happens AFTER tests"""
         cls.driver.quit()
 
-    @pytest.mark.parametrize("user_name", ["ahabanovaal@gmail.com"])
-    def test_profile(self, user_name):
+    def test_profile(self):
         """
         Профиль (тестирование раздела "Профиль")
         """
         page = ProfilePage(self.driver)
-        user = get_data_by_value(load_data("drozdovData")["users"], "accounts", "username", user_name)
         profile = get_data_by_value(load_data("drozdovData")["members"], "profiles", "lastName", "Шабанова")
 
-        LoginPage(self.driver).login(user["username"], user["password"], user["full_name"])
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
         page.click_by_text("Профиль", 2)
         page.click_by_text("Редактировать")
         page.upload_photo(profile["upload_photo"])

@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 import datetime
+import os
 
 
 def today():
@@ -164,6 +165,7 @@ class Browser(object):
             option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
             li = self.wait_for_element_appear(option)
             li.click()
+            sleep(0.5)
             self.wait_for_element_disappear((By.ID, "select2-drop"))
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
@@ -201,21 +203,30 @@ class Browser(object):
         self.set_radio(locator)
         sleep(1)
 
-    def upload_file(self, value):
+    def upload_file(self, value, order=1):
         self.wait_for_loading()
         # открываем страницу с формой загрузки файла
-        element = self.driver.find_element(By.XPATH, "//input[@type='file']")
+        element = self.driver.find_element(By.XPATH, "(//input[@type='file'])[%s]" % order)
         element.clear()
-        element.send_keys(value)
+        element.send_keys("%s/%s" % (os.getcwd(), value))
         WebDriverWait(self.driver, 60).until(
             ec.visibility_of_element_located((By.XPATH, "//li[@class=' qq-upload-success']")))
+
+    def upload_file_alt(self, value, order=1, order_list=1):
+        self.wait_for_loading()
+        # открываем страницу с формой загрузки файла
+        element = self.driver.find_element(By.XPATH, "(//input[@type='file'])[%s]" % order)
+        element.clear()
+        element.send_keys("%s/%s" % (os.getcwd(), value))
+        WebDriverWait(self.driver, 60).until(
+            ec.visibility_of_element_located((By.XPATH, "(//ul[@class='qq-upload-list'])[%s]" % order_list)))
 
     def upload_photo(self, value):
         self.wait_for_loading()
         # открываем страницу с формой загрузки файла
         element = self.driver.find_element(By.XPATH, "//input[@type='file']")
         element.clear()
-        element.send_keys(value)
+        element.send_keys("%s/%s" % (os.getcwd(), value))
 
     def wait_for_text_appear(self, text):
         return WebDriverWait(self.driver, self.timeout).until(
