@@ -45,3 +45,4 @@ class Links(object):
     profile = main_page + "Member/Profile#/view"
     reserve_view_federal = main_page + "Reserve/View#/federal"
     permission_read_resume = main_page + "Admin/Role#/permissions/00000000-0000-0002-ffff-ffffffffffff/permission/d1eb4a97-a6fc-4f12-89fe-21d472926148"
+    manage_reserve_bases = main_page + "Classifier/Classifier#/reservebases/list"

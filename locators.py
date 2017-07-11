@@ -807,3 +807,9 @@ class ReserveViewFederalLocators(object):
     level_reserve = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
     resume = (By.XPATH, "//a[@class='custom-icon-doc']")
     presentation = (By.XPATH, "//span[@class='custom-icon-doc']")
+
+
+class ManageReserveBasesLocators(object):
+    code = (By.XPATH, "//input[@name='code']")
+    name = (By.XPATH, "//input[@name='name']")
+    edit = (By.XPATH, "//a[@ng-click='edit(base.id)']")

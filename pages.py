@@ -2538,3 +2538,15 @@ class ReserveViewFederal(parent):
         assert text in self.driver.page_source
         self.driver.close()
         self.driver.switch_to_window(self.driver.window_handles[0])
+
+
+class ManageReserveBasesPage(parent):
+
+    def code(self, value):
+        self.set_text(ManageReserveBasesLocators.code, value, "Code")
+
+    def name(self, value):
+        self.set_text(ManageReserveBasesLocators.name, value, "Name")
+
+    def edit(self):
+        self.click(ManageReserveBasesLocators.edit, "Edit")

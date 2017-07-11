@@ -766,6 +766,12 @@
       "participant": "Вакуров Семён Павлович"
     }
   ],
+  "manage_reserve_bases":[
+    {
+      "code":"59",
+      "name":"База Федерального резерва 2016"
+    }
+  ],
   "members": [
     {
     "profiles":[
