@@ -686,7 +686,7 @@ class VacancyCreateLocators(object):
     registration_time = (By.XPATH, "//input[@name='registrationTime']")
     # document_type = (By.XPATH, "//div[contains(@id, 's2id')]")
     description = (By.XPATH, "//input[@name='description']")
-    sel = (By.XPATH, "(//input[@name='sel'])[2]")
+    sel = (By.XPATH, "(//input[@name='sel'])[3]")
     delete = (By.XPATH, "//*[self::a or self::button][@data-ng-click='removeVacancyDocument()']")
     # organization_address = (By.XPATH, "//div[contains(@id, 's2id')]")
     address_mail = (By.XPATH, "//input[@name='addressMail']")

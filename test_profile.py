@@ -1,6 +1,7 @@
 from pages import *
 from setup import *
 
+
 class TestSuite:
     """
     Тест по сценарию "Профиль".
@@ -13,7 +14,8 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("drozdovData")["users"], "accounts", 2)
+        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["members"]
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 4)
 
     @classmethod
     def teardown_class(cls):
@@ -25,26 +27,26 @@ class TestSuite:
         Профиль (тестирование раздела "Профиль")
         """
         page = ProfilePage(self.driver)
-        profile = get_data_by_value(load_data("drozdovData")["members"], "profiles", "lastName", "Шабанова")
+        data = get_data_by_value(self.data, "profiles", "upload_photo", "photo_female.jpg")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page.click_by_text("Профиль", 2)
         page.click_by_text("Редактировать")
-        page.upload_photo(profile["upload_photo"])
-        page.last_name(profile["lastName"])
-        page.first_name(profile["firstName"])
-        page.middle_name(profile["middleName"])
-        page.birth_date(profile["birthDate"])
-        page.insurance_certificate_number(profile["insurance_certificate_number"])
-        page.individual_taxpayer_number(profile["individual_taxpayer_number"])
-        page.email(profile["email"])
-        page.passport_info(profile['passport_info'])
-        page.registration_address(profile["registration_address"])
-        page.actual_address(profile["actual_address"])
+        page.upload_photo(data["upload_photo"])
+        page.last_name(data["lastName"])
+        page.first_name(data["firstName"])
+        page.middle_name(data["middleName"])
+        page.birth_date(data["birthDate"])
+        page.insurance_certificate_number(data["insurance_certificate_number"])
+        page.individual_taxpayer_number(data["individual_taxpayer_number"])
+        page.email(data["email"])
+        page.passport_info(data['passport_info'])
+        page.registration_address(data["registration_address"])
+        page.actual_address(data["actual_address"])
         page.click_by_text("Сохранить")
         page.click_by_text("Изменить пароль")
-        page.old_password(profile["old_password"])
-        page.password(profile["password"])
-        page.password_confirm(profile["password_confirm"])
+        page.old_password(data["old_password"])
+        page.password(data["password"])
+        page.password_confirm(data["password_confirm"])
         page.change()
         assert "Пароль изменен" in self.driver.page_source

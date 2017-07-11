@@ -16,6 +16,7 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -23,8 +24,8 @@ class TestSuite:
         cls.driver.quit()
 
     def test_search_vacancy(self):
-        LoginPage(self.driver).login("1", "123123/")
-        search_vacancy = SearchVacancyPage(self.driver)
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        search_vacancy = VacancySearchPage(self.driver)
         search_vacancy.click_by_text("Поиск вакансий")
         search_vacancy.click_by_text("Фильтр")
         search_vacancy.click_by_text("Очистить")

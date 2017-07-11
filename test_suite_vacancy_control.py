@@ -10,15 +10,15 @@ class TestSuite:
     принятие и отклонение приглашений, поиск результатов)
     """
 
-    driver = webdriver.Chrome("chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("drozdovData")["users"], "accounts")
-        cls.user = get_data_by_value(load_data("drozdovData")["users"], "accounts", "username", "l&m")
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
+        cls.user = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 2)
 
     @classmethod
     def teardown_class(cls):
@@ -27,7 +27,7 @@ class TestSuite:
 
     def test_vacancy_control_invite(self):
         page = VacancyControlPage(self.driver)
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["full_name"])
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page.click_by_text("Формирование кадрового состава")
         page.click_by_text("Проведение конкурса на замещение вакантной должности")
         page.scroll_to_top()
@@ -52,7 +52,7 @@ class TestSuite:
 
     def test_vacancy_control_statuses(self):
         page = VacancyControlPage(self.driver)
-        LoginPage(self.driver).login(self.user["username"], self.user["password"], self.user["full_name"])
+        LoginPage(self.driver).login(self.user["username"], self.user["password"], self.user["fullName"])
         page.click_by_text("Вакансии на контроле")
         page.click_by_text("Фильтр")
         page.status_response("Направлено приглашение")

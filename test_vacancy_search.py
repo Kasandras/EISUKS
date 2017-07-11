@@ -9,14 +9,14 @@ class TestSuite:
     Описывает работу раздела "Поиск вакансий" (заполнение фильтра, выполнение поиска и открытия вакансии)
     """
 
-    driver = webdriver.Chrome("chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.admin = get_data_by_number(load_data("drozdovData")["users"], "accounts", 0)
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -26,7 +26,7 @@ class TestSuite:
     def test_vacancy_search(self):
         page = VacancySearchPage(self.driver)
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page.click_by_text("Поиск вакансий")
         page.click_by_text("Фильтр")
         page.click_by_text("Очистить")

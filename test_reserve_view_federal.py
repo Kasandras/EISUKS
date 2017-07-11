@@ -7,17 +7,17 @@ from selenium.webdriver.common.keys import Keys
 class TestSuite:
     """
     Просмотр участников федерального резерва управленческих кадров
-
     Просмотр и фильтрация по участникам резерва
     """
-    driver = webdriver.Chrome("chromedriver.exe")
+    driver = webdriver.Chrome(Settings.path_to_driver)
 
     @classmethod
     def setup_class(cls):
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.admin = get_data_by_number(load_data("drozdovData")["users"], "accounts", 0)
+        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -35,20 +35,18 @@ class TestSuite:
         Создание вакансий, которые будут использоваться в управлении объявлениями
         """
         page = ReserveViewFederal(self.driver)
-        body = self.driver.find_element_by_tag_name("body")
-        data = load_data("drozdovData")
-        reserve = data["reserve"]
+        data = get_data_by_value(self.data, "reserve", "view", "")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["full_name"])
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         self.go_to(Links.permission_read_resume)
         page.permission_read_resume(True)
         page.wait_for_text_appear("Данные успешно сохранены")
         self.go_to(Links.reserve_view_federal)
         page.click_by_text("Фильтр")
-        page.level_reserve(reserve["level_reserve"])
+        page.level_reserve(data["level_reserve"])
         page.click_by_text("Применить")
         page.wait_for_loading()
-        page.click_by_text(reserve["participant"])
+        page.click_by_text(data["participant"])
         page.resume()
         page.check_text_and_close("Рабочий телефон")
         page.presentation()
