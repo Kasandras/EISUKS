@@ -768,34 +768,29 @@
   ],
   "manage_reserve_bases":[
     {
-      "code":"59",
-      "name":"База Федерального резерва 2016"
+      "code":"60",
+      "name":"База Федерального резерва 2017"
     }
   ],
   "members": [
     {
-    "profiles":[
-      {
-        "upload_photo":"photo_female.jpg",
-        "lastName":"Шабанова",
-        "firstName":"Анна",
-        "middleName":"Леонидовна",
-        "birthDate":"18061988",
-        "insurance_certificate_number":"00102456767",
-        "individual_taxpayer_number":"6449013711",
-        "email":"ahabanovaal@gmail.com",
-        "passport_info":"4455 625896 Выдан ОВД 'Замоскворечье' 14.09.2006",
-        "registration_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
-        "actual_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
-        "old_password":"123123/",
-        "password":"123123/",
-        "password_confirm":"123123/"
+      "upload_photo":"photo_female.jpg",
+      "lastName":"Шабанова",
+      "firstName":"Анна",
+      "middleName":"Леонидовна",
+      "birthDate":"18061988",
+      "insurance_certificate_number":"00102456767",
+      "individual_taxpayer_number":"6449013711",
+      "email":"ahabanovaal@gmail.com",
+      "passport_info":"4455 625896 Выдан ОВД 'Замоскворечье' 14.09.2006",
+      "registration_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
+      "actual_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
+      "old_password":"123123/",
+      "password":"123123/",
+      "password_confirm":"123123/"
       }
-    ]
-    }
   ],
-  "application_form": [
-    {
+  "application_form": {
     "documents": [
       {
         "name_document": "Анкета регионального резерва",
@@ -990,8 +985,7 @@
         "birth_date": "15062009"
       }
     ]
-    }
-  ],
+  },
   "manage_vacancy": [
     {
     "project": "Проект",

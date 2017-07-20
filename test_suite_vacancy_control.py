@@ -17,8 +17,8 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
-        cls.user = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 2)
+        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
+        cls.user = get_data_by_number(load_data("gossluzhba1"), "accounts", 2)
 
     @classmethod
     def teardown_class(cls):
@@ -35,6 +35,9 @@ class TestSuite:
         page.table_select_row(1, "Выбор первой вакансии")
         page.scroll_to_top()
         page.click_by_text("Добавить кандидата")
+        page.click_by_text("Фильтр")
+        page.key_word("Лобода")
+        page.click_by_text("Применить")
         page.table_select_row(1, "Выбор первого кандидата")
         page.scroll_to_top()
         page.click_by_text("Направить приглашение")
@@ -45,6 +48,9 @@ class TestSuite:
         page.click_by_text("Закрыть")
         page.table_select_row(2, "Выбор второй вакансии")
         page.click_by_text("Добавить кандидата")
+        page.click_by_text("Фильтр")
+        page.key_word("Лобода")
+        page.click_by_text("Применить")
         page.table_select_row(1, "Выбор кандидата")
         page.scroll_to_top()
         page.click_by_text("Направить приглашение")

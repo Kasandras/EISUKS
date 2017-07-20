@@ -373,6 +373,7 @@ class VacancySearchLocators(object):
 
 class VacancyControlLocators(object):
     status_response = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+    key_word = (By.XPATH, "(//input[@type='text'])[1]")
 
 
 class DocumentsLocators:
@@ -812,7 +813,8 @@ class ReserveViewFederalLocators(object):
 class ManageReserveBasesLocators(object):
     code = (By.XPATH, "//input[@name='code']")
     name = (By.XPATH, "//input[@name='name']")
-    edit = (By.XPATH, "//a[@ng-click='edit(base.id)']")
+    edit = (By.XPATH, "(//a[@ng-click='edit(base.id)'])[1]")
+    delete = (By.XPATH, "(//a[@ng-click='del(base)'])[1]")
 
 
 class CertificatePlanningLocators(object):

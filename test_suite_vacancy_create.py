@@ -14,7 +14,7 @@ class TestSuite:
     def setup_class(cls):
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 3)
+        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
 
     @classmethod
     def teardown_class(cls):
@@ -28,7 +28,7 @@ class TestSuite:
 
     @pytest.mark.parametrize("order", [1, 2, 3, 4, 5, 6])
     def test_vacancy_create(self, order):
-        data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["advertisements"][order]
+        data = load_data("gossluzhba1")["advertisements"][order]
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         self.go_to(Links.vacancy_list)

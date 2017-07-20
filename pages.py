@@ -1120,6 +1120,9 @@ class VacancyControlPage(parent):
             texts.append(i.text.split()[0])
         return str(datetime.date.today().day) in texts
 
+    def key_word(self, value):
+        self.set_text(VacancyControlLocators.key_word, value, "Ключевое слово")
+
 
 class DocumentsPage(parent):
     @property
@@ -2550,3 +2553,6 @@ class ManageReserveBasesPage(parent):
 
     def edit(self):
         self.click(ManageReserveBasesLocators.edit, "Edit")
+
+    def delete(self):
+        self.click(ManageReserveBasesLocators.delete, "Delete")

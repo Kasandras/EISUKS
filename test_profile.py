@@ -14,8 +14,8 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["members"]
-        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 4)
+        cls.data = load_data("gossluzhba1")
+        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 4)
 
     @classmethod
     def teardown_class(cls):
@@ -27,7 +27,7 @@ class TestSuite:
         Профиль (тестирование раздела "Профиль")
         """
         page = ProfilePage(self.driver)
-        data = get_data_by_value(self.data, "profiles", "upload_photo", "photo_female.jpg")
+        data = get_data_by_value(self.data, "members", "upload_photo", "photo_female.jpg")
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page.click_by_text("Профиль", 2)

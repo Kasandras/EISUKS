@@ -15,7 +15,7 @@ class TestSuite:
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")
-        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 1)
+        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -30,7 +30,7 @@ class TestSuite:
 
     def test_manage_reserve_bases(self):
         page = ManageReserveBasesPage(self.driver)
-        data = get_data_by_value(self.data, "manage_reserve_bases", "code", "59")
+        data = get_data_by_value(self.data, "manage_reserve_bases", "code", "60")
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         self.go_to(Links.manage_reserve_bases)
@@ -43,4 +43,7 @@ class TestSuite:
         page.edit()
         page.set_checkbox_by_order(1, False)
         page.click_by_text("Сохранить")
+        page.wait_for_text_appear("Статус")
         assert data["code"] in self.driver.page_source
+        page.delete()
+

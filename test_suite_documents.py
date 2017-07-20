@@ -16,8 +16,8 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["application_form"]
-        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 3)
+        cls.data = load_data("gossluzhba1")["application_form"]
+        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
 
     @classmethod
     def teardown_class(cls):
