@@ -1026,56 +1026,56 @@ class RolesManagementPage(parent):
         self.set_select2(RolesManagementLocators.roles, value, "Роли")
 
 
-class SearchVacancyPage(parent):
+class VacancySearchPage(parent):
     def type_source_vacancy(self, value):
-        self.set_select2_alt(SearchVacancyLocators.type_source_vacancy, value, "Тип источника вакансии")
+        self.set_select2_alt(VacancySearchLocators.type_source_vacancy, value, "Тип источника вакансии")
 
     def name_source_vacancy(self, value):
-        self.set_text(SearchVacancyLocators.name_source_vacancy, value, "Наименование источника вакансии")
+        self.set_text(VacancySearchLocators.name_source_vacancy, value, "Наименование источника вакансии")
 
     def name_vacant_position(self, value):
-        self.set_text(SearchVacancyLocators.name_vacant_position, value, "Наименование вакантной должности")
+        self.set_text(VacancySearchLocators.name_vacant_position, value, "Наименование вакантной должности")
 
     def type_vacancy(self, value):
-        self.set_select2_alt(SearchVacancyLocators.type_vacancy, value, "Тип вакансии")
+        self.set_select2_alt(VacancySearchLocators.type_vacancy, value, "Тип вакансии")
 
     def substitution_competition(self, value):
         self.set_select(value, 1, "Замещение по конкурсу")
 
     def profile_activity_organization(self, value):
-        self.set_select2_alt(SearchVacancyLocators.profile_activity_organization,
+        self.set_select2_alt(VacancySearchLocators.profile_activity_organization,
                              value, "Профиль деятельности организации")
 
     def field_professional_activity(self, value):
-        self.set_select2_alt(SearchVacancyLocators.field_professional_activity,
+        self.set_select2_alt(VacancySearchLocators.field_professional_activity,
                              value, "Область профессиональной деятельности")
 
     def key_word(self, value):
-        self.set_text(SearchVacancyLocators.key_word, value, "Ключевое слово")
+        self.set_text(VacancySearchLocators.key_word, value, "Ключевое слово")
 
     def category_job(self, value):
-        self.set_select2_alt(SearchVacancyLocators.category_job, value, "Категория должности")
+        self.set_select2_alt(VacancySearchLocators.category_job, value, "Категория должности")
 
     def group_job(self, value):
-        self.set_select2_alt(SearchVacancyLocators.group_job, value, "Группа должности")
+        self.set_select2_alt(VacancySearchLocators.group_job, value, "Группа должности")
 
     def subject_workplace(self, value):
-        self.set_select2(SearchVacancyLocators.subject_workplace, value, "Расположение рабочего места (субъект)")
+        self.set_select2(VacancySearchLocators.subject_workplace, value, "Расположение рабочего места (субъект)")
 
     def region_workplace(self, value):
-        self.set_select2(SearchVacancyLocators.region_workplace, value, "Расположение рабочего места (регион)")
+        self.set_select2(VacancySearchLocators.region_workplace, value, "Расположение рабочего места (регион)")
 
     def salary_from(self, value):
-        self.set_text(SearchVacancyLocators.salary_from, value, "Размер оплаты труда от")
+        self.set_text(VacancySearchLocators.salary_from, value, "Размер оплаты труда от")
 
     def salary_to(self, value):
-        self.set_text(SearchVacancyLocators.salary_to, value, "Размер оплаты труда до")
+        self.set_text(VacancySearchLocators.salary_to, value, "Размер оплаты труда до")
 
     def business_trip(self, value):
-        self.set_select2(SearchVacancyLocators.business_trip, value, "Командировки")
+        self.set_select2(VacancySearchLocators.business_trip, value, "Командировки")
 
     def work_day(self, value):
-        self.set_select2(SearchVacancyLocators.work_day, value, "Рабочий день")
+        self.set_select2(VacancySearchLocators.work_day, value, "Рабочий день")
 
     def type_service_contract(self, value):
         self.set_select(value, 2, "Тип служебного контракта (трудового договора)")
@@ -1084,33 +1084,33 @@ class SearchVacancyPage(parent):
         self.set_select(value, 3, "Нормированный рабочий день")
 
     def day_start_accept_document_from(self, value):
-        self.set_date(SearchVacancyLocators.day_start_accept_document_from, value, "Дата начала приема документов с")
+        self.set_date(VacancySearchLocators.day_start_accept_document_from, value, "Дата начала приема документов с")
 
     def day_start_accept_document_to(self, value):
-        self.set_date(SearchVacancyLocators.day_start_accept_document_to, value, "Дата начала приема документов по")
+        self.set_date(VacancySearchLocators.day_start_accept_document_to, value, "Дата начала приема документов по")
 
     def day_stop_accept_document_from(self, value):
-        self.set_date(SearchVacancyLocators.day_stop_accept_document_from, value, "Дата окончания приема документов с")
+        self.set_date(VacancySearchLocators.day_stop_accept_document_from, value, "Дата окончания приема документов с")
 
     def day_stop_accept_document_to(self, value):
-        self.set_date(SearchVacancyLocators.day_stop_accept_document_to, value, "Дата окончания приема документов по")
+        self.set_date(VacancySearchLocators.day_stop_accept_document_to, value, "Дата окончания приема документов по")
 
     def level_education(self, value):
-        self.set_select2_alt(SearchVacancyLocators.level_education, value, "Уровень образования")
+        self.set_select2_alt(VacancySearchLocators.level_education, value, "Уровень образования")
 
     def service_experience(self, value):
-        self.set_select2_alt(SearchVacancyLocators.service_experience, value, "Стаж государственной службы")
+        self.set_select2_alt(VacancySearchLocators.service_experience, value, "Стаж государственной службы")
 
     def work_experience_speciality(self, value):
-        self.set_select2_alt(SearchVacancyLocators.work_experience_speciality, value, "Опыт работы по специальности")
+        self.set_select2_alt(VacancySearchLocators.work_experience_speciality, value, "Опыт работы по специальности")
 
 
-class ControlVacancyPage(parent):
+class VacancyControlPage(parent):
     def checkbox_selection_vacancy_second(self):
         self.table_select_row("Выбрана вакансия вторая")
 
     def status_response(self, value):
-        self.set_select2_alt(ControlVacancyLocators.status_response, value, "Статус отклика")
+        self.set_select2_alt(VacancyControlLocators.status_response, value, "Статус отклика")
 
     def is_date_vacancy(self):
         self.wait_for_loading()
@@ -1171,7 +1171,7 @@ class DocumentsPage(parent):
         return self.Kin(self.driver, self.timeout, self.log)
 
     def has_appform(self):
-        self.driver.get(Links.appform)
+        self.driver.get(Links.application_form)
         self.wait_for_loading()
         if "Анкета 667" in self.driver.page_source:
             self.click_by_text("Анкета 667")
@@ -1187,13 +1187,13 @@ class DocumentsPage(parent):
 
     class PersonalMain(parent):
 
-        def lastname(self, value):
+        def last_name(self, value):
             self.set_text(DocumentsLocators.PersonalMain.lastname, value, "Фамилия")
 
-        def firstname(self, value):
+        def first_name(self, value):
             self.set_text(DocumentsLocators.PersonalMain.firstname, value, "Имя")
 
-        def middlename(self, value):
+        def middle_name(self, value):
             self.set_text(DocumentsLocators.PersonalMain.middlename, value, "Отчество")
 
         def gender(self, value):
@@ -1205,7 +1205,7 @@ class DocumentsPage(parent):
         def insurance_certificate_number(self, value):
             self.set_text(DocumentsLocators.PersonalMain.insurance_certificate_number, value, "СНИЛС")
 
-        def birthdate(self, value):
+        def birth_date(self, value):
             self.set_date(DocumentsLocators.PersonalMain.birthdate, value, "Дата рождения")
 
         def citizenship(self, value):
@@ -1217,16 +1217,16 @@ class DocumentsPage(parent):
         def birthplace(self, value):
             self.set_text(DocumentsLocators.PersonalMain.birthplace, value, "Место рождения")
 
-        def wasconvicted(self, value):
+        def was_convicted(self, value):
             self.set_select(value, 2, "Наличие судимостей")
 
-        def maritalstatuses(self, value):
+        def marital_statuses(self, value):
             self.set_select2(DocumentsLocators.PersonalMain.maritalstatuses, value, "Семейное положение")
 
-        def namewaschanged(self, value):
+        def name_was_changed(self, value):
             self.set_select(value, 3, "Сведения об изменении ФИО")
 
-        def wasabroad(self, value):
+        def was_abroad(self, value):
             self.set_select(value, 4, "Пребывание за границей")
 
         def selection_radio(self):
@@ -1607,13 +1607,13 @@ class DocumentsPage(parent):
         def kin_ship(self, value):
             self.set_select2(DocumentsLocators.Kin.ship, value, "Степень родства")
 
-        def lastname(self, value):
+        def last_name(self, value):
             self.set_text(DocumentsLocators.Kin.lastname, value, "Фамилия")
 
-        def firstname(self, value):
+        def first_name(self, value):
             self.set_text(DocumentsLocators.Kin.firstname, value, "Имя")
 
-        def middlename(self, value):
+        def middle_name(self, value):
             self.set_text(DocumentsLocators.Kin.middlename, value, "Отчество")
 
         def name_changes(self, value):
@@ -1888,7 +1888,7 @@ class OrganizationsPage(parent):
 
             def abolition_order_number(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_number,
-                              value, "Номер документа")
+                                  value, "Номер документа")
 
             def abolition_order_date(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
@@ -1988,6 +1988,8 @@ class OrganizationsPage(parent):
                 self.set_select2(OrganizationsLocators.Edit.Template.working_schedule, value, "Рабочее время")
 
             def type(self, value):
+                self.set_select2(
+                    OrganizationsLocators.Edit.Template.type, value, "Тип служебного контракта (трудового договора)")
                 self.set_select2(OrganizationsLocators.Edit.Template.type,
                                  value, "Тип служебного контракта (трудового договора)")
 
@@ -2004,42 +2006,547 @@ class OrganizationsPage(parent):
                 self.set_text(OrganizationsLocators.Edit.Template.web_site, value, "Интернет-сайт")
 
 
-class CertificationPlanningPage(parent):
-    def name(self, value):
-        self.set_text(CertificatePlanningLocators.name, value, "Наименование комиссии")
+class VacancyCreatePage(parent):
+    @property
+    def post_is_competition(self):
+        return self.PostIsCompetition(self.driver, self.timeout, self.log)
+
+    @property
+    def reserve_post(self):
+        return self.ReservePost(self.driver, self.timeout, self.log)
+
+    @property
+    def reserve_group_posts(self):
+        return self.ReserveGroupPosts(self.driver, self.timeout, self.log)
+
+    @property
+    def vacant_study(self):
+        return self.VacantStudy(self.driver, self.timeout, self.log)
+
+    @property
+    def vacant_state(self):
+        return self.VacantState(self.driver, self.timeout, self.log)
+
+    def type_vacancy(self, value):
+        self.set_select2(VacancyCreateLocators.type_vacancy, value, "Тип объявления")
 
     def organization(self, value):
-        self.set_select2(CertificatePlanningLocators.organization, value, "Организация")
+        self.set_select2(VacancyCreateLocators.organization, value, "Организация ")
 
-    def order_date(self, value):
-        self.set_date(CertificatePlanningLocators.order_date, value, "Дата приказа")
+    def is_competition(self, value):
+        self.set_checkbox_by_order(1, value, "Замещение по конкурсу")
 
-    def order_number(self, value):
-        self.set_text(CertificatePlanningLocators.order_number, value, "Номер приказа")
+    def reason(self, value):
+        self.set_text(VacancyCreateLocators.reason, value, "Причина")
 
-    def by(self, value):
-        self.set_select2(CertificatePlanningLocators.by, value, "Кто подписал")
+    def work_type_other_text(self, value):
+        self.set_text(VacancyCreateLocators.work_type_other_text, value, "Уточненный профиль деятельности организации")
 
-    def type(self, value):
-        self.set_select2(CertificatePlanningLocators.type, value, "Вид комиссии")
+    def salary_from(self, value):
+        self.set_text(
+            VacancyCreateLocators.salary_from, value, "Примерный размер денежного содержания (оплаты труда) от")
 
-    def date_from(self, value):
-        self.set_date(CertificatePlanningLocators.date_from, value, "Период действия с")
+    def salary_to(self, value):
+        self.set_text(VacancyCreateLocators.salary_to, value, "до")
 
-    def date_to(self, value):
-        self.set_date(CertificatePlanningLocators.date_to, value, "Период действия по")
+    def social_package_text(self, value):
+        self.set_text(VacancyCreateLocators.social_package_text, value, "Гарантии, предоставляемые госслуж./соц. пакет")
 
-    def role(self, value):
-        self.set_select2(CertificatePlanningLocators.role, value, "role")
+    def additional_position_info_text(self, value):
+        self.set_text(VacancyCreateLocators.additional_position_info_text, value, "Доп. инф. о вакантной должности")
 
-    def fullname(self, value):
-        self.set_select2(CertificatePlanningLocators.fullname, value, "fullname")
+    def job_responsibility_text(self, value):
+        self.set_text(VacancyCreateLocators.job_responsibility_text, value, "Краткое описание должностных обяз.")
+
+    def knowledge_description_text(self, value):
+        self.set_text(VacancyCreateLocators.knowledge_description_text, value, "Знания и навыки")
+
+    def additional_requirements(self, value):
+        self.set_text(VacancyCreateLocators.additional_requirements, value, "Дополнительные требования к кандидатам")
+
+    def announcement_date(self):
+        self.set_date(VacancyCreateLocators.announcement_date, today(), "Дата начала приема документов ")
+
+    def expiry_date(self, value):
+        self.set_date(VacancyCreateLocators.expiry_date, value, "Дата окончания приема документов")
+
+    def registration_address(self, value):
+        self.set_text(VacancyCreateLocators.registration_address, value, "Место приема документов")
+
+    def registration_time(self, value):
+        self.set_text(VacancyCreateLocators.registration_time, value, "Время приема документов")
+
+    def description(self, value):
+        self.set_text(VacancyCreateLocators.description, value, "Методическая подсказка (для кандидата)")
+
+    def sel(self):
+        self.set_radio(VacancyCreateLocators.sel, "Radio выбора документа из списка")
+
+    def delete(self):
+        self.click(VacancyCreateLocators.delete, "Удаление документа")
+
+    def address_mail(self, value):
+        self.set_text(VacancyCreateLocators.address_mail, value, "Почтовый адрес (другое)")
 
     def phone(self, value):
-        self.set_text(CertificatePlanningLocators.phone, value, "phone")
+        self.set_text(VacancyCreateLocators.phone, value, "Телефон № 1")
+
+    def phone2(self, value):
+        self.set_text(VacancyCreateLocators.phone2, value, "Телефон № 2")
+
+    def phone3(self, value):
+        self.set_text(VacancyCreateLocators.phone3, value, "Телефон № 3")
 
     def email(self, value):
-        self.set_text(CertificatePlanningLocators.email, value, "email")
+        self.set_text(VacancyCreateLocators.email, value, "Email ")
 
-    def number(self, value):
-        self.set_text(CertificatePlanningLocators.number, value, "number")
+    def contact_person_other(self, value):
+        self.set_text(VacancyCreateLocators.contact_person_other, value, "Контактное лицо")
+
+    def web(self, value):
+        self.set_text(VacancyCreateLocators.web, value, "Интернет-сайт органа или организации")
+
+    def additional_info_text(self, value):
+        self.set_text(VacancyCreateLocators.additional_info_text, value, "Дополнительная информация")
+
+    class PostIsCompetition(parent):
+        def social_package_files(self, value):
+            self.upload_file_alt(value)
+
+        def additional_position_info_file(self, value):
+            self.upload_file_alt(value, 2, 2)
+
+        def knowledge_description_files(self, value):
+            self.upload_file_alt(value, 3, 3)
+
+        def job_responsibility_files(self, value):
+            self.upload_file_alt(value, 4, 4)
+
+        def position_rules_files(self, value):
+            self.upload_file_alt(value, 5, 5)
+
+        def additional_info_files(self, value):
+            self.upload_file_alt(value, 6, 6)
+
+        def template_file(self, value):
+            self.upload_file_alt(value, 7, 7)
+
+        def structural_unit(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value, "Структурное подразделение")
+
+        def sub_structural(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.sub_structural, value, "Подразделение в структурном подразд.")
+
+        def staff_unit(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.staff_unit, value, "Штатная единица")
+
+        def work_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.work_type, value, "Профиль деятельности организации")
+
+        def position_category(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.position_category, value, "Категория вакантной должности")
+
+        def position_group(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.position_group, value, "Группа вакантной должности")
+
+        def okato_region(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.okato_region, value, "Расположение раб. места регион")
+
+        def okato_area(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.okato_area, value, "Расположение раб. места район")
+
+        def business_trip(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.business_trip, value, "Командировки")
+
+        def work_schedule(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.work_schedule, value, "Служебное (рабочее) время")
+
+        def work_day(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.work_day, value, "Нормированность рабочего дня")
+
+        def work_contract(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.work_contract, value, "Тип служебного контракта")
+
+        def education_level(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.education_level, value, "Уровень проф. образования")
+
+        def government_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.government_experience, value, "Стаж государственной службы")
+
+        def professional_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.professional_experience, value, "Стаж работы по специальности")
+
+        def test(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.test, value, "Прикрепить тест")
+
+        def document_type(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.document_type, value, "Название (тип документа)")
+
+        def organization_address(self, value):
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.organization_address, value, "Почтовый адрес")
+
+    class ReservePost(parent):
+        def social_package_files(self, value):
+            self.upload_file_alt(value)
+
+        def additional_position_info_file(self, value):
+            self.upload_file_alt(value, 2, 2)
+
+        def knowledge_description_files(self, value):
+            self.upload_file_alt(value, 3, 3)
+
+        def job_responsibility_files(self, value):
+            self.upload_file_alt(value, 4, 4)
+
+        def position_rules_files(self, value):
+            self.upload_file_alt(value, 5, 5)
+
+        def additional_info_files(self, value):
+            self.upload_file_alt(value, 6, 6)
+
+        def template_file(self, value):
+            self.upload_file_alt(value, 7, 7)
+
+        def reserve(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.reserve, value, "Резерв")
+
+        def structural_unit(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.structural_unit, value, "Структурное подразделение")
+
+        def sub_structural(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.sub_structural, value, "Подразделение в структурном подразделении")
+
+        def post(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.post, value, "Наименование резервируемой должности")
+
+        def work_type(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.work_type, value, "Профиль деятельности организации")
+
+        def reserve_group(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.reserve_group, value, "Группа вакантной должности")
+
+        def okato_region(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.okato_region, value, "Расположение раб. места регион")
+
+        def okato_area(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.okato_area, value, "Расположение раб. места район")
+
+        def business_trip(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.business_trip, value, "Командировки ")
+
+        def work_schedule(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.work_schedule, value, "Служебное (рабочее) время")
+
+        def work_day(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.work_day, value, "Нормированность рабочего дня")
+
+        def work_contract(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.work_contract, value, "Тип служебного контракта")
+
+        def education_level(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.education_level, value, "Уровень проф. образования")
+
+        def government_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.government_experience, value, "Стаж государственной службы")
+
+        def professional_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.professional_experience, value, "Стаж работы по специальности")
+
+        def test(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.test, value, "Прикрепить тест")
+
+        def document_type(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.document_type, value, "Название (тип документа)")
+
+        def organization_address(self, value):
+            self.set_select2(VacancyCreateLocators.ReservePost.organization_address, value, "Почтовый адрес")
+
+    class ReserveGroupPosts(parent):
+        def social_package_files(self, value):
+            self.upload_file_alt(value)
+
+        def additional_position_info_file(self, value):
+            self.upload_file_alt(value, 2, 2)
+
+        def knowledge_description_files(self, value):
+            self.upload_file_alt(value, 3, 3)
+
+        def job_responsibility_files(self, value):
+            self.upload_file_alt(value, 4, 4)
+
+        def position_rules_files(self, value):
+            self.upload_file_alt(value, 5, 5)
+
+        def additional_info_files(self, value):
+            self.upload_file_alt(value, 6, 6)
+
+        def template_file(self, value):
+            self.upload_file_alt(value, 7, 7)
+
+        def reserve(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve, value, "Резерв")
+
+        def structural_unit(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.structural_unit, value, "Структурное подразделение")
+
+        def sub_structural(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.sub_structural, value, "Подразделение в структурном подразделении")
+
+        def work_type(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_type, value, "Профиль деятельности организации")
+
+        def reserve_group(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
+
+        def okato_region(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region, value, "Расположение раб. места регион")
+
+        def okato_area(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_area, value, "Расположение раб. места район")
+
+        def business_trip(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.business_trip, value, "Командировки ")
+
+        def work_schedule(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_schedule, value, "Служебное (рабочее) время")
+
+        def work_day(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_day, value, "Нормированность рабочего дня")
+
+        def work_contract(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.work_contract, value, "Тип служебного контракта")
+
+        def education_level(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.education_level, value, "Уровень проф. образования")
+
+        def government_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.government_experience, value, "Стаж государственной службы")
+
+        def professional_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.professional_experience, value, "Стаж работы по специальности")
+
+        def test(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.test, value, "Прикрепить тест")
+
+        def document_type(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.document_type, value, "Название (тип документа)")
+
+        def organization_address(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.organization_address, value, "Почтовый адрес")
+
+    class VacantStudy(parent):
+        def social_package_files(self, value):
+            self.upload_file_alt(value)
+
+        def additional_position_info_file(self, value):
+            self.upload_file_alt(value, 2, 2)
+
+        def knowledge_description_files(self, value):
+            self.upload_file_alt(value, 3, 3)
+
+        def job_responsibility_files(self, value):
+            self.upload_file_alt(value, 4, 4)
+
+        def position_rules_files(self, value):
+            self.upload_file_alt(value, 5, 5)
+
+        def additional_info_files(self, value):
+            self.upload_file_alt(value, 6, 6)
+
+        def template_file(self, value):
+            self.upload_file_alt(value, 7, 7)
+
+        def structural_unit(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.structural_unit, value, "Структурное подразделение")
+
+        def sub_structural(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.sub_structural, value, "Подразделение в структурном подразд.")
+
+        def work_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.work_type, value, "Профиль деятельности организации")
+
+        def position_category(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.position_category, value, "Категория вакантной должности")
+
+        def position_group(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.position_group, value, "Группа вакантной должности")
+
+        def okato_region(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.okato_region, value, "Расположение раб. места регион")
+
+        def okato_area(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.okato_area, value, "Расположение раб. места район")
+
+        def business_trip(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.business_trip, value, "Командировки ")
+
+        def work_schedule(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.work_schedule, value, "Служебное (рабочее) время")
+
+        def work_day(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.work_day, value, "Нормированность рабочего дня")
+
+        def work_contract(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.work_contract, value, "Тип служебного контракта")
+
+        def education_level(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.education_level, value, "Уровень проф. образования")
+
+        def government_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.government_experience, value, "Стаж государственной службы")
+
+        def professional_experience(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.professional_experience, value, "Стаж работы по специальности")
+
+        def test(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.test, value, "Прикрепить тест")
+
+        def document_type(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.document_type, value, "Название (тип документа)")
+
+        def organization_address(self, value):
+            self.set_select2(VacancyCreateLocators.VacantStudy.organization_address, value, "Почтовый адрес")
+
+    class VacantState(parent):
+        def job_responsibility_files(self, value):
+            self.upload_file_alt(value)
+
+        def position_rules_files(self, value):
+            self.upload_file_alt(value, 2, 2)
+
+        def structural_unit(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.structural_unit, value, "Структурное подразделение")
+
+        def sub_structural(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantState.sub_structural, value, "Подразделение в структурном подразделении")
+
+        def staff_unit(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.staff_unit, value, "Штатная единица")
+
+        def work_type(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.work_type, value, "Профиль деятельности организации")
+
+        def position_category(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.position_category, value, "Категория вакантной должности")
+
+        def position_group(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.position_group, value, "Группа вакантной должности")
+
+
+class VacancyManagePage(parent):
+
+    def is_date_vacancy(self):
+        self.wait_for_loading()
+        elements = self.driver.find_elements_by_xpath("//tr[@class='ng-scope']//td[7]")
+        texts = []
+        for i in elements:
+            texts.append(i.text.split()[0])
+        return today() in texts
+
+    def status(self, value):
+        self.select2_clear(VacancyManageLocators.status)
+        self.set_select2_alt(VacancyManageLocators.status, value, "Статус")
+
+    def type(self, value):
+        self.select2_clear(VacancyManageLocators.type)
+        self.set_select2_alt(VacancyManageLocators.type, value, "Тип вакансии")
+
+    def create_date(self, value):
+        self.set_date(VacancyManageLocators.create_date, value, "Дата создания")
+
+    def comment(self, value):
+        self.set_text(VacancyManageLocators.comment, value, "Комментарий")
+
+    def create(self):
+        self.click(VacancyManageLocators.create, "Создать")
+
+    def approve(self):
+        self.click(VacancyManageLocators.approve, "На рассмотрение")
+
+    def publish(self):
+        self.click(VacancyManageLocators.publish, "На публикацию")
+
+    def published(self):
+        self.click(VacancyManageLocators.published, "Опубликовать")
+
+    def refine(self):
+        self.click(VacancyManageLocators.refine, "На доработку")
+
+    def remove(self):
+        self.click(VacancyManageLocators.remove, "Удалить")
+
+    def close(self):
+        self.click(VacancyManageLocators.close, "Закрыть")
+
+    def archive(self):
+        self.click(VacancyManageLocators.archive, "Архив")
+
+    def copy(self):
+        self.click(VacancyManageLocators.copy, "Создать по образцу")
+
+    def checkbox(self, value=True):
+        self.set_checkbox(VacancyManageLocators.checkbox, value, "Выбор первой записи")
+
+
+class ReserveViewFederal(parent):
+
+    def permission_read_resume(self, value):
+        checkbox = self.wait_for_element_appear(ReserveViewFederalLocators.permission_read_resume)
+        if not checkbox.is_selected():
+            self.set_checkbox(ReserveViewFederalLocators.permission_read_resume, value, "Чтение любых резюме")
+            self.click_by_text("Сохранить")
+
+    def level_reserve(self, value):
+        self.set_select2_alt(ReserveViewFederalLocators.level_reserve, value, "Уровень резерва")
+
+    def resume(self):
+        self.click(ReserveViewFederalLocators.resume, "Резюме")
+
+    def presentation(self):
+        self.click(ReserveViewFederalLocators.presentation, "Представление")
+
+    def check_text_and_close(self, text):
+        self.driver.switch_to_window(self.driver.window_handles[1])
+        self.wait_for_text_appear(text)
+        assert text in self.driver.page_source
+        self.driver.close()
+        self.driver.switch_to_window(self.driver.window_handles[0])
+
+
+class ManageReserveBasesPage(parent):
+
+    def code(self, value):
+        self.set_text(ManageReserveBasesLocators.code, value, "Code")
+
+    def name(self, value):
+        self.set_text(ManageReserveBasesLocators.name, value, "Name")
+
+    def edit(self):
+        self.click(ManageReserveBasesLocators.edit, "Edit")

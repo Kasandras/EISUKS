@@ -16,6 +16,8 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
+        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["application_form"]
+        cls.account = get_data_by_number(load_data("gossluzhba1.qtestweb.office.quarta-vk.ru"), "accounts", 3)
 
     @classmethod
     def teardown_class(cls):
@@ -23,288 +25,321 @@ class TestSuite:
         cls.driver.quit()
 
     def test_doc_documents(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # documents - вкладка "Документы" страницы "Документы"
-        documents = DocumentsPage(self.driver).documents
-        documents.scroll_to_bottom()
-        documents.click_by_text("Документы", 2)
-        documents.click_by_text("Документы", 2)
+        """Вкладка "Документы" страницы "Документы" """
+        data = get_data_by_value(self.data, "documents", "name_document", "Анкета регионального резерва")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        page = DocumentsPage(self.driver).documents
+        page.scroll_to_bottom()
+        page.click_by_text("Документы", 2)
+        page.click_by_text("Документы", 2)
         sleep(2)
-        documents.click_by_text("Добавить")
-        documents.name_document("Эссе")
-        documents.upload_file("C:\\Users\\drozdoviv\\Desktop\\Проверочный.docx")
-        documents.click_by_text("Добавить")
+        page.click_by_text("Добавить")
+        page.name_document(data["name_document"])
+        page.upload_file(data["upload_file"])
+        page.click_by_text("Добавить")
 
     def test_doc_appform_personal_main(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # personal - Раздел "Личные сведения" анкеты, блок "Общие сведения"
-        personal = DocumentsPage(self.driver).personal_main
-        self.driver.get(Links.appform)
-        Browser(self.driver).wait_for_loading()
+        """Анкеты - раздел "Личные сведения", блок "Общие сведения" """
+        data = get_data_by_value(self.data, "personal_main", "upload_photo", "photo_male.jpg")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        parent(self.driver).go_to(Links.application_form)
+        page = DocumentsPage(self.driver).personal_main
         # Если анкета присутствует на странице, удаляем и создаём новую, проверяя добавление анкет
         if "Анкета 667" in self.driver.page_source:
-            personal.selection_radio()
-            personal.click_by_text("Удалить")
-            personal.click_by_text("Да")
-            personal.click_by_text("Добавить")
-        personal.upload_photo("C:\\Users\\drozdoviv\\Desktop\\1.jpg")
-        personal.last_name("Дроздов")
-        personal.first_name("Илья")
-        personal.middle_name("Владимирович")
-        personal.gender("Мужской")
-        personal.individual_taxpayer_number("6449013711")
-        personal.insurance_certificate_number("001-024-567 67")
-        personal.birth_date("01061980")
-        personal.citizenship("Гражданин Российской Федерации")
-        personal.change_citizenship("Нет")
-        personal.birthplace("г. Москва")
-        personal.wasconvicted("Нет")
-        personal.maritalstatuses("Состоит в зарегистрированном браке")
-        personal.namewaschanged("Не менял")
-        personal.wasabroad("Нет")
-        personal.click_by_text("Сохранить")
+            page.selection_radio()
+            page.click_by_text("Удалить")
+            page.click_by_text("Да")
+            page.click_by_text("Добавить")
+        page.upload_photo(data["upload_photo"])
+        page.last_name(data["last_name"])
+        page.first_name(data["first_name"])
+        page.middle_name(data["middle_name"])
+        page.gender(data["gender"])
+        page.individual_taxpayer_number(data["individual_taxpayer_number"])
+        page.insurance_certificate_number(data["insurance_certificate_number"])
+        page.birth_date(data["birth_date"])
+        page.citizenship(data["citizenship"])
+        page.change_citizenship(data["change_citizenship"])
+        page.birthplace(data["birthplace"])
+        page.was_convicted(data["was_convicted"])
+        page.marital_statuses(data["marital_statuses"])
+        page.name_was_changed(data["name_was_changed"])
+        page.was_abroad(data["was_abroad"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_personal_contact(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # contact - Раздел "Личные сведения" анкеты, блок "Контакты"
-        contact = DocumentsPage(self.driver).personal_contact
+        """Анкеты - раздел "Личные сведения", блок "Контакты" """
+        data = get_data_by_value(self.data, "personal_contact", "work_phone", "9453513517")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
+        page = DocumentsPage(self.driver).personal_contact
         if "Загрузить" in self.driver.page_source:
-            contact.click_by_text("Редактировать")
+            page.click_by_text("Редактировать")
         else:
-            contact.click_by_text("Редактировать", 2)
-        contact.work_phone("9453513517")
-        contact.mobile_phone("5435643865")
-        contact.additional_phone("4675346743")
-        contact.fax("4675346744")
-        contact.work_email("kandidat@mail.net")
-        contact.personal_email("kandidathome@mail.net")
-        contact.web_address("kandidat.com")
-        contact.permanent_registration_sub("Алтайский край")
-        contact.permanent_registration_reg("Алейский район")
-        contact.temp_registration_sub("Алтайский край")
-        contact.temp_registration_reg("Алейский район")
-        contact.fact_registration_sub("Алтайский край")
-        contact.fact_registration_reg("Алейский район")
-        contact.click_by_text("Сохранить")
+            page.click_by_text("Редактировать", 2)
+        page.work_phone(data["work_phone"])
+        page.mobile_phone(data["mobile_phone"])
+        page.additional_phone(data["additional_phone"])
+        page.fax(data["fax"])
+        page.work_email(data["work_email"])
+        page.personal_email(data["personal_email"])
+        page.web_address(data["web_address"])
+        page.permanent_registration_sub(data["permanent_registration_sub"])
+        page.permanent_registration_reg(data["permanent_registration_reg"])
+        page.temp_registration_sub(data["temp_registration_sub"])
+        page.temp_registration_reg(data["temp_registration_reg"])
+        page.fact_registration_sub(data["fact_registration_sub"])
+        page.fact_registration_reg(data["fact_registration_reg"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_identification_document(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # identification_document - Раздел "Документы" анкеты
-        identification_document = DocumentsPage(self.driver).identification_document
+        """Анкеты - раздел "Документы" """
+        data = get_data_by_value(self.data, "identification_document", "type_document", "Паспорт гражданина РФ")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        identification_document.click_by_text("Документы, удостоверяющие")
-        identification_document.click_by_text("Добавить")
-        identification_document.type_document("Паспорт гражданина РФ")
-        identification_document.series("2654")
-        identification_document.number("132456")
-        identification_document.date_issued("15062005")
-        identification_document.issue_by("ОВД Замоскворечье")
-        identification_document.issue_code("223658")
-        identification_document.click_by_text("Сохранить")
+        page = DocumentsPage(self.driver).identification_document
+        page.click_by_text("Документы, удостоверяющие")
+        page.click_by_text("Добавить")
+        page.type_document(data["type_document"])
+        page.series(data["series"])
+        page.number(data["number"])
+        page.date_issued(data["date_issued"])
+        page.issue_by(data["issue_by"])
+        page.issue_code(data["issue_code"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_education_main(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # education_main - Раздел "Образование" анкеты, блок "Основное"
-        main = DocumentsPage(self.driver).education.main
+        """Анкеты - раздел "Образование", блок "Основное" """
+        data = get_data_by_value(self.data, "education_main", "education_level", "Высшее образование")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        page = DocumentsPage(self.driver).education.main
         DocumentsPage(self.driver).has_appform()
-        main.click_by_text("Образование")
-        main.click_by_text("Редактировать")
-        main.education_level("Высшее образование")
-        main.click_by_text("Сохранить")
-        main.click_by_text("Добавить")
-        main.education("Высшее образование – специалитет")
-        main.education_form("Очное")
-        main.place_institution("г. Москва")
-        main.full_name_institution("Мытищинский институт экономики")
-        main.start_date_education("2002")
-        main.end_date_education("2007")
-        main.education_directions("Экономика и управление")
-        main.faculty("Экономика")
-        main.education_doc_number("35-ГС")
-        main.speciality("080100")
-        main.qualification("51 - Экономист")
-        main.specialization("Экономика")
-        main.is_main("True")
-        main.education_doc_date("04072017")
-        main.click_by_text("Сохранить")
+        page.click_by_text("Образование")
+        page.click_by_text("Редактировать")
+        page.education_level(data["education_level"])
+        page.click_by_text("Сохранить")
+        page.click_by_text("Добавить")
+        page.education(data["education"])
+        page.education_form(data["education_form"])
+        page.place_institution(data["place_institution"])
+        page.full_name_institution(data["full_name_institution"])
+        page.start_date_education(data["start_date_education"])
+        page.end_date_education(data["end_date_education"])
+        page.education_directions(data["education_directions"])
+        page.faculty(data["faculty"])
+        page.education_doc_number(data["education_doc_number"])
+        page.speciality(data["speciality"])
+        page.qualification(data["qualification"])
+        page.specialization(data["specialization"])
+        page.is_main(data["is_main"])
+        page.education_doc_date(data["education_doc_date"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_education_egc(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # education_egc - Раздел "Образование" анкеты, блок "Послевузовское"
-        egc = DocumentsPage(self.driver).education.egc
+        """Анкеты - раздел "Образование", блок "Послевузовское" """
+        data = get_data_by_value(self.data, "education_egc", "education", "Аспирантура")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        egc.click_by_text("Образование")
-        egc.click_by_text("Добавить", 2)
-        egc.education("Аспирантура")
-        egc.place("г. Москва")
-        egc.name_institution("МАИ")
-        egc.start_date("2007")
-        egc.academic_degree("Кандидат наук")
-        egc.academic_degree_date("20082008")
-        egc.end_date("2008")
-        egc.knowledge_branches("Экономические науки")
-        egc.diplom_number("34358-П")
-        egc.diplom_date("20092008")
+        page = DocumentsPage(self.driver).education.egc
+        page.click_by_text("Образование")
+        page.click_by_text("Добавить", 2)
+        page.wait_for_loading()
+        page.education(data["education"])
+        page.place(data["place"])
+        page.name_institution(data["name_institution"])
+        page.start_date(data["start_date"])
+        page.academic_degree(data["academic_degree"])
+        page.academic_degree_date(data["academic_degree_date"])
+        page.end_date(data["end_date"])
+        page.knowledge_branches(data["knowledge_branches"])
+        page.diplom_number(data["diplom_number"])
+        page.diplom_date(data["diplom_date"])
 
     def test_doc_appform_education_degree(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # education_degree - Раздел "Образование" анкеты, блок "Ученое звание"
-        degree = DocumentsPage(self.driver).education.degree
+        """Анкеты - раздел "Образование", блок "Ученое звание" """
+        data = get_data_by_value(self.data, "education_degree", "academic_statuses", "Доцент")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        degree.click_by_text("Образование")
-        degree.click_by_text("Добавить", 3)
-        degree.academic_statuses("Доцент")
-        degree.diplom_number("348-А")
-        degree.assigment_date("20092008")
+        page = DocumentsPage(self.driver).education.degree
+        page.click_by_text("Образование")
+        page.click_by_text("Добавить", 3)
+        page.academic_statuses(data["academic_statuses"])
+        page.diplom_number(data["diplom_number"])
+        page.assigment_date(data["assigment_date"])
 
     def test_doc_appform_education_languages(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # education_languages - Раздел "Образование" анкеты, блок "Знание иностранных языков"
-        languages = DocumentsPage(self.driver).education.languages
+        """Анкеты - раздел "Образование", блок "Знание иностранных языков" """
+        data = get_data_by_value(self.data, "education_languages", "languages", "Немецкий")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        languages.click_by_text("Образование")
-        languages.click_by_text("Добавить", 4)
-        languages.languages("Немецкий")
-        languages.language_degrees("Владеет свободно")
-        languages.click_by_text("Сохранить", 4)
+        page = DocumentsPage(self.driver).education.languages
+        page.click_by_text("Образование")
+        page.click_by_text("Добавить", 4)
+        page.languages(data["languages"])
+        page.language_degrees(data["language_degrees"])
+        page.click_by_text("Сохранить", 4)
 
     def test_doc_appform_education_dpo(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # education_dpo - Раздел "Образование" анкеты, блок "Дополнительное профессиональное образование"
-        dpo = DocumentsPage(self.driver).education.dpo
+        """Анкеты - раздел "Образование", блок "Дополнительное профессиональное образование" """
+        data = get_data_by_value(self.data, "education_dpo", "education_direction", "Организационно-экономическое")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        dpo.click_by_text("Образование")
-        dpo.scroll_to_bottom()
-        dpo.click_by_text("Добавить", 5)
-        dpo.education_direction("Организационно-экономическое")
-        dpo.education_kind("Профессиональная переподготовка")
-        dpo.kind("Профессиональная переподготовка")
-        dpo.name_program("Профессиональное развитие персонала")
-        dpo.education_form("Заочное")
-        dpo.place("г. Москва")
-        dpo.name_institution("МАИ")
-        dpo.start_date("2008")
-        dpo.end_date("2009")
-        dpo.hours("120")
-        dpo.document_number("89П6")
-        dpo.funding_sources("За счет средств Федерального бюджета")
-        dpo.document_date("20092009")
+        page = DocumentsPage(self.driver).education.dpo
+        page.click_by_text("Образование")
+        page.scroll_to_bottom()
+        page.click_by_text("Добавить", 5)
+        page.wait_for_loading()
+        page.education_direction(data["education_direction"])
+        page.education_kind(data["education_kind"])
+        page.kind(data["kind"])
+        page.name_program(data["name_program"])
+        page.education_form(data["education_form"])
+        page.place(data["place"])
+        page.name_institution(data["name_institution"])
+        page.start_date(data["start_date"])
+        page.end_date(data["end_date"])
+        page.hours(data["hours"])
+        page.document_number(data["document_number"])
+        page.funding_sources(data["funding_sources"])
+        page.document_date(data["document_date"])
 
     def test_doc_appform_labor_activity(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # labor_activity - Раздел "Трудовая деятельность" анкеты
-        labor_activity = DocumentsPage(self.driver).labor_activity
+        """Анкеты - раздел "Трудовая деятельность" """
+        data = get_data_by_value(self.data, "labor_activity", "start_date", "20092009")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        labor_activity.click_by_text("Трудовая деятельность")
-        labor_activity.click_by_text("Добавить")
-        labor_activity.start_date("20092009")
-        labor_activity.post("Специалист")
-        labor_activity.organization("Федеральная Таможенная Служба")
-        labor_activity.address_organization("г. Москва")
-        labor_activity.employees_number("11 - 100 человек")
-        labor_activity.subject("Алтайский край")
-        labor_activity.region("Алейский район")
-        labor_activity.profile("Текстильное производство")
-        labor_activity.is_elective("True")
-        labor_activity.post_level("Специалист")
-        labor_activity.activity_area("Другое")
-        labor_activity.structural_division("Бухгалтерский учет")
-        labor_activity.responsibilities("Рассчет заработной платы сотрудников организации")
-        labor_activity.click_by_text("Сохранить")
+        page = DocumentsPage(self.driver).labor_activity
+        page.click_by_text("Трудовая деятельность")
+        page.click_by_text("Добавить")
+        page.start_date(data["start_date"])
+        page.post(data["post"])
+        page.organization(data["organization"])
+        page.address_organization(data["address_organization"])
+        page.employees_number(data["employees_number"])
+        page.subject(data["subject"])
+        page.region(data["region"])
+        page.profile(data["profile"])
+        page.is_elective(data["is_elective"])
+        page.post_level(data["post_level"])
+        page.activity_area(data["activity_area"])
+        page.structural_division(data["structural_division"])
+        page.responsibilities(data["responsibilities"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_class_rank(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # class_rank - Раздел "Трудовая деятельность" анкеты, блок классных чинов
-        class_rank = DocumentsPage(self.driver).class_rank
+        """Анкеты - раздел "Трудовая деятельность", блок классных чинов"""
+        data = get_data_by_value(self.data, "class_rank", "has_class_rank", "True")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        class_rank.click_by_text("Трудовая деятельность")
-        class_rank.click_by_text("Редактировать", 3)
+        page = DocumentsPage(self.driver).class_rank
+        page.click_by_text("Трудовая деятельность")
+        page.click_by_text("Редактировать", 3)
         sleep(1)
-        class_rank.has_class_rank("True")
-        class_rank.class_rank("Секретарь государственной гражданской службы Российской Федерации 1 класса")
+        page.has_class_rank(data["has_class_rank"])
+        page.class_rank(data["class_rank"])
         sleep(2)
-        class_rank.assigned_by("Федеральная Таможенная Служба")
-        class_rank.has_government_service("True")
-        class_rank.org_sub_types("Городской округ")
-        class_rank.organization_name("Федеральная Таможенная Служба")
-        class_rank.computer_skills("Продвинутый пользователь")
-        class_rank.publications("Отсутствуют")
-        class_rank.recommendations("Отсутствуют")
-        class_rank.assigned_date("20092009")
+        page.assigned_by(data["assigned_by"])
+        page.has_government_service(data["has_government_service"])
+        page.org_sub_types(data["org_sub_types"])
+        page.organization_name(data["organization_name"])
+        page.computer_skills(data["computer_skills"])
+        page.publications(data["publications"])
+        page.recommendations(data["recommendations"])
+        page.assigned_date(data["assigned_date"])
         sleep(1)
         self.driver.refresh()
-        class_rank.scroll_to_bottom()
+        page.scroll_to_bottom()
 
     def test_doc_appform_specialization(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # specialization - Раздел "Трудовая деятельность" анкеты, блок специализации
-        specialization = DocumentsPage(self.driver).specialization
+        """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
+        data = get_data_by_value(self.data, "specialization", "specialization", "Экономика и финансы")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        specialization.click_by_text("Трудовая деятельность")
-        specialization.click_by_text("Добавить", 3)
-        specialization.scroll_to_bottom()
+        page = DocumentsPage(self.driver).specialization
+        page.click_by_text("Трудовая деятельность")
+        page.click_by_text("Добавить", 3)
+        page.scroll_to_bottom()
         sleep(1)
-        specialization.specialization("Экономика и финансы")
-        specialization.is_main("True")
-        specialization.click_by_text("Сохранить", 3)
+        page.specialization(data["specialization"])
+        page.is_main(data["is_main"])
+        page.click_by_text("Сохранить", 3)
 
     def test_doc_appform_award(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # award - Раздел "Поощрения" анкеты
-        award = DocumentsPage(self.driver).award
+        """Анкеты - раздел "Поощрения" анкеты"""
+        data = get_data_by_value(self.data, "award", "type", "благодарность")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        award.click_by_text("Поощрения")
-        award.click_by_text("Добавить")
-        award.type("благодарность")
-        award.name("За заслуги")
-        award.date("16042016")
-        award.click_by_text("Сохранить")
+        page = DocumentsPage(self.driver).award
+        page.click_by_text("Поощрения")
+        page.click_by_text("Добавить")
+        page.type(data["type"])
+        page.name(data["name"])
+        page.date(data["date"])
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_state_secret(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # state_secret - Раздел "Допуск к государственной тайне" анкеты
-        state_secret = DocumentsPage(self.driver).state_secret
+        """Анкеты - раздел "Допуск к государственной тайне" """
+        data = get_data_by_value(self.data, "state_secret", "admission_form", "Вторая форма")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        state_secret.click_by_text("Допуск к государственной тайне")
-        state_secret.click_by_text("Добавить")
-        state_secret.admission_form("Вторая форма")
-        state_secret.approval_number("85")
-        state_secret.issue_date("11022015")
+        page = DocumentsPage(self.driver).state_secret
+        page.click_by_text("Допуск к государственной тайне")
+        page.click_by_text("Добавить")
+        page.admission_form(data["admission_form"])
+        page.approval_number(data["approval_number"])
+        page.issue_date(data["issue_date"])
 
     def test_doc_appform_military(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # military - Раздел "Воинский учет" анкеты
-        military = DocumentsPage(self.driver).military
+        """Анкеты - раздел "Воинский учет" """
+        data = get_data_by_value(self.data, "military", "rank", "ефрейтор")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        military.click_by_text("Воинский учет")
-        military.click_by_text("Редактировать")
-        military.rank("ефрейтор")
-        military.duty("Военнообязанный")
-        military.has_service("True")
-        military.arm_kind("Сухопутные")
-        military.service_from("20022000")
-        military.service_to("20022001")
+        page = DocumentsPage(self.driver).military
+        page.click_by_text("Воинский учет")
+        page.click_by_text("Редактировать")
+        page.rank(data["rank"])
+        page.duty(data["duty"])
+        page.has_service(data["has_service"])
+        page.arm_kind(data["arm_kind"])
+        page.service_from(data["service_from"])
+        page.service_to(data["service_to"])
         self.driver.refresh()
 
     def test_doc_appform_kin(self):
-        LoginPage(self.driver).login("drozdoviv@quarta.su", "123123/")
-        # kin - Раздел "Сведения о близких родственниках" анкеты
-        kin = DocumentsPage(self.driver).kin
+        """Анкеты - раздел "Сведения о близких родственниках" """
+        data = get_data_by_value(self.data, "kin", "kin_ship", "Сын")
+
+        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         DocumentsPage(self.driver).has_appform()
-        kin.click_by_text("Сведения о близких родственниках")
-        kin.click_by_text("Добавить")
-        kin.kin_ship("Сын")
-        kin.last_name("Иванов")
-        kin.first_name("Илья")
-        kin.middle_name("Глебович")
-        kin.name_changes("Не менял")
-        kin.birth_country("Россия")
-        kin.birth_region("г. Москва")
+        page = DocumentsPage(self.driver).kin
+        page.click_by_text("Сведения о близких родственниках")
+        page.click_by_text("Добавить")
+        page.kin_ship(data["kin_ship"])
+        page.last_name(data["last_name"])
+        page.first_name(data["first_name"])
+        page.middle_name(data["middle_name"])
+        page.name_changes(data["name_changes"])
+        page.birth_country(data["birth_country"])
+        page.birth_region(data["birth_region"])
         sleep(1)
-        kin.birth_area("Центральный")
-        kin.birth_place("г. Москва")
-        kin.work_place("Отсутствует")
-        kin.living_country("Россия")
-        kin.living_address("Москва")
-        kin.birth_date("15062009")
+        page.birth_area(data["birth_area"])
+        page.birth_place(data["birth_place"])
+        page.work_place(data["work_place"])
+        page.living_country(data["living_country"])
+        page.living_address(data["living_address"])
+        page.birth_date(data["birth_date"])
