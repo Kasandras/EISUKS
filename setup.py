@@ -1,8 +1,11 @@
 import json
+import os
 
 
 def load_data(file):
-    return json.loads(open('%s.json' % file, encoding="utf8").read())
+    script_path = os.path.dirname(__file__)
+    filename = os.path.join(script_path, '%s.json' % file)
+    return json.loads(open(filename, encoding="utf8").read())
 
 
 def get_data_by_value(data, parent, key, value):

@@ -100,13 +100,13 @@ class TestSuite:
     def test_site_in_numbers(self):
         p = MainPage(self.driver)
         p.click_by_text("Портал в цифрах")
-        p.set_select("Количество посещений портала за последнюю неделю")
+        p.set_select("Количество посещений за последнюю неделю")
         sleep(1)
-        p.set_select("Количество посещений портала")
+        p.set_select("Количество посещений в целом")
         sleep(1)
-        p.set_select("Количество актуальных вакансий на портале")
+        p.set_select("Количество актуальных вакансий")
         sleep(1)
-        p.set_select("Количество граждан РФ, разместивших на портале анкету")
+        p.set_select("Количество граждан РФ, разместивших анкету")
         sleep(1)
         assert self.driver.find_element(By.ID, "canvas")
 

@@ -647,3 +647,19 @@ class OrganizationsLocators(object):
             time = (By.XPATH, "//input[@data-ng-model='model.registrationTime']")
             post_index = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
             web_site = (By.XPATH, "//input[@data-ng-model='model.webSite']")
+
+
+class CertificatePlanningLocators(object):
+    name = (By.XPATH, "//input[@id='name']")
+    organization = (By.XPATH, "//div[@id='s2id_organization']")
+    order_date = (By.XPATH, "//input[@id='orderDate']")
+    order_number = (By.XPATH, "//input[@id='orderNumber']")
+    by = (By.XPATH, "//div[@id='s2id_signer']")
+    type = (By.XPATH, "//div[@id='s2id_commissionType']")
+    date_from = (By.XPATH, "//input[@id='startDate']")
+    date_to = (By.XPATH, "//input[@id='endDate']")
+    role = (By.XPATH, "//div[@id='role']")
+    fullname = (By.XPATH, "//div[@id='fullname']")
+    phone = (By.XPATH, "//input[@id='phone']")
+    email = (By.XPATH, "//input[@id='email']")
+    number = (By.XPATH, "//input[@id='number']")

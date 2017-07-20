@@ -36,7 +36,7 @@ class TestSuite:
     def setup_class(cls):
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")
+        cls.data = load_data("gossluzhba1")
         cls.hr = get_data_by_number(cls.data, "accounts", 0)
         cls.admin = get_data_by_number(cls.data, "accounts", 1)
         cls.user = get_data_by_number(cls.data, "accounts", 2)

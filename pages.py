@@ -1888,7 +1888,7 @@ class OrganizationsPage(parent):
 
             def abolition_order_number(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_number,
-                                  value, "Номер документа")
+                              value, "Номер документа")
 
             def abolition_order_date(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
@@ -2002,3 +2002,44 @@ class OrganizationsPage(parent):
 
             def web_site(self, value):
                 self.set_text(OrganizationsLocators.Edit.Template.web_site, value, "Интернет-сайт")
+
+
+class CertificationPlanningPage(parent):
+    def name(self, value):
+        self.set_text(CertificatePlanningLocators.name, value, "Наименование комиссии")
+
+    def organization(self, value):
+        self.set_select2(CertificatePlanningLocators.organization, value, "Организация")
+
+    def order_date(self, value):
+        self.set_date(CertificatePlanningLocators.order_date, value, "Дата приказа")
+
+    def order_number(self, value):
+        self.set_text(CertificatePlanningLocators.order_number, value, "Номер приказа")
+
+    def by(self, value):
+        self.set_select2(CertificatePlanningLocators.by, value, "Кто подписал")
+
+    def type(self, value):
+        self.set_select2(CertificatePlanningLocators.type, value, "Вид комиссии")
+
+    def date_from(self, value):
+        self.set_date(CertificatePlanningLocators.date_from, value, "Период действия с")
+
+    def date_to(self, value):
+        self.set_date(CertificatePlanningLocators.date_to, value, "Период действия по")
+
+    def role(self, value):
+        self.set_select2(CertificatePlanningLocators.role, value, "role")
+
+    def fullname(self, value):
+        self.set_select2(CertificatePlanningLocators.fullname, value, "fullname")
+
+    def phone(self, value):
+        self.set_text(CertificatePlanningLocators.phone, value, "phone")
+
+    def email(self, value):
+        self.set_text(CertificatePlanningLocators.email, value, "email")
+
+    def number(self, value):
+        self.set_text(CertificatePlanningLocators.number, value, "number")
