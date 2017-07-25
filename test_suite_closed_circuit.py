@@ -240,8 +240,8 @@ class TestSuite:
         self.go_to(Links.holidays_schedule)
         page.click_by_text("Включить режим редактирования")
         page.set_select("2017")
-        page.click((By.XPATH, "(//span[@class='custom-icon-close'])[1]"))
-        page.click((By.XPATH, "(//span[@class='custom-icon-close'])[2]"))
+        page.click((By.XPATH, "//span[@class='custom-icon-close']"))
+        page.click((By.XPATH, "//span[@class='custom-icon-close']"))
         page.click_by_text("Добавить")
         page.set_date((By.XPATH, "(//input[@type='text'])[1]"), today(), "Дата с")
         page.set_text((By.XPATH, "(//input[@type='text'])[2]"), "14", "Количество дней")
@@ -895,7 +895,6 @@ class TestSuite:
         page.name(data["name"])
         page.is_require_organization(data["isRequireOrganization"])
         page.level(data["level"])
-        page.roles(data["roles"])
         page.click_by_text("Сохранить")
         page.search(data["name"])
 

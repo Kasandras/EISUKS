@@ -99,7 +99,7 @@ class TestSuite:
 
     def test_site_in_numbers(self):
         p = MainPage(self.driver)
-        p.click_by_text("Портал в цифрах")
+        p.click_by_text("Статистика")
         p.set_select("Количество посещений за последнюю неделю")
         sleep(1)
         p.set_select("Количество посещений в целом")
@@ -112,7 +112,7 @@ class TestSuite:
 
     def test_registration(self):
         p = MainPage(self.driver)
-        p.click_by_text("Регистрация на портале")
+        p.click_by_text("Регистрация граждан")
         p.click_by_text("Зарегистрироваться")
         p.set_text((By.ID, "LastName"), "Иванов")
         p.set_text((By.ID, "FirstName"), "Иван")
@@ -138,7 +138,7 @@ class TestSuite:
 
     def test_access_to_site(self):
         p = MainPage(self.driver)
-        p.click_by_text("Подключение к порталу")
+        p.click_by_text("Подключение органов и организаций")
         p.click_by_text("Номинация «Кадровый учет»")
         sleep(1)
         p.click_by_text("Номинация «Кадровый учет»")

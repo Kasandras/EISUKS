@@ -19,12 +19,12 @@
         "username": "drozdoviv@quarta.su",
         "password": "123123/",
         "fullName": "Е. М. Викторенко"
-      },
+    },
     {
         "username": "ahabanovaal@gmail.com",
         "password": "123123/",
         "fullName": "А. Л. Шабанова"
-      }
+    }
   ],
   "employees": [
     {
@@ -210,60 +210,6 @@
             {
               "position": "Специалист",
               "amount": "3"
-            }
-          ]
-        },
-        {
-          "parent": "",
-          "name": "Тестовое подразделение 2",
-          "nameGenitive": "Тестового подразделения 2",
-          "nameDative": "Тестовому подразделению 2",
-          "nameAccusative": "Тестовое подразделение 2",
-          "limit": "50",
-          "code": "12",
-          "launchDate": "21.01.2017",
-          "orderNumber": "333",
-          "orderDate": "21.01.2017",
-          "staffAmount": [
-            {
-              "position": "Специалист",
-              "amount": "4"
-            }
-          ]
-        },
-        {
-          "parent": "Тестовое подразделение 2",
-          "name": "Тестовый отдел 1",
-          "nameGenitive": "Тестового отдела 1",
-          "nameDative": "Тестовому отделу 1",
-          "nameAccusative": "Тестовый отдел 1",
-          "limit": "10",
-          "code": "12",
-          "launchDate": "21.01.2017",
-          "orderNumber": "333",
-          "orderDate": "21.01.2017",
-          "staffAmount": [
-            {
-              "position": "Специалист",
-              "amount": "5"
-            }
-          ]
-        },
-        {
-          "parent": "Тестовое подразделение 2",
-          "name": "Тестовый отдел 2",
-          "nameGenitive": "Тестового отдела 2",
-          "nameDative": "Тестовому отделу 2",
-          "nameAccusative": "Тестовый отдел 2",
-          "limit": "10",
-          "code": "12",
-          "launchDate": "21.01.2017",
-          "orderNumber": "333",
-          "orderDate": "21.01.2017",
-          "staffAmount": [
-            {
-              "position": "Специалист",
-              "amount": "6"
             }
           ]
         }
@@ -755,8 +701,7 @@
     {
       "name": "Тестовая роль для авто-тестов",
       "isRequireOrganization": false,
-      "level": "Высокий",
-      "roles": ""
+      "level": "Высокий"
     }
   ],
   "reserve": [

@@ -158,6 +158,8 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
+            WebDriverWait(self.driver, self.timeout).until(
+                ec.presence_of_element_located((By.XPATH, "//div[@id='select2-drop-mask']")))
             s2_drop = self.driver.find_element(By.XPATH, "//div[@id='select2-drop']")
             s2_input = s2_drop.find_element(By.XPATH, ".//input[@type='text']")
             s2_input.clear()
@@ -165,7 +167,8 @@ class Browser(object):
             option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
             li = self.wait_for_element_appear(option)
             li.click()
-            sleep(0.5)
+            WebDriverWait(self.driver, self.timeout).until_not(
+                ec.visibility_of_element_located((By.XPATH, "//div[@role='option'']")))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
