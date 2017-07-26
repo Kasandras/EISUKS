@@ -1891,7 +1891,7 @@ class OrganizationsPage(parent):
 
             def abolition_order_number(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_number,
-                                  value, "Номер документа")
+                              value, "Номер документа")
 
             def abolition_order_date(self, value):
                 self.set_date(OrganizationsLocators.Edit.Attributes.abolition_order_date, value, "Дата документа")
@@ -2316,7 +2316,8 @@ class VacancyCreatePage(parent):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
 
         def okato_region(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region, value, "Расположение раб. места регион")
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,
+                             value, "Расположение раб. места регион")
 
         def okato_area(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_area, value, "Расположение раб. места район")
@@ -2457,7 +2458,8 @@ class VacancyCreatePage(parent):
             self.set_select2(VacancyCreateLocators.VacantState.work_type, value, "Профиль деятельности организации")
 
         def position_category(self, value):
-            self.set_select2(VacancyCreateLocators.VacantState.position_category, value, "Категория вакантной должности")
+            self.set_select2(VacancyCreateLocators.VacantState.position_category,
+                             value, "Категория вакантной должности")
 
         def position_group(self, value):
             self.set_select2(VacancyCreateLocators.VacantState.position_group, value, "Группа вакантной должности")

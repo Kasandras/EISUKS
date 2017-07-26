@@ -158,20 +158,35 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
-            WebDriverWait(self.driver, self.timeout).until(
-                ec.presence_of_element_located((By.XPATH, "//div[@id='select2-drop-mask']")))
-            s2_drop = self.driver.find_element(By.XPATH, "//div[@id='select2-drop']")
-            s2_input = s2_drop.find_element(By.XPATH, ".//input[@type='text']")
-            s2_input.clear()
-            s2_input.send_keys(value)
+            searches = WebDriverWait(self.driver, self.timeout).until(
+                lambda x: self.driver.find_elements_by_xpath("//*[@class='select2-search']"))
+            for search in searches:
+                if search.is_displayed():
+                    s2_input = search.find_element(By.XPATH, ".//input[@type='text']")
+                    s2_input.clear()
+                    s2_input.send_keys(value)
             option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
-            li = self.wait_for_element_appear(option)
-            li.click()
+            self.wait_for_element_appear(option).click()
             WebDriverWait(self.driver, self.timeout).until_not(
-                ec.visibility_of_element_located((By.XPATH, "//div[@role='option'']")))
-            self.wait_for_element_disappear((By.ID, "select2-drop"))
+                ec.visibility_of_element_located((By.XPATH, "//*[@id='select2-drop']")))
             if label and self.log:
-                print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+                print("[%s] [%s] выбор из списка значения \"%s\"" %
+                      (strftime("%H:%M:%S", localtime()), label, value))
+            # self.click(locator)
+            # WebDriverWait(self.driver, self.timeout).until(
+            #     ec.presence_of_element_located((By.XPATH, "//div[@id='select2-drop-mask']")))
+            # s2_drop = self.driver.find_element(By.XPATH, "//div[@id='select2-drop']")
+            # s2_input = s2_drop.find_element(By.XPATH, ".//input[@type='text']")
+            # s2_input.clear()
+            # s2_input.send_keys(value)
+            # option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
+            # li = self.wait_for_element_appear(option)
+            # li.click()
+            # WebDriverWait(self.driver, self.timeout).until_not(
+            #     ec.visibility_of_element_located((By.XPATH, "//div[@role='option'']")))
+            # self.wait_for_element_disappear((By.ID, "select2-drop"))
+            # if label and self.log:
+            #     print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
     def set_select2_alt(self, locator, value, label=""):
         if value:
