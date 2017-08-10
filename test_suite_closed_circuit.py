@@ -159,6 +159,7 @@ class TestSuite:
         page.contract_date(data["contractDate"])
         page.contract_number(data["contractNumber"])
         page.click_by_text("Сохранить")
+        sleep(10)
         self.go_to(Links.appointment)
         OrdersPage(self.driver).submit(user, data=data)
         self.go_to(Links.staff_structure)

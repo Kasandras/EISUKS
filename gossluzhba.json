@@ -2,7 +2,7 @@
   "accounts": [
     {
       "username": "a.larionov@govirk.ru",
-      "password": "123123/",
+      "password": "123456*",
       "fullName": "А. С. Ларионов"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "username": "a.larionov@govirk.ru",
-      "password": "123123/",
+      "password": "123456*",
       "fullName": "А. С. Ларионов"
     }
   ],
@@ -23,7 +23,7 @@
       "middleName": "Автоматизация",
       "gender": "Мужской",
       "birthday": "04.09.1955",
-      "insuranceCertificateNumber": "11346175127",
+      "insuranceCertificateNumber": "11345475134",
       "username": "",
       "personalFileNumber": "333",
       "okato": "123",

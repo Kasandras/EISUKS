@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 import datetime
 import os
+import pymssql
 
 
 def today():
@@ -100,16 +101,25 @@ class Browser(object):
         element = self.wait_for_element_appear(locator)
         while True:
             try:
-                element.find_element_by_xpath(".//a[@class='select2-search-choice-close']").click()
-            except ec.NoSuchElementException:
+                element.click()
+            except (ec.StaleElementReferenceException, ec.NoSuchElementException):
                 break
 
-    def set_text(self, locator, value, label=None):
+    def set_text(self, locator, value, label=None, check_value=False):
         if value:
             self.wait_for_loading()
             element = self.wait_for_element_appear(locator)
             element.clear()
             element.send_keys(value)
+            if check_value:
+                count = 0
+                while True:
+                    if element.get_attribute("value") == value:
+                        break
+                    sleep(1)
+                    count += 1
+                    if count == self.timeout:
+                        raise TimeoutException
             if label and self.log:
                 print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -158,35 +168,12 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
-            searches = WebDriverWait(self.driver, self.timeout).until(
-                lambda x: self.driver.find_elements_by_xpath("//*[@class='select2-search']"))
-            for search in searches:
-                if search.is_displayed():
-                    s2_input = search.find_element(By.XPATH, ".//input[@type='text']")
-                    s2_input.clear()
-                    s2_input.send_keys(value)
-            option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
-            self.wait_for_element_appear(option).click()
-            WebDriverWait(self.driver, self.timeout).until_not(
-                ec.visibility_of_element_located((By.XPATH, "//*[@id='select2-drop']")))
+            self.set_text((By.XPATH, "//div[@id='select2-drop']//input"), value, check_value=True)
+            sleep(1)
+            self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
+            self.wait_for_element_disappear((By.ID, "select2-drop"))
             if label and self.log:
-                print("[%s] [%s] выбор из списка значения \"%s\"" %
-                      (strftime("%H:%M:%S", localtime()), label, value))
-            # self.click(locator)
-            # WebDriverWait(self.driver, self.timeout).until(
-            #     ec.presence_of_element_located((By.XPATH, "//div[@id='select2-drop-mask']")))
-            # s2_drop = self.driver.find_element(By.XPATH, "//div[@id='select2-drop']")
-            # s2_input = s2_drop.find_element(By.XPATH, ".//input[@type='text']")
-            # s2_input.clear()
-            # s2_input.send_keys(value)
-            # option = (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value)
-            # li = self.wait_for_element_appear(option)
-            # li.click()
-            # WebDriverWait(self.driver, self.timeout).until_not(
-            #     ec.visibility_of_element_located((By.XPATH, "//div[@role='option'']")))
-            # self.wait_for_element_disappear((By.ID, "select2-drop"))
-            # if label and self.log:
-            #     print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+                print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
     def set_select2_alt(self, locator, value, label=""):
         if value:

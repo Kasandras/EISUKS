@@ -545,7 +545,17 @@ class OrdersPage(parent):
         self.click_by_text("Применить")
         self.table_row_checkbox()
         self.click_by_text("Включить в приказ")
-        sleep(5)
+        count = 0
+        while True:
+            text = self.wait_for_element_appear((By.XPATH,
+                                                "//span[contains(@id, 'select2-chosen')]")).text
+            if text and text != "Не выбрано":
+                break
+            sleep(1)
+            count += 1
+            if count == self.timeout:
+                print("TimeoutException: Поле Организация не заполнено!")
+                raise TimeoutException
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[3]"), position, "Должность подписанта")
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[2]"), by, "ФИО подписанта")
         self.set_date((By.XPATH, "(//input[@type='text'])[2]"), date, "Дата приказа")
@@ -571,6 +581,17 @@ class OrdersPage(parent):
         self.click_by_text("Применить")
         self.table_row_checkbox()
         self.click_by_text("Включить в приказ")
+        count = 0
+        while True:
+            text = self.wait_for_element_appear((By.XPATH,
+                                                "//span[contains(@id, 'select2-chosen')]")).text
+            if text and text != "Не выбрано":
+                break
+            sleep(1)
+            count += 1
+            if count == self.timeout:
+                print("TimeoutException: Поле Организация не заполнено!")
+                raise TimeoutException
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[3]"), position, "Должность подписанта")
         self.set_select2((By.XPATH, "(//div[contains(@id, 's2id')])[2]"), by, "ФИО подписанта")
         self.set_date((By.XPATH, "(//input[@type='text'])[2]"), date, "Дата приказа")
@@ -1710,7 +1731,8 @@ class OrganizationsPage(parent):
     class Filter(parent):
 
         def status(self, value):
-            self.select2_clear((By.XPATH, "//div[contains(@id, 's2id')]"))
+            self.scroll_to_top()
+            self.select2_clear((By.XPATH, "//ul[@class='select2-choices']/li/a"))
             self.click((By.XPATH, "//div[contains(@id, 's2id')]"))
             self.set_text((By.XPATH, "//input"), value, "Статус")
             self.click((By.XPATH, "//div[@role='option']"))
@@ -2135,11 +2157,14 @@ class VacancyCreatePage(parent):
             self.upload_file_alt(value, 7, 7)
 
         def structural_unit(self, value):
-            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value, "Структурное подразделение")
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.structural_unit,
+                value, "Структурное подразделение")
 
         def sub_structural(self, value):
             self.set_select2(
-                VacancyCreateLocators.PostIsCompetition.sub_structural, value, "Подразделение в структурном подразд.")
+                VacancyCreateLocators.PostIsCompetition.sub_structural,
+                value, "Подразделение в структурном подразд.")
 
         def staff_unit(self, value):
             self.set_select2(VacancyCreateLocators.PostIsCompetition.staff_unit, value, "Штатная единица")
@@ -2153,7 +2178,8 @@ class VacancyCreatePage(parent):
                 VacancyCreateLocators.PostIsCompetition.position_category, value, "Категория вакантной должности")
 
         def position_group(self, value):
-            self.set_select2(VacancyCreateLocators.PostIsCompetition.position_group, value, "Группа вакантной должности")
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.position_group, value, "Группа вакантной должности")
 
         def okato_region(self, value):
             self.set_select2(
@@ -2303,14 +2329,17 @@ class VacancyCreatePage(parent):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve, value, "Резерв")
 
         def structural_unit(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.structural_unit, value, "Структурное подразделение")
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.structural_unit,
+                             value, "Структурное подразделение")
 
         def sub_structural(self, value):
             self.set_select2(
-                VacancyCreateLocators.ReserveGroupPosts.sub_structural, value, "Подразделение в структурном подразделении")
+                VacancyCreateLocators.ReserveGroupPosts.sub_structural,
+                value, "Подразделение в структурном подразделении")
 
         def work_type(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_type, value, "Профиль деятельности организации")
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_type,
+                             value, "Профиль деятельности организации")
 
         def reserve_group(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
