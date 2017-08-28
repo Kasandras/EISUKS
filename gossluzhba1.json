@@ -667,10 +667,10 @@
       "positions": [
         {
           "filter": "Должности",
-          "position": "Специалист",
+          "position": "Муниципальный сотрудник",
           "holidayForIrregularDay": "11",
           "code": "123",
-          "name": "Специалист",
+          "name": "Муниципальный сотрудник",
           "shortName": "Спец",
           "nameGenitive": "Специалиста",
           "nameDative": "Специалисту",

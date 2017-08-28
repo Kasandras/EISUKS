@@ -105,21 +105,22 @@ class Browser(object):
             except (ec.StaleElementReferenceException, ec.NoSuchElementException):
                 break
 
-    def set_text(self, locator, value, label=None, check_value=False):
+    def set_text(self, locator, value, label=None):
         if value:
             self.wait_for_loading()
             element = self.wait_for_element_appear(locator)
             element.clear()
             element.send_keys(value)
-            if check_value:
-                count = 0
-                while True:
-                    if element.get_attribute("value") == value:
-                        break
-                    sleep(1)
-                    count += 1
-                    if count == self.timeout:
-                        raise TimeoutException
+            if label and self.log:
+                print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+
+    def set_text_and_check(self, locator, value, label=None):
+        if value:
+            self.wait_for_loading()
+            element = self.wait_for_element_appear(locator)
+            element.clear()
+            element.send_keys(value)
+            WebDriverWait(self.driver, self.timeout).until(lambda x: element.get_attribute("value") == value)
             if label and self.log:
                 print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -168,7 +169,7 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
-            self.set_text((By.XPATH, "//div[@id='select2-drop']//input"), value, check_value=True)
+            self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))

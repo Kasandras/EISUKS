@@ -221,8 +221,8 @@ class EnforcementLocators(object):
     reason = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//div[contains(@id, 's2id')])[1]")
     order_number = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[2]")
     order_date = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[3]")
-    period_from = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[4]")
-    period_to = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[5]")
+    period_from = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[5]")
+    period_to = (By.XPATH, "((//div[@class='work-experience-edit'])[1]//input[@type='text'])[6]")
     # block #2
     action_date = (By.XPATH, "((//div[@class='work-experience-edit'])[2]//input[@type='text'])[1]")
     action = (By.XPATH, "((//div[@class='work-experience-edit'])[2]//div[contains(@id, 's2id')])[1]")

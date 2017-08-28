@@ -62,7 +62,7 @@ class TestSuite:
         p.click_by_text("Поиск")
         # apply
         p.click((By.XPATH, "//p[@class='title']"))
-        p.click_by_text("Откликнуться")
+        p.click_by_text("Подать документы")
         sleep(1)
         assert "Вход" in self.driver.page_source
         p.click((By.XPATH, "//input[@value='Отмена']"))

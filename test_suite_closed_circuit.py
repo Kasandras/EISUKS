@@ -69,6 +69,7 @@ class TestSuite:
         page.new.insurance_certificate_number(data["insuranceCertificateNumber"])
         page.new.username(data["username"])
         page.new.click_by_text("Сохранить")
+        page.wait_for_text_appear("Личные сведения")
         page.general.general_edit()
         page.general.last_name(data["lastName"])
         page.general.first_name(data["firstName"])
