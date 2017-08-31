@@ -214,7 +214,7 @@ class Browser(object):
         # открываем страницу с формой загрузки файла
         element = self.driver.find_element(By.XPATH, "(//input[@type='file'])[%s]" % order)
         element.clear()
-        element.send_keys("%s/%s" % (os.getcwd(), value))
+        element.send_keys("%s/sources/%s" % (os.getcwd(), value))
         WebDriverWait(self.driver, 60).until(
             ec.visibility_of_element_located((By.XPATH, "//li[@class=' qq-upload-success']")))
 

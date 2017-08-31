@@ -2,9 +2,9 @@ import json
 import os
 import pymssql
 
+
 def load_data(file):
-    script_path = os.path.dirname(__file__)
-    filename = os.path.join(script_path, '%s.json' % file)
+    filename = "%s/data/%s.json" % (os.getcwd(), file)
     return json.loads(open(filename, encoding="utf8").read())
 
 
@@ -20,7 +20,7 @@ def get_data_by_number(data, parent, number=0):
 
 
 class Settings(object):
-    path_to_driver = "chromedriver.exe"
+    path_to_driver = "drivers/chromedriver.exe"
 
 
 def execute_script(query, server="QTESTEISUKS2", database="eisuks_reserve_hr", username="HRUser", password="P@ssw0rd123456"):
