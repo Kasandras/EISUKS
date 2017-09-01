@@ -8,11 +8,6 @@ class TestSuite:
     """
     driver = webdriver.Chrome(Settings.path_to_driver)
 
-    def get_page(self, value):
-        sleep(1)
-        self.driver.get(value)
-        print('Going to the page (%s)' % value)
-
     @classmethod
     def setup_class(cls):
         cls.driver.maximize_window()
@@ -46,16 +41,17 @@ class TestSuite:
         p = MainPage(self.driver)
         p.click_by_text("Вакансии")
         # sort
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
+        caret_xpath = "//span[contains(@class, 'caret')]"
+        p.click((By.XPATH, caret_xpath))
+        p.click((By.XPATH, caret_xpath))
         p.click_by_text("Дата окончания приема документов")
         p.click_by_text("Дата начала приема документов")
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
+        p.click((By.XPATH, caret_xpath))
+        p.click((By.XPATH, caret_xpath))
         p.click_by_text("Дата начала приема документов")
         p.click_by_text("Заработная плата")
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
-        p.click((By.XPATH, "(//span[contains(@class, 'caret')])[2]"))
+        p.click((By.XPATH, caret_xpath))
+        p.click((By.XPATH, caret_xpath))
         # search
         p.click((By.ID, "s2id_autogen1"))
         p.click((By.XPATH, "//div[.='Алтайский край']"))

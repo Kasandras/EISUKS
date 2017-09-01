@@ -43,7 +43,7 @@ class LoginPage(parent):
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
             try:
-                self.click_by_text("Войти", 2)
+                self.driver.find_element(By.XPATH, "(//button[contains(., 'Войти')])[2]")
             except ec.NoSuchElementException:
                 pass
             self.username(username)
