@@ -66,6 +66,7 @@ class TestSuite:
         page.table_select_row(1, "Выбор приглашения")
         page.click_by_text("Принять приглашение")
         page.click_by_text("Продолжить")
+        page.click_by_text("Подать документы")
         page.wait_for_text_appear("успешно")
         assert "Ваш отклик успешно завершен." in self.driver.page_source
         page.click_by_text("Назад")
@@ -80,6 +81,7 @@ class TestSuite:
         page.click_by_text("Дата события")
         assert page.is_date_vacancy(), "Проверка \"Отклонил приглашение\" не прошла"
         page.click_by_text("Фильтр")
+        page.wait_for_loading()
         page.select2_clear(VacancyControlLocators.status_response)
         page.status_response("Приглашен")
         page.click_by_text("Применить")

@@ -36,7 +36,7 @@ class TestSuite:
         Создание вакансий, которые будут использоваться в управлении объявлениями
         """
         page = VacancyCreatePage(self.driver)
-        data = load_data("gossluzhba1.qtestweb.office.quarta-vk.ru")["advertisements"][1]
+        data = load_data("gossluzhba1")["advertisements"][1]
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         self.go_to(Links.vacancy_list)

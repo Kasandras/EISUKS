@@ -176,20 +176,6 @@ class Browser(object):
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
-    def set_select2_alt(self, locator, value, label=""):
-        if value:
-            self.wait_for_loading()
-            self.click(locator)
-            s2_drop = self.wait_for_element_appear(locator)
-            s2_input = s2_drop.find_element(By.XPATH, ".//input[@type='text']")
-            s2_input.send_keys(value)
-            li = self.wait_for_element_appear((By.XPATH,
-                                               "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
-            li.click()
-            self.wait_for_element_disappear((By.ID, "select2-drop"))
-            if label:
-                print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
-
     def table_select_row(self, order=1, label=None):
         self.wait_for_loading()
         locator = (By.XPATH, "(//td/input[@type='checkbox'])[%s]" % order)
@@ -216,23 +202,7 @@ class Browser(object):
         element.clear()
         element.send_keys("%s/sources/%s" % (os.getcwd(), value))
         WebDriverWait(self.driver, 60).until(
-            ec.visibility_of_element_located((By.XPATH, "//li[@class=' qq-upload-success']")))
-
-    def upload_file_alt(self, value, order=1, order_list=1):
-        self.wait_for_loading()
-        # открываем страницу с формой загрузки файла
-        element = self.driver.find_element(By.XPATH, "(//input[@type='file'])[%s]" % order)
-        element.clear()
-        element.send_keys("%s/%s" % (os.getcwd(), value))
-        WebDriverWait(self.driver, 60).until(
-            ec.visibility_of_element_located((By.XPATH, "(//ul[@class='qq-upload-list'])[%s]" % order_list)))
-
-    def upload_photo(self, value):
-        self.wait_for_loading()
-        # открываем страницу с формой загрузки файла
-        element = self.driver.find_element(By.XPATH, "//input[@type='file']")
-        element.clear()
-        element.send_keys("%s/%s" % (os.getcwd(), value))
+            ec.visibility_of_element_located((By.XPATH, "//*[self::a or self::button][.='Удалить']")))
 
     def wait_for_text_appear(self, text):
         return WebDriverWait(self.driver, self.timeout).until(

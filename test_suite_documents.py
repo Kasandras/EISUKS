@@ -37,7 +37,7 @@ class TestSuite:
         page.click_by_text("Добавить")
         page.name_document(data["name_document"])
         page.upload_file(data["upload_file"])
-        page.click_by_text("Добавить")
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_personal_main(self):
         """Анкеты - раздел "Личные сведения", блок "Общие сведения" """

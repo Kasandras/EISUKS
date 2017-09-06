@@ -1063,6 +1063,9 @@ class VacancySearchPage(parent):
     def substitution_competition(self, value):
         self.set_select(value, 1, "Замещение по конкурсу")
 
+    def electronic_documents(self, value):
+        self.set_select(value, 2, "Прием документов в ЭВ")
+
     def profile_activity_organization(self, value):
         self.set_select2_alt(VacancySearchLocators.profile_activity_organization,
                              value, "Профиль деятельности организации")
@@ -1099,10 +1102,10 @@ class VacancySearchPage(parent):
         self.set_select2(VacancySearchLocators.work_day, value, "Рабочий день")
 
     def type_service_contract(self, value):
-        self.set_select(value, 2, "Тип служебного контракта (трудового договора)")
+        self.set_select(value, 3, "Тип служебного контракта (трудового договора)")
 
     def normal_workday(self, value):
-        self.set_select(value, 3, "Нормированный рабочий день")
+        self.set_select(value, 4, "Нормированный рабочий день")
 
     def day_start_accept_document_from(self, value):
         self.set_date(VacancySearchLocators.day_start_accept_document_from, value, "Дата начала приема документов с")
@@ -2107,6 +2110,9 @@ class VacancyCreatePage(parent):
     def sel(self):
         self.set_radio(VacancyCreateLocators.sel, "Radio выбора документа из списка")
 
+    def sel_study(self):
+        self.set_radio(VacancyCreateLocators.sel_study, "Radio выбора документа из списка")
+
     def delete(self):
         self.click(VacancyCreateLocators.delete, "Удаление документа")
 
@@ -2587,3 +2593,222 @@ class ManageReserveBasesPage(parent):
 
     def delete(self):
         self.click(ManageReserveBasesLocators.delete, "Delete")
+
+
+class ReserveBasesPreparePage(parent):
+
+    def personal_file(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.personal_file, value, "personalFile")
+
+    def presentation_reserve_level(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.presentation_reserve_level, value, "presentationReserveLevel")
+
+    def grade_of_post(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.grade_of_post, value, "gradeOfPost")
+
+    def documents(self):
+        self.click(ReserveBasesPrepareLocators.documents, "documents")
+
+    def resume(self):
+        self.click(ReserveBasesPrepareLocators.resume, "resume")
+
+    def presentation(self):
+        self.click(ReserveBasesPrepareLocators.presentation, "presentation")
+
+    def last_name(self, value):
+        self.set_text(ReserveBasesPrepareLocators.last_name, value, "lastName")
+
+    def first_name(self, value):
+        self.set_text(ReserveBasesPrepareLocators.first_name, value, "firstName")
+
+    def middle_name(self, value):
+        self.set_text(ReserveBasesPrepareLocators.middle_name, value, "middleName")
+
+    def gender(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.gender, value, "gender")
+
+    def tax_certificate_number(self, value):
+        self.set_text(ReserveBasesPrepareLocators.tax_certificate_number, value, "taxCertificateNumber")
+
+    def insurance_certificate_number(self, value):
+        self.set_text(ReserveBasesPrepareLocators.insurance_certificate_number, value, "insuranceCertificateNumber")
+
+    def birth_date(self, value):
+        self.set_date(ReserveBasesPrepareLocators.birth_date, value, "birthDate")
+
+    def citizenship(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.citizenship, value, "citizenship")
+
+    def birth_place(self, value):
+        self.set_text(ReserveBasesPrepareLocators.birth_place, value, "birthPlace")
+
+    def was_convicted(self, value):
+        self.set_select(value, label="wasConvicted")
+
+    def marital_statuses(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.marital_statuses, value, "maritalStatuses")
+
+    def name_was_changed(self, value):
+        self.set_select(value, 2, "nameWasChanged")
+
+    def work_phone(self, value):
+        self.set_text(ReserveBasesPrepareLocators.work_phone, value, "workPhone")
+
+    def mobile_phone(self, value):
+        self.set_text(ReserveBasesPrepareLocators.mobile_phone, value, "mobilePhone")
+
+    def additional_phone(self, value):
+        self.set_text(ReserveBasesPrepareLocators.additional_phone, value, "additionalPhone")
+
+    def residence_phone(self, value):
+        self.set_text(ReserveBasesPrepareLocators.residence_phone, value, "residencePhone")
+
+    def fax(self, value):
+        self.set_text(ReserveBasesPrepareLocators.fax, value, "fax")
+
+    def work_email(self, value):
+        self.set_text(ReserveBasesPrepareLocators.work_email, value, "workEmail")
+
+    def personal_email(self, value):
+        self.set_text(ReserveBasesPrepareLocators.personal_email, value, "personalEmail")
+
+    def web(self, value):
+        self.set_text(ReserveBasesPrepareLocators.web, value, "web")
+
+    def registration_region(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.registration_region, value, "registrationRegion")
+
+    def registration_area(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.registration_area, value, "registrationArea")
+
+    def residence_region(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.residence_region, value, "residenceRegion")
+
+    def residence_area(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.residence_area, value, "residenceArea")
+
+    def education_level(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.education_level, value, "educationLevel")
+
+    def education_kinds(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.education_kinds, value, "educationKinds")
+
+    def education_forms(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.education_forms, value, "educationForms")
+
+    def place(self, value):
+        self.set_text(ReserveBasesPrepareLocators.place, value, "place")
+
+    def temp_institution(self, value):
+        self.set_text(ReserveBasesPrepareLocators.temp_institution, value, "tempInstitution")
+
+    def start_date(self, value):
+        self.set_text(ReserveBasesPrepareLocators.start_date, value, "startDate")
+
+    def end_date(self, value):
+        self.set_text(ReserveBasesPrepareLocators.end_date, value, "endDate")
+
+    def faculty(self, value):
+        self.set_text(ReserveBasesPrepareLocators.faculty, value, "faculty")
+
+    def education_doc_number(self, value):
+        self.set_text(ReserveBasesPrepareLocators.education_doc_number, value, "educationDocNumber")
+
+    def speciality(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.speciality, value, "speciality")
+
+    def qualification(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.qualification, value, "qualification")
+
+    def specialization(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.specialization, value, "specialization")
+
+    def begin_date(self, value):
+        self.set_date(ReserveBasesPrepareLocators.begin_date, value, "beginDate")
+
+    def end_date(self, value):
+        self.set_date(ReserveBasesPrepareLocators.end_date, value, "endDate")
+
+    def organization(self, value):
+        self.set_text(ReserveBasesPrepareLocators.organization, value, "organization")
+
+    def address_organization(self, value):
+        self.set_text(ReserveBasesPrepareLocators.address_organization, value, "addressOrganization")
+
+    def structural_division(self, value):
+        self.set_text(ReserveBasesPrepareLocators.structural_division, value, "structuralDivision")
+
+    def post(self, value):
+        self.set_text(ReserveBasesPrepareLocators.post, value, "post")
+
+    def post_levels(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.post_levels, value, "postLevels")
+
+    def employees_numbers(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.employees_numbers, value, "employeesNumbers")
+
+    def profile(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.profile, value, "profile")
+
+    def professional_activity_area(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.professional_activity_area, value, "professionalActivityArea")
+
+    def responsibilities(self, value):
+        self.set_text(ReserveBasesPrepareLocators.responsibilities, value, "responsibilities")
+
+    def job_types(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.job_types, value, "jobTypes")
+
+    def expectations(self, value):
+        self.set_text(ReserveBasesPrepareLocators.expectations, value, "expectations")
+
+    def organization_sub_type(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.organization_sub_type, value, "organizationSubType")
+
+    def organization(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.organization, value, "organization")
+
+    def organization_other(self, value):
+        self.set_text(ReserveBasesPrepareLocators.organization_other, value, "organizationOther")
+
+    def ready_to_move(self, value):
+        self.set_select(ReserveBasesPrepareLocators.ready_to_move, value, "readyToMove")
+
+    def salary_from(self, value):
+        self.set_text(ReserveBasesPrepareLocators.salary_from, value, "salaryFrom")
+
+    def salary_to(self, value):
+        self.set_text(ReserveBasesPrepareLocators.salary_to, value, "salaryTo")
+
+    def computer_skills(self, value):
+        self.set_text(ReserveBasesPrepareLocators.computer_skills, value, "computerSkills")
+
+    def publications(self, value):
+        self.set_text(ReserveBasesPrepareLocators.publications, value, "publications")
+
+    def recommendations(self, value):
+        self.set_text(ReserveBasesPrepareLocators.recommendations, value, "recommendations")
+
+    def additional_info(self, value):
+        self.set_text(ReserveBasesPrepareLocators.additional_info, value, "additionalInfo")
+
+    def agree_to_process_data(self, value):
+        self.set_checkbox_by_order(1, value, "agreeToProcessData")
+
+    def availability_degree(self, value):
+        self.set_select2(ReserveBasesPrepareLocators.availability_degree, value, "availabilityDegree")
+
+    def position(self, value):
+        self.set_text(ReserveBasesPrepareLocators.position, value, "position")
+
+    def recomendations(self, value):
+        self.set_text(ReserveBasesPrepareLocators.recomendations, value, "recomendations")
+
+    def professional_achievements(self, value):
+        self.set_text(ReserveBasesPrepareLocators.professional_achievements, value, "professionalAchievements")
+
+    def developement_area(self, value):
+        self.set_text(ReserveBasesPrepareLocators.developement_area, value, "developementArea")
+
+    def additional_preperation_text(self, value):
+        self.set_text(ReserveBasesPrepareLocators.additional_preperation_text, value, "additionalPreperationText")

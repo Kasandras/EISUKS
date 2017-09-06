@@ -31,7 +31,7 @@ class TestSuite:
 
     def test_reserve_view_federal(self):
         """
-        Создание вакансий, которые будут использоваться в управлении объявлениями
+        Просмотр участников резерва
         """
         page = ReserveViewFederal(self.driver)
         data = get_data_by_value(self.data, "reserve", "view", "")

@@ -35,6 +35,7 @@ class TestSuite:
         page.name_vacant_position("Руководитель федеральной службы")
         page.type_vacancy("Вакансия для замещения вакантной должности")
         page.substitution_competition("Нет")
+        page.electronic_documents("Нет")
         sleep(1)
         page.profile_activity_organization("Другое")
         page.key_word("Руководитель")
