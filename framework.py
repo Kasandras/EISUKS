@@ -8,7 +8,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 import datetime
 import os
-import pymssql
 
 
 def today():
@@ -169,7 +168,7 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
-            self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
+            self.set_text_and_check((By.XPATH, "//div[@id='select2-drop' or @id='select2-drop']//input"), value)
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))

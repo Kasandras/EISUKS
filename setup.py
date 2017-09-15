@@ -1,6 +1,6 @@
 import json
 import os
-#import pymssql
+
 
 def load_data(file):
     filename = "%s/data/%s.json" % (os.getcwd(), file)
@@ -55,36 +55,3 @@ class Links(object):
     reserve_view_federal = main_page + "Reserve/View#/federal"
     permission_read_resume = main_page + "Admin/Role#/permissions/00000000-0000-0002-ffff-ffffffffffff/permission/d1eb4a97-a6fc-4f12-89fe-21d472926148"
     manage_reserve_bases = main_page + "Classifier/Classifier#/reservebases/list"
-
-
-class Queries(object):
-    remove_personal_file = """
-    Declare     @FistName   nvarchar(500)     = 'Автоматизация'
-      ,           @LastName   nvarchar(500)     = 'Автоматизация'
-      ,           @MiddleName nvarchar(500)    = 'Автоматизация'
-      
-      ,           @ID               UNIQUEIDENTIFIER  
-      
-
-      Declare DeletePersonalFile Cursor Local For
-      select PersonalFiles.ID 
-            from Applicant.PersonalFiles
-            inner join Applicant.PersonalCardGeneralInformations 
-                  on PersonalFiles.CardId = PersonalCardGeneralInformations.ID
-                  and PersonalCardGeneralInformations.FirstName = @FistName
-                  and PersonalCardGeneralInformations.LastName = @LastName
-                  and PersonalCardGeneralInformations.MiddleName = @MiddleName
-      Open DeletePersonalFile
-      Fetch Next From DeletePersonalFile into @ID
-      While @@FETCH_STATUS=0
-      Begin
-      
-            exec [Applicant].[DeletePersonalFile]  @ID
-            
-            Fetch Next From DeletePersonalFile into @ID
-            Continue
-
-      end
-      Close DeletePersonalFile
-      Deallocate DeletePersonalFile 
-    """
