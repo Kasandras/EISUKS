@@ -38,7 +38,8 @@ class TestSuite:
         page.personal_file(data["personalFile"])
         page.presentation_reserve_level(data["presentationReserveLevel"])
         page.grade_of_post(data["gradeOfPost"])
-        page.click("Сохранить")
+        page.save()
+        page.wait_for_text_appear("Уровень резерва")
         assert "Найдено" in self.driver.page_source
 
     def test_fill_resume(self):
@@ -102,8 +103,9 @@ class TestSuite:
         page.click_by_text("Трудовая деятельность")
         page.click_by_text("Добавить")
         page.begin_date(data["beginDate"])
-        page.end_date(data["stopDate"])
-        page.organization(data["organization"])
+        page.stop_date(data["stopDate"])
+        sleep(0.5)
+        page.organization_work(data["organization_work"])
         page.address_organization(data["addressOrganization"])
         page.structural_division(data["structuralDivision"])
         page.post(data["post"])
@@ -119,7 +121,7 @@ class TestSuite:
         page.job_types(data["jobTypes"])
         page.expectations(data["expectations"])
         page.organization_sub_type(data["organizationSubType"])
-        page.organization(data["organization_"])
+        page.organization(data["organization"])
         page.organization_other(data["organizationOther"])
         page.ready_to_move(data["readyToMove"])
         page.salary_from(data["salaryFrom"])
@@ -129,7 +131,7 @@ class TestSuite:
         page.recommendations(data["recommendations"])
         page.additional_info(data["additionalInfo"])
         page.agree_to_process_data(data["agreeToProcessData"])
-        page.click_by_text("Сохранить")
+        page.click_by_text("Сохранить", 2)
         self.driver.close()
         self.driver.switch_to_window(self.driver.window_handles[0])
 

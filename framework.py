@@ -37,7 +37,6 @@ class Browser(object):
 
     def click(self, locator, label=None):
         self.wait_for_loading()
-        self.scroll_to_top()
         element = self.wait_for_element_appear(locator)
         self.move_to_element(element)
         element.click()
@@ -46,7 +45,6 @@ class Browser(object):
 
     def click_by_text(self, text, order=1, exactly=False):
         self.wait_for_loading()
-        self.scroll_to_top()
         if exactly:
             locator = (By.XPATH, "(//*[self::a or self::button][normalize-space()='%s'])[%s]" % (text, order))
         else:
@@ -60,7 +58,6 @@ class Browser(object):
 
     def click_by_value(self, value, order=1, exactly=False):
         self.wait_for_loading()
-        self.scroll_to_top()
         if exactly:
             locator = (By.XPATH, "(//input[@value='%s'])[%s]" % (value, order))
         else:

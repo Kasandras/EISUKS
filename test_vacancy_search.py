@@ -27,6 +27,7 @@ class TestSuite:
         page = VacancySearchPage(self.driver)
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        page.scroll_to_bottom()
         page.click_by_text("Поиск вакансий")
         page.click_by_text("Фильтр")
         page.click_by_text("Очистить")
@@ -43,6 +44,7 @@ class TestSuite:
         page.category_job("Руководители")
         page.group_job("Высшая")
         page.subject_workplace("г. Москва")
+        sleep(1)
         page.region_workplace("Центральный")
         page.salary_from("20000")
         page.salary_to("30000")

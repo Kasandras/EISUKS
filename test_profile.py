@@ -32,7 +32,7 @@ class TestSuite:
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page.click_by_text("Профиль", 2)
         page.click_by_text("Редактировать")
-        page.upload_photo(data["upload_photo"])
+        page.upload_file(data["upload_photo"])
         page.last_name(data["lastName"])
         page.first_name(data["firstName"])
         page.middle_name(data["middleName"])

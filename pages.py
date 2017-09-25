@@ -1209,8 +1209,11 @@ class DocumentsPage(parent):
 
     class Documents(parent):
 
+        def type_document(self, value):
+            self.set_select2(DocumentsLocators.Documents.type_document, value, "Тип документа")
+
         def name_document(self, value):
-            self.set_select2(DocumentsLocators.Documents.name_document, value, "Название")
+            self.set_text(DocumentsLocators.Documents.name_document, value, "Наименование")
 
     class PersonalMain(parent):
 
@@ -2564,7 +2567,7 @@ class ReserveViewFederal(parent):
             self.click_by_text("Сохранить")
 
     def level_reserve(self, value):
-        self.set_select2_alt(ReserveViewFederalLocators.level_reserve, value, "Уровень резерва")
+        self.set_select2(ReserveViewFederalLocators.level_reserve, value, "Уровень резерва")
 
     def resume(self):
         self.click(ReserveViewFederalLocators.resume, "Резюме")
@@ -2605,6 +2608,9 @@ class ReserveBasesPreparePage(parent):
 
     def grade_of_post(self, value):
         self.set_select2(ReserveBasesPrepareLocators.grade_of_post, value, "gradeOfPost")
+
+    def save(self):
+        self.click(ReserveBasesPrepareLocators.save, "Сохранить")
 
     def documents(self):
         self.click(ReserveBasesPrepareLocators.documents, "documents")
@@ -2700,7 +2706,7 @@ class ReserveBasesPreparePage(parent):
         self.set_text(ReserveBasesPrepareLocators.place, value, "place")
 
     def temp_institution(self, value):
-        self.set_text(ReserveBasesPrepareLocators.temp_institution, value, "tempInstitution")
+        self.set_select2(ReserveBasesPrepareLocators.temp_institution, value, "tempInstitution")
 
     def start_date(self, value):
         self.set_text(ReserveBasesPrepareLocators.start_date, value, "startDate")
@@ -2721,16 +2727,16 @@ class ReserveBasesPreparePage(parent):
         self.set_select2(ReserveBasesPrepareLocators.qualification, value, "qualification")
 
     def specialization(self, value):
-        self.set_select2(ReserveBasesPrepareLocators.specialization, value, "specialization")
+        self.set_text(ReserveBasesPrepareLocators.specialization, value, "specialization")
 
     def begin_date(self, value):
         self.set_date(ReserveBasesPrepareLocators.begin_date, value, "beginDate")
 
-    def end_date(self, value):
-        self.set_date(ReserveBasesPrepareLocators.end_date, value, "endDate")
+    def stop_date(self, value):
+        self.set_date(ReserveBasesPrepareLocators.stop_date, value, "endDate")
 
-    def organization(self, value):
-        self.set_text(ReserveBasesPrepareLocators.organization, value, "organization")
+    def organization_work(self, value):
+        self.set_text(ReserveBasesPrepareLocators.organization_work, value, "organization_work")
 
     def address_organization(self, value):
         self.set_text(ReserveBasesPrepareLocators.address_organization, value, "addressOrganization")
@@ -2772,7 +2778,7 @@ class ReserveBasesPreparePage(parent):
         self.set_text(ReserveBasesPrepareLocators.organization_other, value, "organizationOther")
 
     def ready_to_move(self, value):
-        self.set_select(ReserveBasesPrepareLocators.ready_to_move, value, "readyToMove")
+        self.set_select(value)
 
     def salary_from(self, value):
         self.set_text(ReserveBasesPrepareLocators.salary_from, value, "salaryFrom")

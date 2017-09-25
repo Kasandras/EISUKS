@@ -26,16 +26,17 @@ class TestSuite:
 
     def test_doc_documents(self):
         """Вкладка "Документы" страницы "Документы" """
-        data = get_data_by_value(self.data, "documents", "name_document", "Анкета регионального резерва")
+        data = get_data_by_value(self.data, "documents", "type_doc", "Документы, подтверждающие")
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
         page = DocumentsPage(self.driver).documents
         page.scroll_to_bottom()
         page.click_by_text("Документы", 2)
         page.click_by_text("Документы", 2)
-        sleep(2)
+        sleep(0.5)
         page.click_by_text("Добавить")
-        page.name_document(data["name_document"])
+        page.type_document(data["type_doc"])
+        page.name_document(data["name_doc"])
         page.upload_file(data["upload_file"])
         page.click_by_text("Сохранить")
 
@@ -52,7 +53,8 @@ class TestSuite:
             page.click_by_text("Удалить")
             page.click_by_text("Да")
             page.click_by_text("Добавить")
-        page.upload_photo(data["upload_photo"])
+        page.wait_for_text_appear("Загрузить")
+        page.upload_file(data["upload_photo"])
         page.last_name(data["last_name"])
         page.first_name(data["first_name"])
         page.middle_name(data["middle_name"])
@@ -223,7 +225,7 @@ class TestSuite:
         page.click_by_text("Добавить")
         page.start_date(data["start_date"])
         page.post(data["post"])
-        page.organization(data["organization"])
+        page.organization_work(data["organization"])
         page.address_organization(data["address_organization"])
         page.employees_number(data["employees_number"])
         page.subject(data["subject"])

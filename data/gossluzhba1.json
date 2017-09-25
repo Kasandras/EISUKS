@@ -762,7 +762,7 @@
       "specialization":"Математик",
       "beginDate":"03052003",
       "stopDate":"08072017",
-      "organization":"ФТС",
+      "organization_work":"ФТС",
       "addressOrganization":"г. Москва, ул. Киевская, д. 5, офис 3",
       "structuralDivision":"Бухгалтерия",
       "post":"Специалист",
@@ -774,7 +774,7 @@
       "jobTypes":"Другое",
       "expectations":"Просторное рабочее место",
       "organizationSubType":"Городской округ",
-      "organization_":"ФТС",
+      "organization":"ФТС",
       "organizationOther":"Не указано",
       "readyToMove":"Нет",
       "salaryFrom":"50000",
@@ -783,7 +783,7 @@
       "publications":"Отсутствуют",
       "recommendations":"За время работы в компании зарекомендовал себя пунктуальным работником",
       "additionalInfo":"Не указано",
-      "agreeToProcessData":"True",
+      "agreeToProcessData":"False",
       "availabilityDegree":"Средняя",
       "position":"Специалист",
       "recomendations":"Иванов С.М.; начальник отдела бухгалтерии; 495 111-11-11",
@@ -813,7 +813,8 @@
   "application_form": {
     "documents": [
       {
-        "name_document": "Анкета регионального резерва",
+        "type_doc": "Документы, подтверждающие",
+        "name_doc":"Образование",
         "upload_file": "Проверочный.pdf"
       }
     ],

@@ -33,7 +33,7 @@ class TestSuite:
         data = get_data_by_value(self.data, "reserve_bases_manage", "code", "60")
 
         LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
-        self.go_to(Links.reserve_bases_manage)
+        self.go_to(Links.manage_reserve_bases)
         page.click_by_text("Добавить")
         page.code(data["code"])
         page.name(data["name"])
