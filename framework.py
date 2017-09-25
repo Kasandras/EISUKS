@@ -168,7 +168,20 @@ class Browser(object):
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
-            self.set_text_and_check((By.XPATH, "//div[@id='select2-drop' or @id='select2-drop']//input"), value)
+            self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
+            sleep(1)
+            self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
+            self.wait_for_element_disappear((By.ID, "select2-drop"))
+            if label and self.log:
+                print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+
+    def set_select2_alt(self, locator, value, label=None):
+        if value:
+            self.click(locator)
+            element = self.wait_for_element_appear(locator)
+            input_field = element.find_element(By.XPATH, ".//input")
+            input_field.clear()
+            input_field.send_keys(value)
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
