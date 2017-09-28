@@ -20,6 +20,7 @@ class Browser(object):
         self.driver = driver
         self.timeout = timeout
         self.log = log
+        self.wait = Wait(self.driver, self.timeout)
 
     def accept_alert(self):
         try:
@@ -228,5 +229,35 @@ class Browser(object):
         return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator))
 
     def wait_for_loading(self):
+        WebDriverWait(self.driver, self.timeout).until_not(
+            ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
+
+
+class Wait(object):
+    """
+    Methods for waiting
+    """
+    def __init__(self, driver, timeout):
+        self.driver = driver
+        self.timeout = timeout
+
+    def text_appear(self, text):
+        return WebDriverWait(self.driver, self.timeout).until(
+            ec.visibility_of_element_located((By.XPATH, "//*[contains(., '%s')]" % text)))
+
+    def text_disappear(self, text):
+        return WebDriverWait(self.driver, self.timeout).until(
+            ec.visibility_of_element_located((By.XPATH, "//*[contains(., '%s')]" % text)))
+
+    def element_appear(self, locator):
+        return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located(locator))
+
+    def element_disappear(self, locator):
+        return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator))
+
+    def lamb(self, exe):
+        return WebDriverWait(self.driver, self.timeout).until(exe)
+
+    def loading(self):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))

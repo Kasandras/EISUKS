@@ -40,7 +40,7 @@
       "criminalRecord": "Нет",
       "lastNameChanging": "Не менял",
       "appointment": {
-        "reason": "пп. 1 п. 2 ст.",
+        "reason": "Приказ об изменении штатного расписания",
         "duration": false,
         "dateFrom": "21.01.2017",
         "trial": false,
