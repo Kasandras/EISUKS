@@ -207,9 +207,20 @@ class Browser(object):
     def upload_file(self, value, order=1):
         self.wait_for_loading()
         # открываем страницу с формой загрузки файла
+        container = self.driver.find_element(By.XPATH, "(//div[@class='qq-uploader'])[%s]" % order)
+        input_field = container.find_element(By.XPATH, ".//input[@type='file']")
+        input_field.clear()
+        input_field.send_keys("%s/sources/%s" % (os.getcwd(), value))
+        WebDriverWait(self.driver, 60).until(
+            ec.visibility_of_element_located((By.XPATH,
+                                              "(//div[@class='qq-uploader'])[%s]//li[contains(., 'Удалить')]" % order)))
+
+    def upload_photo(self, value, order=1):
+        self.wait_for_loading()
+        # открываем страницу с формой загрузки файла
         element = self.driver.find_element(By.XPATH, "(//input[@type='file'])[%s]" % order)
         element.clear()
-        element.send_keys("%s/sources/%s" % (os.getcwd(), value))
+        element.send_keys("%s/files/%s" % (os.getcwd(), value))
         WebDriverWait(self.driver, 60).until(
             ec.visibility_of_element_located((By.XPATH, "//*[self::a or self::button][.='Удалить']")))
 
