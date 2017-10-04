@@ -15,7 +15,7 @@ class TestSuite:
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("gossluzhba1")
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
+        cls.admin = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -29,10 +29,13 @@ class TestSuite:
         print("Переход по ссылке: %s" % url)
 
     def test_manage_reserve_bases(self):
+        """
+        Управление базами резерва
+        """
         page = ManageReserveBasesPage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_manage", "code", "60")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
         self.go_to(Links.manage_reserve_bases)
         page.click_by_text("Добавить")
         page.code(data["code"])

@@ -16,7 +16,7 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
+        cls.admin = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -26,20 +26,20 @@ class TestSuite:
     def test_vacancy_search(self):
         page = VacancySearchPage(self.driver)
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
         page.scroll_to_bottom()
         page.click_by_text("Поиск вакансий")
         page.click_by_text("Фильтр")
         page.click_by_text("Очистить")
         page.type_source_vacancy("ФОИВ")
-        page.name_source_vacancy("Федеральная служба по гидрометеорологии и мониторингу окружающей среды")
-        page.name_vacant_position("Руководитель федеральной службы")
+        page.name_source_vacancy("Министерство природных ресурсов и экологии Российской Федерации")
+        page.name_vacant_position("Директор департамента")
         page.type_vacancy("Вакансия для замещения вакантной должности")
         page.substitution_competition("Нет")
-        page.electronic_documents("Нет")
+        page.electronic_documents("Да")
         sleep(1)
         page.profile_activity_organization("Другое")
-        page.key_word("Руководитель")
+        page.key_word("Директор")
         page.click_by_text("Общие сведения")
         page.category_job("Руководители")
         page.group_job("Высшая")
@@ -53,13 +53,13 @@ class TestSuite:
         page.type_service_contract("Неважно")
         page.normal_workday("Да")
         page.click_by_text("Прием документов")
-        page.day_start_accept_document_from("29.08.2016")
-        page.day_stop_accept_document_to("19.09.2016")
+        page.day_start_accept_document_from("29.08.2017")
+        page.day_stop_accept_document_to("19.09.2018")
         page.click_by_text("Квалификационные требования")
         page.level_education("Высшее образование")
         page.service_experience("Не менее 6 лет")
         page.work_experience_speciality("Не менее 7 лет")
         page.click_by_text("Применить")
-        page.click_by_text("Руководитель федеральной службы")
-        sleep(5)
+        page.click_by_text("Директор департамента")
+        page.wait_for_text_appear("Код вакансии")
         assert "Профиль деятельности организации" in self.driver.page_source

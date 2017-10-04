@@ -2146,25 +2146,25 @@ class VacancyCreatePage(parent):
 
     class PostIsCompetition(parent):
         def social_package_files(self, value):
-            self.upload_file_alt(value)
+            self.upload_file(value)
 
         def additional_position_info_file(self, value):
-            self.upload_file_alt(value, 2, 2)
+            self.upload_file(value, 2)
 
         def knowledge_description_files(self, value):
-            self.upload_file_alt(value, 3, 3)
+            self.upload_file(value, 3)
 
         def job_responsibility_files(self, value):
-            self.upload_file_alt(value, 4, 4)
+            self.upload_file(value, 4)
 
         def position_rules_files(self, value):
-            self.upload_file_alt(value, 5, 5)
+            self.upload_file(value, 5)
 
         def additional_info_files(self, value):
-            self.upload_file_alt(value, 6, 6)
+            self.upload_file(value, 6)
 
         def template_file(self, value):
-            self.upload_file_alt(value, 7, 7)
+            self.upload_file(value, 7)
 
         def structural_unit(self, value):
             self.set_select2(
@@ -2234,25 +2234,25 @@ class VacancyCreatePage(parent):
 
     class ReservePost(parent):
         def social_package_files(self, value):
-            self.upload_file_alt(value)
+            self.upload_file(value)
 
         def additional_position_info_file(self, value):
-            self.upload_file_alt(value, 2, 2)
+            self.upload_file(value, 2)
 
         def knowledge_description_files(self, value):
-            self.upload_file_alt(value, 3, 3)
+            self.upload_file(value, 3)
 
         def job_responsibility_files(self, value):
-            self.upload_file_alt(value, 4, 4)
+            self.upload_file(value, 4)
 
         def position_rules_files(self, value):
-            self.upload_file_alt(value, 5, 5)
+            self.upload_file(value, 5)
 
         def additional_info_files(self, value):
-            self.upload_file_alt(value, 6, 6)
+            self.upload_file(value, 6)
 
         def template_file(self, value):
-            self.upload_file_alt(value, 7, 7)
+            self.upload_file(value, 7)
 
         def reserve(self, value):
             self.set_select2(VacancyCreateLocators.ReservePost.reserve, value, "Резерв")
@@ -2315,25 +2315,25 @@ class VacancyCreatePage(parent):
 
     class ReserveGroupPosts(parent):
         def social_package_files(self, value):
-            self.upload_file_alt(value)
+            self.upload_file(value)
 
         def additional_position_info_file(self, value):
-            self.upload_file_alt(value, 2, 2)
+            self.upload_file(value, 2)
 
         def knowledge_description_files(self, value):
-            self.upload_file_alt(value, 3, 3)
+            self.upload_file(value, 3)
 
         def job_responsibility_files(self, value):
-            self.upload_file_alt(value, 4, 4)
+            self.upload_file(value, 4)
 
         def position_rules_files(self, value):
-            self.upload_file_alt(value, 5, 5)
+            self.upload_file(value, 5)
 
         def additional_info_files(self, value):
-            self.upload_file_alt(value, 6, 6)
+            self.upload_file(value, 6)
 
         def template_file(self, value):
-            self.upload_file_alt(value, 7, 7)
+            self.upload_file(value, 7)
 
         def reserve(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve, value, "Резерв")
@@ -2397,25 +2397,25 @@ class VacancyCreatePage(parent):
 
     class VacantStudy(parent):
         def social_package_files(self, value):
-            self.upload_file_alt(value)
+            self.upload_file(value)
 
         def additional_position_info_file(self, value):
-            self.upload_file_alt(value, 2, 2)
+            self.upload_file(value, 2)
 
         def knowledge_description_files(self, value):
-            self.upload_file_alt(value, 3, 3)
+            self.upload_file(value, 3)
 
         def job_responsibility_files(self, value):
-            self.upload_file_alt(value, 4, 4)
+            self.upload_file(value, 4)
 
         def position_rules_files(self, value):
-            self.upload_file_alt(value, 5, 5)
+            self.upload_file(value, 5)
 
         def additional_info_files(self, value):
-            self.upload_file_alt(value, 6, 6)
+            self.upload_file(value, 6)
 
         def template_file(self, value):
-            self.upload_file_alt(value, 7, 7)
+            self.upload_file(value, 7)
 
         def structural_unit(self, value):
             self.set_select2(VacancyCreateLocators.VacantStudy.structural_unit, value, "Структурное подразделение")
@@ -2478,10 +2478,10 @@ class VacancyCreatePage(parent):
 
     class VacantState(parent):
         def job_responsibility_files(self, value):
-            self.upload_file_alt(value)
+            self.upload_file(value)
 
         def position_rules_files(self, value):
-            self.upload_file_alt(value, 2, 2)
+            self.upload_file(value, 2)
 
         def structural_unit(self, value):
             self.set_select2(VacancyCreateLocators.VacantState.structural_unit, value, "Структурное подразделение")
@@ -2515,11 +2515,9 @@ class VacancyManagePage(parent):
         return today() in texts
 
     def status(self, value):
-        self.select2_clear(VacancyManageLocators.status)
         self.set_select2_alt(VacancyManageLocators.status, value, "Статус")
 
     def type(self, value):
-        self.select2_clear(VacancyManageLocators.type)
         self.set_select2_alt(VacancyManageLocators.type, value, "Тип вакансии")
 
     def create_date(self, value):
@@ -2568,7 +2566,7 @@ class ReserveViewFederal(parent):
             self.click_by_text("Сохранить")
 
     def level_reserve(self, value):
-        self.set_select2(ReserveViewFederalLocators.level_reserve, value, "Уровень резерва")
+        self.set_select2_alt(ReserveViewFederalLocators.level_reserve, value, "Уровень резерва")
 
     def resume(self):
         self.click(ReserveViewFederalLocators.resume, "Резюме")

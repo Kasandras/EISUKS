@@ -16,7 +16,7 @@ class TestSuite:
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("gossluzhba1")
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
+        cls.admin = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
 
     @classmethod
     def teardown_class(cls):
@@ -36,7 +36,7 @@ class TestSuite:
         page = ReserveViewFederal(self.driver)
         data = get_data_by_value(self.data, "reserve", "view", "")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
         self.go_to(Links.permission_read_resume)
         page.permission_read_resume(True)
         page.wait_for_text_appear("Данные успешно сохранены")

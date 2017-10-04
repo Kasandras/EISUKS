@@ -17,7 +17,7 @@ class TestSuite:
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("gossluzhba1")["application_form"]
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
+        cls.hr2 = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
 
     @classmethod
     def teardown_class(cls):
@@ -26,9 +26,9 @@ class TestSuite:
 
     def test_doc_documents(self):
         """Вкладка "Документы" страницы "Документы" """
-        data = get_data_by_value(self.data, "documents", "type_doc", "Документы, подтверждающие")
+        data = get_data_by_value(self.data, "documents", "type_doc", "Скан-копия паспорта")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         page = DocumentsPage(self.driver).documents
         page.scroll_to_bottom()
         page.click_by_text("Документы", 2)
@@ -44,17 +44,23 @@ class TestSuite:
         """Анкеты - раздел "Личные сведения", блок "Общие сведения" """
         data = get_data_by_value(self.data, "personal_main", "upload_photo", "photo_male.jpg")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         parent(self.driver).go_to(Links.application_form)
         page = DocumentsPage(self.driver).personal_main
-        # Если анкета присутствует на странице, удаляем и создаём новую, проверяя добавление анкет
-        if "Анкета 667" in self.driver.page_source:
+        # Если действующая анкета присутствует на странице, удаляем и создаём новую,
+        # проверяя добавление анкет
+        sleep(5)
+        if "Действующая" in self.driver.page_source:
             page.selection_radio()
             page.click_by_text("Удалить")
             page.click_by_text("Да")
             page.click_by_text("Добавить")
+        else:
+            page.click_by_text("Добавить")
+            page.click_by_text("Анкета 667-р")
+            page.click_by_text("Редактировать")
         page.wait_for_text_appear("Загрузить")
-        page.upload_file(data["upload_photo"])
+        page.upload_photo(data["upload_photo"])
         page.last_name(data["last_name"])
         page.first_name(data["first_name"])
         page.middle_name(data["middle_name"])
@@ -75,7 +81,7 @@ class TestSuite:
         """Анкеты - раздел "Личные сведения", блок "Контакты" """
         data = get_data_by_value(self.data, "personal_contact", "work_phone", "9453513517")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).personal_contact
         if "Загрузить" in self.driver.page_source:
@@ -101,7 +107,7 @@ class TestSuite:
         """Анкеты - раздел "Документы" """
         data = get_data_by_value(self.data, "identification_document", "type_document", "Паспорт гражданина РФ")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).identification_document
         page.click_by_text("Документы, удостоверяющие")
@@ -118,7 +124,7 @@ class TestSuite:
         """Анкеты - раздел "Образование", блок "Основное" """
         data = get_data_by_value(self.data, "education_main", "education_level", "Высшее образование")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         page = DocumentsPage(self.driver).education.main
         DocumentsPage(self.driver).has_appform()
         page.click_by_text("Образование")
@@ -146,7 +152,7 @@ class TestSuite:
         """Анкеты - раздел "Образование", блок "Послевузовское" """
         data = get_data_by_value(self.data, "education_egc", "education", "Аспирантура")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.egc
         page.click_by_text("Образование")
@@ -167,7 +173,7 @@ class TestSuite:
         """Анкеты - раздел "Образование", блок "Ученое звание" """
         data = get_data_by_value(self.data, "education_degree", "academic_statuses", "Доцент")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.degree
         page.click_by_text("Образование")
@@ -180,7 +186,7 @@ class TestSuite:
         """Анкеты - раздел "Образование", блок "Знание иностранных языков" """
         data = get_data_by_value(self.data, "education_languages", "languages", "Немецкий")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.languages
         page.click_by_text("Образование")
@@ -193,7 +199,7 @@ class TestSuite:
         """Анкеты - раздел "Образование", блок "Дополнительное профессиональное образование" """
         data = get_data_by_value(self.data, "education_dpo", "education_direction", "Организационно-экономическое")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.dpo
         page.click_by_text("Образование")
@@ -218,14 +224,14 @@ class TestSuite:
         """Анкеты - раздел "Трудовая деятельность" """
         data = get_data_by_value(self.data, "labor_activity", "start_date", "20092009")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).labor_activity
         page.click_by_text("Трудовая деятельность")
         page.click_by_text("Добавить")
         page.start_date(data["start_date"])
         page.post(data["post"])
-        page.organization_work(data["organization"])
+        page.organization(data["organization"])
         page.address_organization(data["address_organization"])
         page.employees_number(data["employees_number"])
         page.subject(data["subject"])
@@ -242,7 +248,7 @@ class TestSuite:
         """Анкеты - раздел "Трудовая деятельность", блок классных чинов"""
         data = get_data_by_value(self.data, "class_rank", "has_class_rank", "True")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).class_rank
         page.click_by_text("Трудовая деятельность")
@@ -267,7 +273,7 @@ class TestSuite:
         """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
         data = get_data_by_value(self.data, "specialization", "specialization", "Экономика и финансы")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).specialization
         page.click_by_text("Трудовая деятельность")
@@ -282,7 +288,7 @@ class TestSuite:
         """Анкеты - раздел "Поощрения" анкеты"""
         data = get_data_by_value(self.data, "award", "type", "благодарность")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).award
         page.click_by_text("Поощрения")
@@ -296,7 +302,7 @@ class TestSuite:
         """Анкеты - раздел "Допуск к государственной тайне" """
         data = get_data_by_value(self.data, "state_secret", "admission_form", "Вторая форма")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).state_secret
         page.click_by_text("Допуск к государственной тайне")
@@ -309,7 +315,7 @@ class TestSuite:
         """Анкеты - раздел "Воинский учет" """
         data = get_data_by_value(self.data, "military", "rank", "ефрейтор")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).military
         page.click_by_text("Воинский учет")
@@ -326,7 +332,7 @@ class TestSuite:
         """Анкеты - раздел "Сведения о близких родственниках" """
         data = get_data_by_value(self.data, "kin", "kin_ship", "Сын")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).kin
         page.click_by_text("Сведения о близких родственниках")

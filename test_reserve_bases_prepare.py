@@ -15,7 +15,7 @@ class TestSuite:
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("gossluzhba1")
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
+        cls.hr2 = get_data_by_number(load_data("gossluzhba1"), "accounts", 3)
 
     @classmethod
     def teardown_class(cls):
@@ -29,10 +29,14 @@ class TestSuite:
         print("Переход по ссылке: %s" % url)
 
     def test_add_personal_file(self):
+        """
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Добавление новой записи
+        """
         page = ReserveBasesPreparePage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         self.go_to(Links.reserve_bases_prepare)
         page.click_by_text("Добавить")
         page.personal_file(data["personalFile"])
@@ -43,17 +47,21 @@ class TestSuite:
         assert "Найдено" in self.driver.page_source
 
     def test_fill_resume(self):
+        """
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Заполнение резюме
+        """
         page = ReserveBasesPreparePage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         self.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         page.documents()
         page.resume()
         self.driver.switch_to_window(self.driver.window_handles[1])
         page.click_by_text("Редактировать", 1)
-        page.upload_file(data["photo"])
+        page.upload_photo(data["photo"])
         page.last_name(data["lastName"])
         page.first_name(data["firstName"])
         page.middle_name(data["middleName"])
@@ -136,10 +144,14 @@ class TestSuite:
         self.driver.switch_to_window(self.driver.window_handles[0])
 
     def test_fill_presentation(self):
+        """
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Заполнение представления
+        """
         page = ReserveBasesPreparePage(self.driver, 3)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         self.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         page.documents()
@@ -151,16 +163,25 @@ class TestSuite:
         page.professional_achievements(data["professionalAchievements"])
         page.developement_area(data["developementArea"])
         page.additional_preperation_text(data["additionalPreperationText"])
-        page.click_by_text("Сохранить")
+        page.click_by_text("Сохранить", 2)
         page.wait_for_loading()
         self.driver.close()
         self.driver.switch_to_window(self.driver.window_handles[0])
 
     def test_send_resume(self):
+        """
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Отправка на рассмотрение
+        """
         page = ReserveBasesPreparePage(self.driver)
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
         self.go_to(Links.reserve_bases_prepare)
+        page.search(data["search"])
+        sleep(1)
         page.set_checkbox_by_order()
         page.click_by_text("Направить на рассмотрение")
-        assert "Отправлено" in self.driver.page_source
+        page.click_by_text("Да")
+        sleep(3)
+        assert "На рассмотрении" in self.driver.page_source

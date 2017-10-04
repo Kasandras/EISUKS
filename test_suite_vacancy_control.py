@@ -17,7 +17,7 @@ class TestSuite:
         """What happens BEFORE tests"""
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
-        cls.account = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
+        cls.admin = get_data_by_number(load_data("gossluzhba1"), "accounts", 1)
         cls.user = get_data_by_number(load_data("gossluzhba1"), "accounts", 2)
 
     @classmethod
@@ -27,7 +27,7 @@ class TestSuite:
 
     def test_vacancy_control_invite(self):
         page = VacancyControlPage(self.driver)
-        LoginPage(self.driver).login(self.account["username"], self.account["password"], self.account["fullName"])
+        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
         page.click_by_text("Формирование кадрового состава")
         page.click_by_text("Проведение конкурса на замещение вакантной должности")
         page.scroll_to_top()

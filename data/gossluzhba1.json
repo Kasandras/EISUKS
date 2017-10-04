@@ -16,14 +16,14 @@
       "fullName": "М. Ю. Лобода"
     },
     {
-        "username": "drozdoviv@quarta.su",
-        "password": "123123/",
-        "fullName": "Е. М. Викторенко"
+      "username": "drozdoviv@quarta.su",
+      "password": "123123/",
+      "fullName": "Е. М. Викторенко"
     },
     {
-        "username": "ahabanovaal@gmail.com",
-        "password": "123123/",
-        "fullName": "А. Л. Шабанова"
+      "username": "ahabanovaal@gmail.com",
+      "password": "123123/",
+      "fullName": "А. Л. Шабанова"
     }
   ],
   "employees": [
@@ -708,7 +708,7 @@
     {
       "view": "",
       "level_reserve": "Высший",
-      "participant": "Зинин Алексей Федорович"
+      "participant": "Гуназин Юрий Юрикович"
     }
   ],
   "reserve_bases_manage":[
@@ -813,7 +813,7 @@
   "application_form": {
     "documents": [
       {
-        "type_doc": "Документы, подтверждающие",
+        "type_doc": "Скан-копия паспорта",
         "name_doc":"Образование",
         "upload_file": "Проверочный.pdf"
       }
