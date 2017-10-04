@@ -43,8 +43,9 @@ class LoginPage(parent):
         if "Войти" in self.driver.page_source:
             self.click_by_text("Войти")
             try:
-                self.driver.find_element(By.XPATH, "(//button[contains(., 'Войти')])[2]")
-            except ec.NoSuchElementException:
+                drop_down = Wait(self.driver, 3).element_appear((By.XPATH, "//ul[@class='dropdown-menu pull-right']"))
+                drop_down.find_element(By.XPATH, "//a[@href='#/login']").click()
+            except TimeoutException:
                 pass
             self.username(username)
             self.password(password)
