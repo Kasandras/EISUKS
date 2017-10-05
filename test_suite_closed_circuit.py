@@ -50,7 +50,7 @@ class TestSuite:
         cls.admin = get_data_by_number(cls.data, "accounts", 1)
         cls.user = get_data_by_number(cls.data, "accounts", 2)
         cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
-        cls.user2 = get_data_by_number(load_data("gossluzhba1"), "accounts", 4)
+        cls.user2 = get_data_by_number(cls.data, "accounts", 4)
 
     @classmethod
     def teardown_class(cls):
@@ -905,7 +905,7 @@ class TestSuite:
 
         page = RolesManagementPage(self.driver, 3)
         page.click_by_text("Управление ролями")
-        page.search(data["name"]+Keys.RETURN)
+        page.search(data["name"])
         while True:
             try:
                 page.table_row_radio()
@@ -918,7 +918,6 @@ class TestSuite:
         page.is_require_organization(data["isRequireOrganization"])
         page.level(data["level"])
         page.click_by_text("Сохранить")
-        page.search(data["name"])
 
     def test_rules_list(self):
         """
@@ -1163,9 +1162,9 @@ class TestSuite:
 
     def test_doc_documents(self):
         """Вкладка "Документы" страницы "Документы" """
-        data = get_data_by_value(self.data, "documents", "type_doc", "Скан-копия паспорта")
+        data = get_data_by_value(self.data["application_form"], "documents", "type_doc", "Скан-копия паспорта")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         page = DocumentsPage(self.driver).documents
         page.scroll_to_bottom()
         page.click_by_text("Документы", 2)
