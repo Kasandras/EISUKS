@@ -816,7 +816,8 @@ class ManageReserveBasesLocators(object):
     code = (By.XPATH, "//input[@name='code']")
     name = (By.XPATH, "//input[@name='name']")
     edit = (By.XPATH, "(//a[@ng-click='edit(base.id)'])[1]")
-    delete = (By.XPATH, "(//a[@ng-click='del(base)'])[1]")
+    delete = (By.XPATH, "(//span[@class='custom-icon-remove'])[1]")
+    edit_base = (By.XPATH, "(//span[@class='custom-icon-edit'])[1]")
 
 
 class CertificatePlanningLocators(object):

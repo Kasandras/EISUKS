@@ -542,7 +542,7 @@ class TestSuite:
         page.click_by_text("Награды и поощрения")
     # end
 
-    def tes1t_contest_replacement(self):
+    def test_contest_replacement(self):
         """
         Формирование кадрового состава - Комиссии
         """
@@ -936,7 +936,7 @@ class TestSuite:
         page = ProfilePage(self.driver)
         data = get_data_by_value(self.data, "members", "upload_photo", "photo_female.jpg")
 
-        LoginPage(self.driver).login(self.user2["username"], self.user2["password"], self.user2["fullName"])
+        LoginPage(self.driver).login(data=self.user2)
         page.click_by_text("Профиль", 2)
         page.click_by_text("Редактировать")
         page.upload_photo(data["upload_photo"])
@@ -963,9 +963,9 @@ class TestSuite:
         Управление базами резерва
         """
         page = ManageReserveBasesPage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_manage", "code", "60")
+        data = get_data_by_value(self.data, "reserve_bases_manage", "code", "999")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         self.go_to(Links.manage_reserve_bases)
         page.click_by_text("Добавить")
         page.code(data["code"])
@@ -979,6 +979,10 @@ class TestSuite:
         page.wait_for_text_appear("Статус")
         assert data["code"] in self.driver.page_source
         page.delete()
+        page.edit_base()
+        page.set_checkbox_by_order()
+        page.click_by_text("Сохранить")
+
 
     def test_add_personal_file(self):
         """
@@ -988,7 +992,7 @@ class TestSuite:
         page = ReserveBasesPreparePage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.reserve_bases_prepare)
         page.click_by_text("Добавить")
         page.personal_file(data["personalFile"])
@@ -1006,7 +1010,7 @@ class TestSuite:
         page = ReserveBasesPreparePage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         page.documents()
@@ -1046,7 +1050,9 @@ class TestSuite:
         page.click_by_text("Редактировать")
         page.education_level(data["educationLevel"])
         page.click_by_text("Сохранить")
+        sleep(1)
         page.click_by_text("Добавить")
+        sleep(1)
         page.education_kinds(data["educationKinds"])
         page.education_forms(data["educationForms"])
         page.place(data["place"])
@@ -1103,12 +1109,13 @@ class TestSuite:
         page = ReserveBasesPreparePage(self.driver, 3)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         page.documents()
         page.presentation()
         self.driver.switch_to_window(self.driver.window_handles[1])
+        sleep(1)
         page.availability_degree(data["availabilityDegree"])
         page.position(data["position"])
         page.recomendations(data["recomendations"])
@@ -1128,7 +1135,7 @@ class TestSuite:
         page = ReserveBasesPreparePage(self.driver)
         data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         sleep(1)
@@ -1145,7 +1152,7 @@ class TestSuite:
         page = ReserveViewFederal(self.driver)
         data = get_data_by_value(self.data, "reserve", "view", "")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         self.go_to(Links.permission_read_resume)
         page.permission_read_resume(True)
         page.wait_for_text_appear("Данные успешно сохранены")
@@ -1178,9 +1185,9 @@ class TestSuite:
 
     def test_doc_appform_personal_main(self):
         """Анкеты - раздел "Личные сведения", блок "Общие сведения" """
-        data = get_data_by_value(self.data, "personal_main", "upload_photo", "photo_male.jpg")
+        data = get_data_by_value(self.data["application_form"], "personal_main", "upload_photo", "photo_male.jpg")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         parent(self.driver).go_to(Links.application_form)
         page = DocumentsPage(self.driver).personal_main
         # Если действующая анкета присутствует на странице, удаляем и создаём новую,
@@ -1215,9 +1222,9 @@ class TestSuite:
 
     def test_doc_appform_personal_contact(self):
         """Анкеты - раздел "Личные сведения", блок "Контакты" """
-        data = get_data_by_value(self.data, "personal_contact", "work_phone", "9453513517")
+        data = get_data_by_value(self.data["application_form"], "personal_contact", "work_phone", "9453513517")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).personal_contact
         if "Загрузить" in self.driver.page_source:
@@ -1241,9 +1248,9 @@ class TestSuite:
 
     def test_doc_appform_identification_document(self):
         """Анкеты - раздел "Документы" """
-        data = get_data_by_value(self.data, "identification_document", "type_document", "Паспорт гражданина РФ")
+        data = get_data_by_value(self.data["application_form"], "identification_document", "type_document", "Паспорт гражданина РФ")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).identification_document
         page.click_by_text("Документы, удостоверяющие")
@@ -1258,9 +1265,9 @@ class TestSuite:
 
     def test_doc_appform_education_main(self):
         """Анкеты - раздел "Образование", блок "Основное" """
-        data = get_data_by_value(self.data, "education_main", "education_level", "Высшее образование")
+        data = get_data_by_value(self.data["application_form"], "education_main", "education_level", "Высшее образование")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         page = DocumentsPage(self.driver).education.main
         DocumentsPage(self.driver).has_appform()
         page.click_by_text("Образование")
@@ -1286,9 +1293,9 @@ class TestSuite:
 
     def test_doc_appform_education_egc(self):
         """Анкеты - раздел "Образование", блок "Послевузовское" """
-        data = get_data_by_value(self.data, "education_egc", "education", "Аспирантура")
+        data = get_data_by_value(self.data["application_form"], "education_egc", "education", "Аспирантура")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.egc
         page.click_by_text("Образование")
@@ -1307,9 +1314,9 @@ class TestSuite:
 
     def test_doc_appform_education_degree(self):
         """Анкеты - раздел "Образование", блок "Ученое звание" """
-        data = get_data_by_value(self.data, "education_degree", "academic_statuses", "Доцент")
+        data = get_data_by_value(self.data["application_form"], "education_degree", "academic_statuses", "Доцент")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.degree
         page.click_by_text("Образование")
@@ -1320,9 +1327,9 @@ class TestSuite:
 
     def test_doc_appform_education_languages(self):
         """Анкеты - раздел "Образование", блок "Знание иностранных языков" """
-        data = get_data_by_value(self.data, "education_languages", "languages", "Немецкий")
+        data = get_data_by_value(self.data["application_form"], "education_languages", "languages", "Немецкий")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.languages
         page.click_by_text("Образование")
@@ -1333,9 +1340,9 @@ class TestSuite:
 
     def test_doc_appform_education_dpo(self):
         """Анкеты - раздел "Образование", блок "Дополнительное профессиональное образование" """
-        data = get_data_by_value(self.data, "education_dpo", "education_direction", "Организационно-экономическое")
+        data = get_data_by_value(self.data["application_form"], "education_dpo", "education_direction", "Организационно-экономическое")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).education.dpo
         page.click_by_text("Образование")
@@ -1358,9 +1365,9 @@ class TestSuite:
 
     def test_doc_appform_labor_activity(self):
         """Анкеты - раздел "Трудовая деятельность" """
-        data = get_data_by_value(self.data, "labor_activity", "start_date", "20092009")
+        data = get_data_by_value(self.data["application_form"], "labor_activity", "start_date", "20092009")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).labor_activity
         page.click_by_text("Трудовая деятельность")
@@ -1382,9 +1389,9 @@ class TestSuite:
 
     def test_doc_appform_class_rank(self):
         """Анкеты - раздел "Трудовая деятельность", блок классных чинов"""
-        data = get_data_by_value(self.data, "class_rank", "has_class_rank", "True")
+        data = get_data_by_value(self.data["application_form"], "class_rank", "has_class_rank", "True")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).class_rank
         page.click_by_text("Трудовая деятельность")
@@ -1407,9 +1414,9 @@ class TestSuite:
 
     def test_doc_appform_specialization(self):
         """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
-        data = get_data_by_value(self.data, "specialization", "specialization", "Экономика и финансы")
+        data = get_data_by_value(self.data["application_form"], "specialization", "specialization", "Экономика и финансы")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).specialization
         page.click_by_text("Трудовая деятельность")
@@ -1422,9 +1429,9 @@ class TestSuite:
 
     def test_doc_appform_award(self):
         """Анкеты - раздел "Поощрения" анкеты"""
-        data = get_data_by_value(self.data, "award", "type", "благодарность")
+        data = get_data_by_value(self.data["application_form"], "award", "type", "благодарность")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).award
         page.click_by_text("Поощрения")
@@ -1436,9 +1443,9 @@ class TestSuite:
 
     def test_doc_appform_state_secret(self):
         """Анкеты - раздел "Допуск к государственной тайне" """
-        data = get_data_by_value(self.data, "state_secret", "admission_form", "Вторая форма")
+        data = get_data_by_value(self.data["application_form"], "state_secret", "admission_form", "Вторая форма")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).state_secret
         page.click_by_text("Допуск к государственной тайне")
@@ -1449,9 +1456,9 @@ class TestSuite:
 
     def test_doc_appform_military(self):
         """Анкеты - раздел "Воинский учет" """
-        data = get_data_by_value(self.data, "military", "rank", "ефрейтор")
+        data = get_data_by_value(self.data["application_form"], "military", "rank", "ефрейтор")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).military
         page.click_by_text("Воинский учет")
@@ -1466,9 +1473,9 @@ class TestSuite:
 
     def test_doc_appform_kin(self):
         """Анкеты - раздел "Сведения о близких родственниках" """
-        data = get_data_by_value(self.data, "kin", "kin_ship", "Сын")
+        data = get_data_by_value(self.data["application_form"], "kin", "kin_ship", "Сын")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
         page = DocumentsPage(self.driver).kin
         page.click_by_text("Сведения о близких родственниках")
@@ -1494,7 +1501,7 @@ class TestSuite:
         Направление приглашения.
         """
         page = VacancyControlPage(self.driver)
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.click_by_text("Формирование кадрового состава")
         page.click_by_text("Проведение конкурса на замещение вакантной должности")
         page.scroll_to_top()
@@ -1529,7 +1536,7 @@ class TestSuite:
         Принятие приглашения.
         """
         page = VacancyControlPage(self.driver)
-        LoginPage(self.driver).login(self.user["username"], self.user["password"], self.user["fullName"])
+        LoginPage(self.driver).login(data=self.user)
         page.click_by_text("Вакансии на контроле")
         page.click_by_text("Фильтр")
         page.status_response("Направлено приглашение")
@@ -1568,7 +1575,7 @@ class TestSuite:
         """
         data = load_data("gossluzhba1")["advertisements"][order]
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.vacancy_list)
         page = VacancyCreatePage(self.driver, 5)
         page.click_by_text("Создать")
@@ -1924,91 +1931,91 @@ class TestSuite:
         page.wait_for_text_appear("Создать")
         assert "Создать" in self.driver.page_source
 
-    def test_creation_vacancy(self):
-        """
-        Создание вакансий, которые будут использоваться в управлении объявлениями
-        """
-        page = VacancyCreatePage(self.driver)
-        data = load_data("gossluzhba1")["advertisements"][1]
-
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
-        self.go_to(Links.vacancy_list)
-        for i in range(2):
-            page.click_by_text("Создать")
-            page.type_vacancy(data["type_vacancy"])
-            page.organization(data["organization"])
-            page.click_by_text("Закрыть", 2)
-            page.wait_for_text_appear("Структурное подразделение")
-            page.is_competition(data["is_competition"])
-            sleep(1)
-            page.post_is_competition.structural_unit(data["structural_unit"])
-            page.post_is_competition.sub_structural(data["sub_structural"])
-            page.post_is_competition.staff_unit(data["staff_unit"])
-            page.click_by_text("Закрыть", 2)
-            page.post_is_competition.work_type(data["work_type"])
-            page.work_type_other_text(data["work_type_other_text"])
-            page.post_is_competition.position_category(data["position_category"])
-            page.post_is_competition.position_group(data["position_group"])
-            page.post_is_competition.okato_region(data["okato_region"])
-            page.post_is_competition.okato_area(data["okato_area"])
-            page.salary_from(data["salary_from"])
-            page.salary_to(data["salary_to"])
-            sleep(1)
-            page.post_is_competition.business_trip(data["business_trip"])
-            sleep(1)
-            page.post_is_competition.work_day(data["work_day"])
-            page.post_is_competition.work_schedule(data["work_schedule"])
-            page.post_is_competition.work_contract(data["work_contract"])
-            page.social_package_text(data["social_package_text"])
-            page.post_is_competition.social_package_files(data["social_package_files"])
-            sleep(1)
-            page.additional_position_info_text(data["additional_position_info_text"])
-            page.post_is_competition.additional_position_info_file(data["additional_position_info_file"])
-            page.scroll_to_top()
-            page.click_by_text("Должностные обязанности")
-            page.job_responsibility_text(data["job_responsibility_text"])
-            page.post_is_competition.job_responsibility_files(data["job_responsibility_files"])
-            page.post_is_competition.position_rules_files(data["position_rules_files"])
-            page.click_by_text("Квалификационные требования")
-            page.post_is_competition.education_level(data["education_level"])
-            page.post_is_competition.government_experience(data["government_experience"])
-            page.post_is_competition.professional_experience(data["professional_experience"])
-            page.knowledge_description_text(data["knowledge_description_text"])
-            page.post_is_competition.knowledge_description_files(data["knowledge_description_files"])
-            page.additional_requirements(data["additional_requirements"])
-            page.post_is_competition.test(data["test"])
-            page.click_by_text("Документы", 2)
-            page.announcement_date()
-            page.expiry_date(data["expiry_date"])
-            page.registration_address(data["registration_address"])
-            page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.post_is_competition.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.post_is_competition.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(4, False)
-            # page.sel()
-            # page.delete()
-            # sleep(1)
-            page.click_by_text("Контакты")
-            page.wait_for_text_appear("Почтовый адрес")
-            page.post_is_competition.organization_address(data["organization_address"])
-            page.address_mail(data["address_mail"])
-            page.phone(data["phone"])
-            page.phone2(data["phone2"])
-            page.phone3(data["phone3"])
-            page.email(data["email"])
-            page.contact_person_other(data["contact_person_other"])
-            page.web(data["web"])
-            page.additional_info_text(data["additional_info_text"])
-            sleep(0.5)
-            page.post_is_competition.additional_info_files(data["additional_info_files"])
-            page.click_by_text("Сохранить")
-            page.wait_for_text_appear("Создать")
-            assert "Создать" in self.driver.page_source
+    # def test_creation_vacancy(self):
+    #     """
+    #     Создание вакансий, которые будут использоваться в управлении объявлениями
+    #     """
+    #     page = VacancyCreatePage(self.driver)
+    #     data = load_data("gossluzhba1")["advertisements"][1]
+    #
+    #     LoginPage(self.driver).login(data=self.hr2)
+    #     self.go_to(Links.vacancy_list)
+    #     for i in range(2):
+    #         page.click_by_text("Создать")
+    #         page.type_vacancy(data["type_vacancy"])
+    #         page.organization(data["organization"])
+    #         page.click_by_text("Закрыть", 2)
+    #         page.wait_for_text_appear("Структурное подразделение")
+    #         page.is_competition(data["is_competition"])
+    #         sleep(1)
+    #         page.post_is_competition.structural_unit(data["structural_unit"])
+    #         page.post_is_competition.sub_structural(data["sub_structural"])
+    #         page.post_is_competition.staff_unit(data["staff_unit"])
+    #         page.click_by_text("Закрыть", 2)
+    #         page.post_is_competition.work_type(data["work_type"])
+    #         page.work_type_other_text(data["work_type_other_text"])
+    #         page.post_is_competition.position_category(data["position_category"])
+    #         page.post_is_competition.position_group(data["position_group"])
+    #         page.post_is_competition.okato_region(data["okato_region"])
+    #         page.post_is_competition.okato_area(data["okato_area"])
+    #         page.salary_from(data["salary_from"])
+    #         page.salary_to(data["salary_to"])
+    #         sleep(1)
+    #         page.post_is_competition.business_trip(data["business_trip"])
+    #         sleep(1)
+    #         page.post_is_competition.work_day(data["work_day"])
+    #         page.post_is_competition.work_schedule(data["work_schedule"])
+    #         page.post_is_competition.work_contract(data["work_contract"])
+    #         page.social_package_text(data["social_package_text"])
+    #         page.post_is_competition.social_package_files(data["social_package_files"])
+    #         sleep(1)
+    #         page.additional_position_info_text(data["additional_position_info_text"])
+    #         page.post_is_competition.additional_position_info_file(data["additional_position_info_file"])
+    #         page.scroll_to_top()
+    #         page.click_by_text("Должностные обязанности")
+    #         page.job_responsibility_text(data["job_responsibility_text"])
+    #         page.post_is_competition.job_responsibility_files(data["job_responsibility_files"])
+    #         page.post_is_competition.position_rules_files(data["position_rules_files"])
+    #         page.click_by_text("Квалификационные требования")
+    #         page.post_is_competition.education_level(data["education_level"])
+    #         page.post_is_competition.government_experience(data["government_experience"])
+    #         page.post_is_competition.professional_experience(data["professional_experience"])
+    #         page.knowledge_description_text(data["knowledge_description_text"])
+    #         page.post_is_competition.knowledge_description_files(data["knowledge_description_files"])
+    #         page.additional_requirements(data["additional_requirements"])
+    #         page.post_is_competition.test(data["test"])
+    #         page.click_by_text("Документы", 2)
+    #         page.announcement_date()
+    #         page.expiry_date(data["expiry_date"])
+    #         page.registration_address(data["registration_address"])
+    #         page.registration_time(data["registration_time"])
+    #         # page.click_by_text("Добавить")
+    #         # page.post_is_competition.document_type(data["document_type"])
+    #         # page.description(data["description"])
+    #         # page.post_is_competition.template_file(data["template_file"])
+    #         # sleep(1)
+    #         # page.click_by_text("Добавить", 2)
+    #         # sleep(1)
+    #         # page.set_checkbox_by_order(4, False)
+    #         # page.sel()
+    #         # page.delete()
+    #         # sleep(1)
+    #         page.click_by_text("Контакты")
+    #         page.wait_for_text_appear("Почтовый адрес")
+    #         page.post_is_competition.organization_address(data["organization_address"])
+    #         page.address_mail(data["address_mail"])
+    #         page.phone(data["phone"])
+    #         page.phone2(data["phone2"])
+    #         page.phone3(data["phone3"])
+    #         page.email(data["email"])
+    #         page.contact_person_other(data["contact_person_other"])
+    #         page.web(data["web"])
+    #         page.additional_info_text(data["additional_info_text"])
+    #         sleep(0.5)
+    #         page.post_is_competition.additional_info_files(data["additional_info_files"])
+    #         page.click_by_text("Сохранить")
+    #         page.wait_for_text_appear("Создать")
+    #         assert "Создать" in self.driver.page_source
 
     def test_publication_vacancy(self):
         """
@@ -2018,7 +2025,7 @@ class TestSuite:
         page = VacancyManagePage(self.driver)
         data = get_data_by_value(self.data, "manage_vacancy", "project", "Проект")
 
-        LoginPage(self.driver).login(self.hr2["username"], self.hr2["password"], self.hr2["fullName"])
+        LoginPage(self.driver).login(data=self.hr2)
         self.go_to(Links.vacancy_list)
         for i in range(2):
             page.click_by_text("Фильтр")
@@ -2048,7 +2055,7 @@ class TestSuite:
         page = VacancyManagePage(self.driver)
         data = get_data_by_value(self.data, "manage_vacancy", "project", "Проект")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.click_by_text("Управление объявлениями")
         page.wait_for_loading()
         page.set_checkbox_by_order(2, True)
@@ -2070,7 +2077,7 @@ class TestSuite:
         page = VacancyManagePage(self.driver)
         data = get_data_by_value(self.data, "manage_vacancy", "project", "Проект")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.click_by_text("Управление объявлениями")
         page.wait_for_loading()
         page.click_by_text("Фильтр")
@@ -2096,7 +2103,7 @@ class TestSuite:
         page = VacancyManagePage(self.driver)
         data = get_data_by_value(self.data, "manage_vacancy", "project", "Проект")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.click_by_text("Управление объявлениями")
         page.wait_for_loading()
         page.click_by_text("Фильтр")
@@ -2123,7 +2130,7 @@ class TestSuite:
         page = VacancyManagePage(self.driver)
         data = get_data_by_value(self.data, "manage_vacancy", "project", "Проект")
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.click_by_text("Управление объявлениями")
         page.wait_for_loading()
         page.click_by_text("Фильтр")
@@ -2148,7 +2155,7 @@ class TestSuite:
         """
         page = VacancySearchPage(self.driver)
 
-        LoginPage(self.driver).login(self.admin["username"], self.admin["password"], self.admin["fullName"])
+        LoginPage(self.driver).login(data=self.admin)
         page.scroll_to_bottom()
         page.click_by_text("Поиск вакансий")
         page.click_by_text("Фильтр")

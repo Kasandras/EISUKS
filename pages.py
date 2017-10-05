@@ -2596,6 +2596,9 @@ class ManageReserveBasesPage(parent):
     def delete(self):
         self.click(ManageReserveBasesLocators.delete, "Delete")
 
+    def edit_base(self):
+        self.click(ManageReserveBasesLocators.edit_base, "Edit Base")
+
 
 class ReserveBasesPreparePage(parent):
 
