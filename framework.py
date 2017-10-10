@@ -201,7 +201,7 @@ class Browser(object):
     def tab_close(self, order=1):
         if order != 1:
             self.driver.switch_to.window(self.driver.window_handles[order])
-        self.driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 'w')
+        self.driver.close()
 
     def tab_switch(self, order):
         self.driver.switch_to.window(self.driver.window_handles[order])
