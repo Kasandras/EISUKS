@@ -1,6 +1,6 @@
-Declare     @FistName   nvarchar(500)     = 'Автоматизация'
-      ,           @LastName   nvarchar(500)     = 'Автоматизация'
-      ,           @MiddleName nvarchar(500)    = 'Автоматизация'
+Declare     @FistName   nvarchar(500)     = 'РђРІС‚РѕРјР°С‚РёР·Р°С†РёСЏ'
+      ,           @LastName   nvarchar(500)     = 'РђРІС‚РѕРјР°С‚РёР·Р°С†РёСЏ'
+      ,           @MiddleName nvarchar(500)    = 'РђРІС‚РѕРјР°С‚РёР·Р°С†РёСЏ'
       
       ,           @ID               UNIQUEIDENTIFIER  
       
@@ -25,4 +25,4 @@ Declare     @FistName   nvarchar(500)     = 'Автоматизация'
 
       end
       Close DeletePersonalFile
-      Deallocate DeletePersonalFile 
+      Deallocate DeletePersonalFile

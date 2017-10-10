@@ -1231,7 +1231,7 @@ class DocumentsPage(parent):
             self.set_select2(DocumentsLocators.PersonalMain.gender, value, "Пол")
 
         def individual_taxpayer_number(self, value):
-            self.set_text(DocumentsLocators.PersonalMain.individual_taxpayer_number, value, "СНИЛС")
+            self.set_text(DocumentsLocators.PersonalMain.individual_taxpayer_number, value, "ИНН")
 
         def insurance_certificate_number(self, value):
             self.set_text(DocumentsLocators.PersonalMain.insurance_certificate_number, value, "СНИЛС")
@@ -2575,11 +2575,11 @@ class ReserveViewFederal(parent):
         self.click(ReserveViewFederalLocators.presentation, "Представление")
 
     def check_text_and_close(self, text):
-        self.driver.switch_to_window(self.driver.window_handles[1])
+        self.driver.switch_to.window(self.driver.window_handles[1])
         self.wait_for_text_appear(text)
         assert text in self.driver.page_source
         self.driver.close()
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
 
 class ManageReserveBasesPage(parent):

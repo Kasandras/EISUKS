@@ -1,5 +1,6 @@
 import json
 import os
+import pymssql
 
 
 def load_data(file):
@@ -22,11 +23,12 @@ class Settings(object):
     path_to_driver = "drivers/chromedriver.exe"
 
 
-# def execute_script(query, server="QTESTEISUKS2", database="eisuks_reserve_hr", username="HRUser", password="P@ssw0rd123456"):
-#     conn = pymssql.connect(server=server, user=username, password=password, database=database)
-#     cursor = conn.cursor()
-#     cursor.execute(query)
-#     conn.close()
+def execute_script(query, server="QTESTEISUKS2", database="eisuks_reserve_hr", username="HRUser", password="P@ssw0rd123456"):
+    conn = pymssql.connect(server=server, user=username, password=password, database=database)
+    cursor = conn.cursor()
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
 
 
 class Links(object):
@@ -56,3 +58,42 @@ class Links(object):
     reserve_bases_prepare = main_page + "Reserve/Prepare#/federal"
     permission_read_resume = main_page + "Admin/Role#/permissions/00000000-0000-0002-ffff-ffffffffffff/permission/d1eb4a97-a6fc-4f12-89fe-21d472926148"
     manage_reserve_bases = main_page + "Classifier/Classifier#/reservebases/list"
+
+
+class Queries(object):
+    # скрипт для удаления записи из ФРУКа
+    delete_from_fruk = """
+    DELETE FROM [eisuks_reserve_hr].[Reserve].[FederalReserve]
+    WHERE PersonalFilesID='704d437b-c4a2-4f04-882d-307263fd46f1';
+    """
+    # скрипт для удаления личного дела
+    delete_personal_file = """
+    Declare     @FistName   nvarchar(500)     = 'Автоматизация'
+      ,           @LastName   nvarchar(500)     = 'Автоматизация'
+      ,           @MiddleName nvarchar(500)    = 'Автоматизация'
+      
+      ,           @ID               UNIQUEIDENTIFIER  
+      
+
+      Declare DeletePersonalFile Cursor Local For
+      select PersonalFiles.ID 
+            from Applicant.PersonalFiles
+            inner join Applicant.PersonalCardGeneralInformations 
+                  on PersonalFiles.CardId = PersonalCardGeneralInformations.ID
+                  and PersonalCardGeneralInformations.FirstName = @FistName
+                  and PersonalCardGeneralInformations.LastName = @LastName
+                  and PersonalCardGeneralInformations.MiddleName = @MiddleName
+      Open DeletePersonalFile
+      Fetch Next From DeletePersonalFile into @ID
+      While @@FETCH_STATUS=0
+      Begin
+      
+            exec [Applicant].[DeletePersonalFile]  @ID
+            
+            Fetch Next From DeletePersonalFile into @ID
+            Continue
+
+      end
+      Close DeletePersonalFile
+      Deallocate DeletePersonalFile 
+    """

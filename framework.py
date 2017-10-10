@@ -198,6 +198,24 @@ class Browser(object):
         self.set_checkbox(locator, True)
         sleep(1)
 
+    def tab_close(self, order=1):
+        if order != 1:
+            self.driver.switch_to.window(self.driver.window_handles[order])
+        self.driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 'w')
+
+    def tab_switch(self, order):
+        self.driver.switch_to.window(self.driver.window_handles[order])
+
+    def table_row_checkbox_by_text(self, text):
+        self.wait_for_loading()
+        locator = (By.XPATH, "//tr[contains(., '%s')]//input[@type='checkbox']" % text)
+        self.set_checkbox(locator, True)
+
+    def table_row_radio_by_text(self, text):
+        self.wait_for_loading()
+        locator = (By.XPATH, "//tr[contains(., '%s')]//input[@type='radio']" % text)
+        self.set_radio(locator)
+
     def table_row_radio(self, order=1):
         self.wait_for_loading()
         sleep(1)

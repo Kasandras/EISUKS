@@ -10,7 +10,7 @@ class TestSuite:
         Учет кадрового состава - Ведение электронных личных дел
         Организационно-штатная структура - Формирование организационно-штатной структуры
         Формирование кадрового состава - Назначение на должность
-        Прохождение государственной гражданской службы - Присвоение классных чинов
+        Прохождение государственной гражданской службы - Присвоен/ие классных чинов
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         Прохождение государственной гражданской службы - График отпусков
         Прохождение государственной гражданской службы - Командировки
@@ -51,6 +51,8 @@ class TestSuite:
         cls.user = get_data_by_number(cls.data, "accounts", 2)
         cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
         cls.user2 = get_data_by_number(cls.data, "accounts", 4)
+        execute_script(Queries.delete_from_fruk)
+        execute_script(Queries.delete_personal_file)
 
     @classmethod
     def teardown_class(cls):
@@ -416,7 +418,7 @@ class TestSuite:
         self.driver.back()
         page.click_by_text("Назад")
 
-        page.table_row_radio()
+        page.table_row_radio_by_text("Проект")
         page.click_by_text("Редактировать")
         page.date_from(data["dateFrom"])
         page.date_to(data["dateTo"])
@@ -542,7 +544,7 @@ class TestSuite:
         page.click_by_text("Награды и поощрения")
     # end
 
-    def test_contest_replacement(self):
+    def te1st_contest_replacement(self):
         """
         Формирование кадрового состава - Комиссии
         """
@@ -938,6 +940,7 @@ class TestSuite:
 
         LoginPage(self.driver).login(data=self.user2)
         page.click_by_text("Профиль", 2)
+        page.scroll_to_top()
         page.click_by_text("Редактировать")
         page.upload_photo(data["upload_photo"])
         page.last_name(data["lastName"])
@@ -951,6 +954,7 @@ class TestSuite:
         page.registration_address(data["registration_address"])
         page.actual_address(data["actual_address"])
         page.click_by_text("Сохранить")
+        page.scroll_to_top()
         page.click_by_text("Изменить пароль")
         page.old_password(data["old_password"])
         page.password(data["password"])
@@ -983,7 +987,6 @@ class TestSuite:
         page.set_checkbox_by_order()
         page.click_by_text("Сохранить")
 
-
     def test_add_personal_file(self):
         """
         Подготовка документов для включения в Федеральный резерв управленческих кадров
@@ -999,8 +1002,7 @@ class TestSuite:
         page.presentation_reserve_level(data["presentationReserveLevel"])
         page.grade_of_post(data["gradeOfPost"])
         page.save()
-        page.wait_for_text_appear("Уровень резерва")
-        assert "Найдено" in self.driver.page_source
+        page.wait_for_text_disappear("Категория резерва")
 
     def test_fill_resume(self):
         """
@@ -1015,7 +1017,7 @@ class TestSuite:
         page.search(data["search"])
         page.documents()
         page.resume()
-        self.driver.switch_to_window(self.driver.window_handles[1])
+        page.tab_switch(1)
         page.click_by_text("Редактировать", 1)
         page.upload_photo(data["photo"])
         page.last_name(data["lastName"])
@@ -1098,8 +1100,8 @@ class TestSuite:
         page.additional_info(data["additionalInfo"])
         page.agree_to_process_data(data["agreeToProcessData"])
         page.click_by_text("Сохранить", 2)
-        self.driver.close()
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        page.tab_close()
+        page.tab_switch(0)
 
     def test_fill_presentation(self):
         """
@@ -1114,7 +1116,7 @@ class TestSuite:
         page.search(data["search"])
         page.documents()
         page.presentation()
-        self.driver.switch_to_window(self.driver.window_handles[1])
+        self.driver.switch_to.window(self.driver.window_handles[1])
         sleep(1)
         page.availability_degree(data["availabilityDegree"])
         page.position(data["position"])
@@ -1125,7 +1127,7 @@ class TestSuite:
         page.click_by_text("Сохранить", 2)
         page.wait_for_loading()
         self.driver.close()
-        self.driver.switch_to_window(self.driver.window_handles[0])
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
     def test_send_resume(self):
         """
@@ -1248,7 +1250,8 @@ class TestSuite:
 
     def test_doc_appform_identification_document(self):
         """Анкеты - раздел "Документы" """
-        data = get_data_by_value(self.data["application_form"], "identification_document", "type_document", "Паспорт гражданина РФ")
+        data = get_data_by_value(self.data["application_form"],
+                                 "identification_document", "type_document", "Паспорт гражданина РФ")
 
         LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
@@ -1265,7 +1268,8 @@ class TestSuite:
 
     def test_doc_appform_education_main(self):
         """Анкеты - раздел "Образование", блок "Основное" """
-        data = get_data_by_value(self.data["application_form"], "education_main", "education_level", "Высшее образование")
+        data = get_data_by_value(self.data["application_form"],
+                                 "education_main", "education_level", "Высшее образование")
 
         LoginPage(self.driver).login(data=self.hr2)
         page = DocumentsPage(self.driver).education.main
@@ -1340,7 +1344,8 @@ class TestSuite:
 
     def test_doc_appform_education_dpo(self):
         """Анкеты - раздел "Образование", блок "Дополнительное профессиональное образование" """
-        data = get_data_by_value(self.data["application_form"], "education_dpo", "education_direction", "Организационно-экономическое")
+        data = get_data_by_value(self.data["application_form"],
+                                 "education_dpo", "education_direction", "Организационно-экономическое")
 
         LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
@@ -1414,7 +1419,8 @@ class TestSuite:
 
     def test_doc_appform_specialization(self):
         """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
-        data = get_data_by_value(self.data["application_form"], "specialization", "specialization", "Экономика и финансы")
+        data = get_data_by_value(self.data["application_form"],
+                                 "specialization", "specialization", "Экономика и финансы")
 
         LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
