@@ -1116,7 +1116,7 @@ class TestSuite:
         page.search(data["search"])
         page.documents()
         page.presentation()
-        self.driver.switch_to.window(self.driver.window_handles[1])
+        page.tab_switch(1)
         sleep(1)
         page.availability_degree(data["availabilityDegree"])
         page.position(data["position"])
@@ -1126,8 +1126,8 @@ class TestSuite:
         page.additional_preperation_text(data["additionalPreperationText"])
         page.click_by_text("Сохранить", 2)
         page.wait_for_loading()
-        self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        page.tab_close()
+        page.tab_switch(0)
 
     def test_send_resume(self):
         """
