@@ -374,6 +374,8 @@ class VacancySearchLocators(object):
 class VacancyControlLocators(object):
     status_response = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
     key_word = (By.XPATH, "(//input[@type='text'])[1]")
+    send_document = (By.XPATH, "//a[@data-ng-click='respond()']")
+    checkbox_accept = (By.XPATH, "//input[@id='checkBoxAccept']")
 
 
 class DocumentsLocators:
@@ -409,6 +411,7 @@ class DocumentsLocators:
         temp_registration_reg = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
         fact_registration_sub = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
         fact_registration_reg = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+        address_of_residence = (By.XPATH, "//textarea[@id='addressOfResidence']")
 
     class IdentificationDocument(object):
         type_document = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
@@ -702,6 +705,7 @@ class VacancyCreateLocators(object):
     additional_info_text = (By.XPATH, "//textarea[@data-ng-model='vacancy.additionalInfo.text']")
 
     class PostIsCompetition(object):
+        competition = (By.XPATH, "//input[@id='withoutCompetitionReason']")
         structural_unit = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
         sub_structural = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
         staff_unit = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
@@ -901,7 +905,7 @@ class ReserveBasesPrepareLocators(object):
     recommendations = (By.XPATH, "//textarea[@ng-model='model.recommendations']")
     additional_info = (By.XPATH, "//textarea[@ng-model='model.additionalInfo']")
     availability_degree = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
-    position = (By.XPATH, "(//input[@type='text'])[15]")
+    position = (By.XPATH, "//input[@ng-model='model.position']")
     recomendations = (By.XPATH, "(//textarea)[1]")
     professional_achievements = (By.XPATH, "(//textarea)[2]")
     developement_area = (By.XPATH, "(//textarea)[3]")
