@@ -78,6 +78,7 @@ class TestSuite:
 
     def test_reserve(self):
         p = MainPage(self.driver)
+        p.scroll_to_top()
         p.click_by_text("Резерв кадров")
         p.click_by_text("Дополнительная информация")
         self.driver.back()
