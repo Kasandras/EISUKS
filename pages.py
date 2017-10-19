@@ -1560,7 +1560,7 @@ class DocumentsPage(parent):
     class ClassRank(parent):
 
         def has_class_rank(self, value):
-            self.set_checkbox(DocumentsLocators.ClassRank.has_class_rank, value, "Имеется ли классный чин")
+            self.set_select(value, 1, "Имеется ли классный чин")
 
         def class_rank(self, value):
             self.set_text(DocumentsLocators.ClassRank.class_rank, value, "Классный чин")
@@ -2364,6 +2364,18 @@ class VacancyCreatePage(parent):
 
         def reserve_group(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
+
+        def professional_activity_direction(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
+                             value, "Направление профессиональной служебной деятельности")
+
+        def professional_activity_specialization(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
+                             value, "Специализация по направлению профессиональной служебной деятельности")
+
+        def professional_activity_specialization_other_text(self, value):
+            self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
+                             value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
 
         def okato_region(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,

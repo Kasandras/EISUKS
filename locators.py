@@ -395,7 +395,7 @@ class DocumentsLocators:
         birthdate = (By.XPATH, "//input[@id='birthDate']")
         citizenship = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
         birthplace = (By.XPATH, "//input[@ng-model='model.generalInformation.birthPlace']")
-        maritalstatuses = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        maritalstatuses = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
 
     class PersonalContact(object):
         work_phone = (By.XPATH, "//input[@ng-model='model.workPhone']")
@@ -494,7 +494,6 @@ class DocumentsLocators:
         responsibilities = (By.XPATH, "//input[@id='responsibilities']")
 
     class ClassRank(object):
-        has_class_rank = (By.XPATH, "//input[@ng-model='model.hasClassRank']")
         class_rank = (By.XPATH, "//input[@ng-model='model.classRank']")
         assigned_date = (By.XPATH, "//div[@ng-model='model.classRankAssignedDate']/input")
         assigned_by = (By.XPATH, "//input[@ng-model='model.classRankAssignedBy']")
@@ -521,8 +520,8 @@ class DocumentsLocators:
         issue_date = (By.XPATH, "//div[@ng-model='sst.editmodel.issueDate']/input")
 
     class Military(object):
-        rank = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
-        duty = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        duty = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        rank = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
         has_service = (By.XPATH, "//input[@ng-model='model.hasMilitaryService']")
         service_from = (By.XPATH, "//div[@data-ng-model='model.militaryServiceFrom']/input")
         service_to = (By.XPATH, "//div[@data-ng-model='model.militaryServiceTo']/input")
@@ -751,6 +750,10 @@ class VacancyCreateLocators(object):
         sub_structural = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
         work_type = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
         reserve_group = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+        professional_activity_direction = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+        professional_activity_specialization = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
+        professional_activity_specialization_other_text = (
+            By.XPATH, "//input[@name='professionalActivitySpecializationOtherText']")
         okato_region = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
         okato_area = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
         business_trip = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")

@@ -259,7 +259,7 @@
       "site": "http://www.site.com",
       "additional": "Дополнительная информация"
     },
-        {
+    {
       "POST_IS_COMPETITION_TRUE":"",
       "type_vacancy":"Вакансия для замещения вакантной должности",
       "organization":"Министерство природных ресурсов и экологии Российской Федерации",
@@ -443,6 +443,9 @@
       "position_category":"",
       "position_group":"",
       "reserve_group":"Старшая",
+      "professional_activity_direction":"Антимонопольное регулирование",
+      "professional_activity_specialization":"Другое",
+      "professional_activity_specialization_other_text":"Регулирование",
       "okato_region":"г. Москва",
       "okato_area":"Центральный",
       "salary_from":"40",
@@ -458,7 +461,7 @@
       "job_responsibility_text":"Работа с персоналом",
       "job_responsibility_files":"Проверочный.pdf",
       "position_rules_files":"Проверочный.pdf",
-      "education_level":"Послевузовское образование",
+      "education_level":"Высшее образование",
       "government_experience":"Не менее 5 лет",
       "professional_experience":"Не менее 6 лет",
       "knowledge_description_text":"Владение ПК",
@@ -514,7 +517,7 @@
       "job_responsibility_text":"Работа с персоналом",
       "job_responsibility_files":"Проверочный.pdf",
       "position_rules_files":"Проверочный.pdf",
-      "education_level":"Послевузовское образование",
+      "education_level":"Высшее образование",
       "government_experience":"Не менее 5 лет",
       "professional_experience":"Не менее 6 лет",
       "knowledge_description_text":"Владение ПК",
@@ -709,7 +712,7 @@
     {
       "view": "",
       "level_reserve": "Высший",
-      "participant": "Гуназин Юрий Юрикович"
+      "participant": "Ананьева Александра Алексеевна"
     }
   ],
   "reserve_bases_manage":[
@@ -948,7 +951,7 @@
     ],
     "class_rank": [
       {
-        "has_class_rank": true,
+        "has_class_rank": "Да",
         "class_rank": "Секретарь государственной гражданской службы Российской Федерации 1 класса",
         "assigned_by": "Федеральная Таможенная Служба",
         "has_government_service": true,
