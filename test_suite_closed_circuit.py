@@ -1114,6 +1114,8 @@ class TestSuite:
         page.tab_switch(1)
         sleep(1)
         page.availability_degree(data["availabilityDegree"])
+        page.scroll_to_top()
+        sleep(1)
         page.position(data["position"])
         page.recomendations(data["recomendations"])
         page.professional_achievements(data["professionalAchievements"])
@@ -1160,9 +1162,9 @@ class TestSuite:
         page.wait_for_loading()
         page.click_by_text(data["participant"])
         page.resume()
-        page.check_text_and_close("Рабочий телефон")
+        page.check_text_and_close("Место рождения")
         page.presentation()
-        page.check_text_and_close("Целевой орган")
+        page.check_text_and_close("Категория")
 
     def test_doc_documents(self):
         """Вкладка "Документы" страницы "Документы" """
@@ -1172,6 +1174,7 @@ class TestSuite:
         page = DocumentsPage(self.driver).documents
         page.scroll_to_bottom()
         page.click_by_text("Документы", 2)
+        page.scroll_to_top()
         page.click_by_text("Документы", 2)
         sleep(0.5)
         page.click_by_text("Добавить")
@@ -1216,6 +1219,7 @@ class TestSuite:
         page.name_was_changed(data["name_was_changed"])
         page.was_abroad(data["was_abroad"])
         page.click_by_text("Сохранить")
+        sleep(1)
 
     def test_doc_appform_personal_contact(self):
         """Анкеты - раздел "Личные сведения", блок "Контакты" """
@@ -1241,6 +1245,7 @@ class TestSuite:
         page.temp_registration_reg(data["temp_registration_reg"])
         page.fact_registration_sub(data["fact_registration_sub"])
         page.fact_registration_reg(data["fact_registration_reg"])
+        page.address_of_residence(data["address_of_residence"])
         page.click_by_text("Сохранить")
 
     def test_doc_appform_identification_document(self):
@@ -1260,6 +1265,7 @@ class TestSuite:
         page.issue_by(data["issue_by"])
         page.issue_code(data["issue_code"])
         page.click_by_text("Сохранить")
+        sleep(1)
 
     def test_doc_appform_education_main(self):
         """Анкеты - раздел "Образование", блок "Основное" """
@@ -1273,6 +1279,7 @@ class TestSuite:
         page.click_by_text("Редактировать")
         page.education_level(data["education_level"])
         page.click_by_text("Сохранить")
+        sleep(1)
         page.click_by_text("Добавить")
         page.education(data["education"])
         page.education_form(data["education_form"])
@@ -1289,6 +1296,7 @@ class TestSuite:
         page.is_main(data["is_main"])
         page.education_doc_date(data["education_doc_date"])
         page.click_by_text("Сохранить")
+        page.click_by_text("Сохранить", 6)
 
     def test_doc_appform_education_egc(self):
         """Анкеты - раздел "Образование", блок "Послевузовское" """
@@ -1310,6 +1318,8 @@ class TestSuite:
         page.knowledge_branches(data["knowledge_branches"])
         page.diplom_number(data["diplom_number"])
         page.diplom_date(data["diplom_date"])
+        page.click_by_text("Сохранить", 2)
+        sleep(1)
 
     def test_doc_appform_education_degree(self):
         """Анкеты - раздел "Образование", блок "Ученое звание" """
@@ -1323,6 +1333,7 @@ class TestSuite:
         page.academic_statuses(data["academic_statuses"])
         page.diplom_number(data["diplom_number"])
         page.assigment_date(data["assigment_date"])
+        page.click_by_text("Сохранить", 3)
 
     def test_doc_appform_education_languages(self):
         """Анкеты - раздел "Образование", блок "Знание иностранных языков" """
@@ -1362,6 +1373,7 @@ class TestSuite:
         page.document_number(data["document_number"])
         page.funding_sources(data["funding_sources"])
         page.document_date(data["document_date"])
+        page.click_by_text("Сохранить", 5)
 
     def test_doc_appform_labor_activity(self):
         """Анкеты - раздел "Трудовая деятельность" """
@@ -1389,7 +1401,7 @@ class TestSuite:
 
     def test_doc_appform_class_rank(self):
         """Анкеты - раздел "Трудовая деятельность", блок классных чинов"""
-        data = get_data_by_value(self.data["application_form"], "class_rank", "has_class_rank", "True")
+        data = get_data_by_value(self.data["application_form"], "class_rank", "has_class_rank", True)
 
         LoginPage(self.driver).login(data=self.hr2)
         DocumentsPage(self.driver).has_appform()
@@ -1399,18 +1411,16 @@ class TestSuite:
         sleep(1)
         page.has_class_rank(data["has_class_rank"])
         page.class_rank(data["class_rank"])
-        sleep(2)
+        sleep(1)
         page.assigned_by(data["assigned_by"])
+        page.assigned_date(data["assigned_date"])
         page.has_government_service(data["has_government_service"])
         page.org_sub_types(data["org_sub_types"])
         page.organization_name(data["organization_name"])
         page.computer_skills(data["computer_skills"])
         page.publications(data["publications"])
         page.recommendations(data["recommendations"])
-        page.assigned_date(data["assigned_date"])
-        sleep(1)
-        self.driver.refresh()
-        page.scroll_to_bottom()
+        page.click_by_text("Сохранить", 3)
 
     def test_doc_appform_specialization(self):
         """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
@@ -1427,6 +1437,7 @@ class TestSuite:
         page.specialization(data["specialization"])
         page.is_main(data["is_main"])
         page.click_by_text("Сохранить", 3)
+        sleep(5)
 
     def test_doc_appform_award(self):
         """Анкеты - раздел "Поощрения" анкеты"""
@@ -1441,6 +1452,7 @@ class TestSuite:
         page.name(data["name"])
         page.date(data["date"])
         page.click_by_text("Сохранить")
+        sleep(1)
 
     def test_doc_appform_state_secret(self):
         """Анкеты - раздел "Допуск к государственной тайне" """
@@ -1454,6 +1466,8 @@ class TestSuite:
         page.admission_form(data["admission_form"])
         page.approval_number(data["approval_number"])
         page.issue_date(data["issue_date"])
+        page.click_by_text("Сохранить")
+        sleep(1)
 
     def test_doc_appform_military(self):
         """Анкеты - раздел "Воинский учет" """
@@ -1470,7 +1484,7 @@ class TestSuite:
         page.arm_kind(data["arm_kind"])
         page.service_from(data["service_from"])
         page.service_to(data["service_to"])
-        self.driver.refresh()
+        page.click_by_text("Сохранить")
 
     def test_doc_appform_kin(self):
         """Анкеты - раздел "Сведения о близких родственниках" """
@@ -1495,6 +1509,7 @@ class TestSuite:
         page.living_country(data["living_country"])
         page.living_address(data["living_address"])
         page.birth_date(data["birth_date"])
+        page.click_by_text("Сохранить")
 
     def test_vacancy_control_invite(self):
         """
@@ -1542,9 +1557,14 @@ class TestSuite:
         page.click_by_text("Фильтр")
         page.status_response("Направлено приглашение")
         page.click_by_text("Применить")
+        page.click_by_text("3")
         page.table_select_row(1, "Выбор приглашения")
         page.click_by_text("Принять приглашение")
+        page.send_document()
         page.click_by_text("Продолжить")
+        page.upload_file("Проверочный.pdf")
+        sleep(5)
+        page.checkbox_accept(True)
         page.click_by_text("Подать документы")
         page.wait_for_text_appear("успешно")
         assert "Ваш отклик успешно завершен." in self.driver.page_source
@@ -1586,8 +1606,12 @@ class TestSuite:
         page.click_by_text("Закрыть", 2)
         page.wait_for_text_appear("Структурное подразделение")
         if order == 1:
+            sleep(2)
             page.is_competition(data["is_competition"])
-            sleep(1)
+            sleep(2)
+            # page.post_is_competition.competition_reason(data["competition_reason"])
+            page.post_is_competition.competition(data["competition"])
+            sleep(2)
             page.post_is_competition.structural_unit(data["structural_unit"])
             page.post_is_competition.sub_structural(data["sub_structural"])
             page.post_is_competition.staff_unit(data["staff_unit"])
@@ -1940,7 +1964,7 @@ class TestSuite:
     #     data = load_data("gossluzhba1")["advertisements"][1]
     #
     #     LoginPage(self.driver).login(data=self.hr2)
-    #     self.go_to(Links.vacancy_list)
+    #     page.go_to(Links.vacancy_list)
     #     for i in range(2):
     #         page.click_by_text("Создать")
     #         page.type_vacancy(data["type_vacancy"])

@@ -259,11 +259,12 @@
       "site": "http://www.site.com",
       "additional": "Дополнительная информация"
     },
-    {
+        {
       "POST_IS_COMPETITION_TRUE":"",
       "type_vacancy":"Вакансия для замещения вакантной должности",
       "organization":"Министерство природных ресурсов и экологии Российской Федерации",
-      "is_competition":"False",
+      "is_competition": false,
+      "competition": "Замещение",
       "reason":"",
       "structural_unit":"Руководство",
       "sub_structural":"Административный отдел",
@@ -783,7 +784,7 @@
       "publications":"Отсутствуют",
       "recommendations":"За время работы в компании зарекомендовал себя пунктуальным работником",
       "additionalInfo":"Не указано",
-      "agreeToProcessData":"False",
+      "agreeToProcessData": true,
       "availabilityDegree":"Средняя",
       "position":"Специалист",
       "recomendations":"Иванов С.М.; начальник отдела бухгалтерии; 495 111-11-11",
@@ -851,7 +852,8 @@
         "temp_registration_sub": "Алтайский край",
         "temp_registration_reg": "Алейский район",
         "fact_registration_sub": "Алтайский край",
-        "fact_registration_reg": "Алейский район"
+        "fact_registration_reg": "Алейский район",
+        "address_of_residence": "г. Барнаул, ул. Свободы, д. 3, кв. 27"
       }
     ],
     "identification_document": [
@@ -879,7 +881,7 @@
         "speciality": "080100",
         "qualification": "51 - Экономист",
         "specialization": "Экономика",
-        "is_main": "True",
+        "is_main": true,
         "education_doc_date": "04072017"
       }
     ],
@@ -937,7 +939,7 @@
         "subject": "Алтайский край",
         "region": "Алейский район",
         "profile": "Текстильное производство",
-        "is_elective": "True",
+        "is_elective": true,
         "post_level": "Специалист",
         "activity_area": "Другое",
         "structural_division": "Бухгалтерский учет",
@@ -946,10 +948,10 @@
     ],
     "class_rank": [
       {
-        "has_class_rank": "True",
+        "has_class_rank": true,
         "class_rank": "Секретарь государственной гражданской службы Российской Федерации 1 класса",
         "assigned_by": "Федеральная Таможенная Служба",
-        "has_government_service": "True",
+        "has_government_service": true,
         "org_sub_types": "Городской округ",
         "organization_name": "Федеральная Таможенная Служба",
         "computer_skills": "Продвинутый пользователь",
@@ -961,7 +963,7 @@
     "specialization": [
       {
         "specialization": "Экономика и финансы",
-        "is_main": "True"
+        "is_main": true
 
       }
     ],
@@ -983,7 +985,7 @@
       {
         "rank": "ефрейтор",
         "duty": "Военнообязанный",
-        "has_service": "True",
+        "has_service": true,
         "arm_kind": "Сухопутные",
         "service_from": "20022000",
         "service_to": "20022001"

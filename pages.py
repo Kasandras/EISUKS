@@ -1148,6 +1148,13 @@ class VacancyControlPage(parent):
     def key_word(self, value):
         self.set_text(VacancyControlLocators.key_word, value, "Ключевое слово")
 
+    def send_document(self):
+        self.click(VacancyControlLocators.send_document, "Подать документы")
+
+    def checkbox_accept(self, value):
+        self.set_checkbox(VacancyControlLocators.checkbox_accept, value, "Полноту, актуальность подтверждаю")
+
+
 
 class DocumentsPage(parent):
     @property
@@ -1309,6 +1316,10 @@ class DocumentsPage(parent):
         def fact_registration_reg(self, value):
             self.set_select2(
                 DocumentsLocators.PersonalContact.fact_registration_reg, value, "Фактическое проживание - регион")
+
+        def address_of_residence(self, value):
+            self.set_text(DocumentsLocators.PersonalContact.address_of_residence, value, "Адрес фактического проживания")
+
 
     class IdentificationDocument(parent):
 
@@ -2167,14 +2178,14 @@ class VacancyCreatePage(parent):
             self.upload_file(value, 7)
 
         def structural_unit(self, value):
-            self.set_select2(
-                VacancyCreateLocators.PostIsCompetition.structural_unit,
-                value, "Структурное подразделение")
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value, "Структурное подразделение")
+
+        def competition(self, value):
+            self.set_text(VacancyCreateLocators.PostIsCompetition.competition, value, "Причина")
 
         def sub_structural(self, value):
-            self.set_select2(
-                VacancyCreateLocators.PostIsCompetition.sub_structural,
-                value, "Подразделение в структурном подразд.")
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.sub_structural, value,
+                             "Подразделение в структурном подразд.")
 
         def staff_unit(self, value):
             self.set_select2(VacancyCreateLocators.PostIsCompetition.staff_unit, value, "Штатная единица")
