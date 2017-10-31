@@ -386,9 +386,9 @@ class DocumentsLocators:
 
     class PersonalMain(object):
         selection_radio = (By.XPATH, "(//td//input[@type='radio'])[1]")
-        lastname = (By.XPATH, "//input[@name='lastName']")
-        firstname = (By.XPATH, "//input[@name='firstName']")
-        middlename = (By.XPATH, "//input[@name='middleName']")
+        lastname = (By.XPATH, "//input[@ng-model='model.generalInformation.lastName']")
+        firstname = (By.XPATH, "//input[@ng-model='model.generalInformation.firstName']")
+        middlename = (By.XPATH, "//input[@ng-model='model.generalInformation.middleName']")
         gender = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
         individual_taxpayer_number = (By.XPATH, "//input[@name='taxCertificateNumber']")
         insurance_certificate_number = (By.XPATH, "//input[@name='insuranceCertificateNumber']")
@@ -506,8 +506,6 @@ class DocumentsLocators:
 
     class Specialization(object):
         work = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
-        is_main = (By.XPATH, "(//input[@ng-model='editmodel.isMain'])[1]")
-        is_add = (By.XPATH, "(//input[@ng-model='model.organizationName'])[2]")
 
     class Award(object):
         type = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
