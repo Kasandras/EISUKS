@@ -2,18 +2,28 @@
   "accounts": [
     {
       "username": "a.larionov@govirk.ru",
-      "password": "123456*",
+      "password": "123123/",
       "fullName": "А. С. Ларионов"
     },
     {
       "username": "hotline@quarta.su",
-      "password": "vivaiabam1Q*",
+      "password": "123123/",
       "fullName": "Л. П. Горячая"
     },
     {
       "username": "a.larionov@govirk.ru",
-      "password": "123456*",
+      "password": "123123/",
       "fullName": "А. С. Ларионов"
+    },
+    {
+      "username": "drozdoviv@quarta.su",
+      "password": "123123/",
+      "fullName": "Е. М. Викторенко"
+    },
+    {
+      "username": "ahabanovaal@gmail.com",
+      "password": "123123/",
+      "fullName": "А. Л. Шабанова"
     }
   ],
   "employees": [
@@ -311,7 +321,7 @@
       "orderDate": "16.02.2017",
       "orderNumber": "132",
       "fullName": "Соколов Игорь Евгеньевич",
-      "type": "Конкурсная комиссия на замещение вакантной должности",
+      "type": "Конкурсная комиссия",
       "startDate": "16.02.2017",
       "endDate": "22.02.2017",
       "members": [

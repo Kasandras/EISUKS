@@ -33,6 +33,7 @@ def execute_script(query, server="QTESTEISUKS2", database="eisuks_reserve_hr", u
 
 class Links(object):
     main_page = "http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
+    # main_page = "https://test.gossluzhba.gov.ru/"
     dashboard = main_page + "Dashboard/Hr"
     personal_files = main_page + "PersonalData/PersonalFile#/list"
     staff_structure = main_page + "Staff/Structure#/"

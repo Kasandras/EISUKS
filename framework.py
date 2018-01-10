@@ -70,9 +70,11 @@ class Browser(object):
             print("[%s] [%s] нажатие на элемент" % (strftime("%H:%M:%S", localtime()), value))
 
     def go_to(self, url):
-        while self.driver.current_url != url:
+        while True:
             self.driver.get(url)
-            sleep(.1)
+            if self.driver.current_url == url:
+                break
+            sleep(1)
         print("Переход по ссылке: %s" % url)
 
     def move_to_element(self, element):
