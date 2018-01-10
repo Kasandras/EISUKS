@@ -11,9 +11,9 @@
       "fullName": "А. П. Ф"
     },
     {
-      "username": "l&m",
+      "username": "dro@quarta.su",
       "password": "123123/",
-      "fullName": "М. Ю. Лобода"
+      "fullName": "И. В. Дроздов"
     },
     {
       "username": "drozdoviv@quarta.su",
@@ -966,7 +966,7 @@
     "specialization": [
       {
         "specialization": "Экономика и финансы",
-        "is_main": true
+        "is_main": "Основная"
 
       }
     ],

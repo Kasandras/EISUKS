@@ -1596,10 +1596,7 @@ class DocumentsPage(parent):
             self.set_select2(DocumentsLocators.Specialization.work, value, "Специализация")
 
         def is_main(self, value):
-            self.set_checkbox(DocumentsLocators.Specialization.is_main, value, "Основная")
-
-        def is_add(self, value):
-            self.set_checkbox(DocumentsLocators.Specialization.is_add, value, "Дополнительная")
+            self.set_select(value, 1, "Вид")
 
     class Award(parent):
 
