@@ -23,7 +23,11 @@ class Settings(object):
     path_to_driver = "drivers/chromedriver.exe"
 
 
-def execute_script(query, server="QTESTEISUKS2", database="eisuks_reserve_hr", username="HRUser", password="P@ssw0rd123456"):
+def execute_script(query,
+                   server="QTESTEISUKS2",
+                   database="eisuks_reserve_hr",
+                   username="HRUser",
+                   password="P@ssw0rd123456"):
     conn = pymssql.connect(server=server, user=username, password=password, database=database)
     cursor = conn.cursor()
     cursor.execute(query)
