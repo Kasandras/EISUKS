@@ -24,7 +24,7 @@ class Settings(object):
 
 
 def execute_script(query,
-                   server="QTESTEISUKS2",
+                   server="QTESTEISUKS",
                    database="eisuks_reserve_hr",
                    username="HRUser",
                    password="P@ssw0rd123456"):
@@ -36,9 +36,10 @@ def execute_script(query,
 
 
 class Links(object):
-    main_page = "http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
+    main_page = "http://gossluzhba.qtestweb.office.quarta-vk.ru/"
     # main_page = "https://test.gossluzhba.gov.ru/"
     dashboard = main_page + "Dashboard/Hr"
+    create_personal_file = main_page + "PersonalData/PersonalFile#/00000000-0000-0000-0000-000000000000/generalinfo/create"
     personal_files = main_page + "PersonalData/PersonalFile#/list"
     staff_structure = main_page + "Staff/Structure#/"
     appointment = main_page + "Staff/AppointmentStaffProcedure"

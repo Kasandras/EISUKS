@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException
 import datetime
 import os
 import requests
-from elements import HTMLInput, HTMLButton, HTMLCheckbox, HTMLSelect, HTMLLink, HTMLDate, Element
+from elements import *
 
 
 def today():
@@ -18,13 +18,15 @@ def today():
 
 class Browser(object):
 
-    def __init__(self, driver, timeout=60, log=True):
+    def __init__(self, driver, timeout=60, log=True, test=None):
         self.driver = driver
         self.timeout = timeout
         self.log = log
         self.root = ""
         self.wait = Wait(self.driver, self.timeout)
         self.check = Checker(self.driver, self.timeout)
+        if test:
+            print("\nТест: %s\n" % test)
 
     def accept_alert(self):
         try:
@@ -294,11 +296,11 @@ class Wait(object):
         return WebDriverWait(self.driver, self.timeout).until(
             ec.visibility_of_element_located((By.XPATH, "//*[contains(., '%s')]" % text)))
 
-    def element_appear(self, locator):
-        return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located(locator))
+    def element_appear(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located(locator), msg)
 
-    def element_disappear(self, locator):
-        return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator))
+    def element_disappear(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator), msg)
 
     def lamb(self, exe):
         return WebDriverWait(self.driver, self.timeout).until(exe)

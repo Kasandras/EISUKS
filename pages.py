@@ -19,18 +19,18 @@ def today():
 
 class MainPage(parent):
 
-    login_button = HTMLButton(partial_link_text='Войти')
+    login_button = HTMLButton(partial_link_text='Войти', label='Войти')
 
 
 class AlternativeLoginPage(parent):
 
-    login_button = HTMLButton(partial_link_text='Войти')
-    username = HTMLInput(id='UserName')
-    password = HTMLInput(id='Password')
-    remember_me = HTMLCheckbox(id='RememberMe')
-    submit = HTMLButton(xpath="//input[@value='Войти']")
-    cancel = HTMLButton(xpath="//input[@value='Отмена']")
-    logout = HTMLButton(xpath="//input[@value='Выйти']")
+    login_button = HTMLButton(partial_link_text='Войти', label='Войти')
+    username = HTMLInput(id='UserName', label='Логин')
+    password = HTMLInput(id='Password', label='Пароль')
+    remember_me = HTMLCheckbox(id='RememberMe', label='Запомнить меня?')
+    submit = HTMLButton(xpath="//input[@value='Войти']", label='Войти')
+    cancel = HTMLButton(xpath="//input[@value='Отмена']", label='Отмена')
+    logout = HTMLButton(xpath="//input[@value='Выйти']", label='Выйти')
     current_user = Element(xpath="//a[@href='/Cabinet']")
 
     def login(self, username=None, password=None, full_name=None, data=None):
@@ -100,6 +100,8 @@ class LoginPage(parent):
 
 class AlternativePersonalFilePage(parent):
 
+    add = HTMLButton(partial_link_text='Добавить', label='Добавить')
+
     @property
     def new(self):
         return self.New(self.driver, self.timeout, self.log)
@@ -110,52 +112,31 @@ class AlternativePersonalFilePage(parent):
 
     class New(parent):
 
-        last_name = HTMLInput(id='lastName')
-        first_name = HTMLInput(id='firstName')
-        middle_name = HTMLInput(id='middleName')
-        birth_date = HTMLDate(id='birthDate')
-        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber')
-        user_name = HTMLInput(id='userName')
-        save = HTMLButton(xpath="//button[@value='Сохранить']")
-        cancel = HTMLButton(xpath="//button[@value='Отмена']")
+        last_name = HTMLInput(id='lastName', label='Фамилия')
+        first_name = HTMLInput(id='firstName', label='Имя')
+        middle_name = HTMLInput(id='middleName', label='Отчество')
+        birth_date = HTMLDate(id='birthDate', label='Дата рождения')
+        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber', label='Страховой номер')
+        user_name = HTMLInput(id='userName', label='Учетная запись')
+        save = HTMLButton(link_text='Сохранить', label='Сохранить')
+        cancel = HTMLButton(link_text='Отмена', label='Отмена')
 
     class General(parent):
 
-        def general_edit(self):
-            self.click(PersonalFileLocators.General.general_edit, "Редактировать общие сведения")
-
-        def last_name(self, value):
-            self.set_text(PersonalFileLocators.General.last_name, value, "Фамилия")
-
-        def first_name(self, value):
-            self.set_text(PersonalFileLocators.General.first_name, value, "Имя")
-
-        def middle_name(self, value):
-            self.set_text(PersonalFileLocators.General.middle_name, value, "Отчество")
-
-        def gender(self, value):
-            self.set_select2(PersonalFileLocators.General.gender, value, "Пол")
-
-        def personal_file_number(self, value):
-            self.set_text(PersonalFileLocators.General.personal_file_number, value, "Номер личного дела")
-
-        def birthday(self, value):
-            self.set_date(PersonalFileLocators.General.birthday, value, "Дата рождения")
-
-        def okato(self, value):
-            self.set_text(PersonalFileLocators.General.okato, value, "Место рождения, код по ОКАТО")
-
-        def criminal_record(self, value):
-            self.set_select(value, 1, "Наличие судимости")
-
-        def last_name_changing(self, value):
-            self.set_select(value, 2, "Сведения об изменении ФИО")
-
-        def addresses_edit(self):
-            self.click(PersonalFileLocators.General.addresses_edit, "Редактировать адреса")
-
-        def contacts_edit(self):
-            self.click(PersonalFileLocators.General.contact_edit, "Редактировать контактную информацию")
+        general_edit = HTMLButton(xpath="//a[contains(@href, 'generalinfo/edit')]", label='Редактировать общие сведения')
+        last_name = HTMLInput(ng_model='model.lastName', label='Фамилия')
+        first_name = HTMLInput(ng_model='model.firstName', label='Имя')
+        middle_name = HTMLInput(ng_model='model.middleName', label='Отчество')
+        personal_file_number = HTMLInput(ng_model='model.numberPersonalCard', label='Номер личного дела')
+        gender = HTMLSelect2(select2_label='Пол', label='Пол')
+        birth_date = HTMLDate(id='birthDate', label='Дата рождения')
+        citizenship = HTMLSelect2(select2_label='Гражданство', label='Гражданство')
+        birth_place = HTMLInput(ng_model='model.birthPlace', label='Место рождения, код по ОКАТО')
+        was_convicted = HTMLSelect(ng_model='model.wasConvicted', label='Наличие судимостей')
+        name_was_changed = HTMLSelect(ng_model='model.nameWasChanged', label='Сведения об изменении ФИО')
+        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber', label='Страховой номер')
+        save = HTMLButton(link_text='Сохранить', label='Сохранить')
+        cancel = HTMLButton(link_text='Отмена', label='Отмена')
 
 
 class PersonalFilePage(parent):
