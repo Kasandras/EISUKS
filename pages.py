@@ -3,6 +3,8 @@ from setup import *
 from framework import *
 import datetime
 
+parent = Browser
+
 
 def change_date(amount=0):
     date = datetime.date.today()
@@ -15,12 +17,45 @@ def today():
     return datetime.date.today().strftime("%d.%m.%Y")
 
 
-parent = Browser
-
-
 class MainPage(parent):
 
-    pass
+    login_button = HTMLButton(partial_link_text='Войти')
+
+
+class AlternativeLoginPage(parent):
+
+    login_button = HTMLButton(partial_link_text='Войти')
+    username = HTMLInput(id='UserName')
+    password = HTMLInput(id='Password')
+    remember_me = HTMLCheckbox(id='RememberMe')
+    submit = HTMLButton(xpath="//input[@value='Войти']")
+    cancel = HTMLButton(xpath="//input[@value='Отмена']")
+    logout = HTMLButton(xpath="//input[@value='Выйти']")
+    current_user = Element(xpath="//a[@href='/Cabinet']")
+
+    def login(self, username=None, password=None, full_name=None, data=None):
+
+        self.go_to(Links.main_page)
+
+        if data:
+            username = data["username"]
+            password = data["password"]
+            full_name = data["fullName"]
+
+        if self.is_text_on_page(text="Войти"):
+            self.login_button.click()
+            self.username = username
+            self.password = password
+            self.submit.click()
+            self.wait.text_appear("Личные данные")
+        else:
+
+            if full_name and (full_name in self.current_user.text()):
+                self.go_to(Links.dashboard)
+            else:
+                self.go_to(Links.main_page)
+                self.logout.click()
+                self.login(username, password)
 
 
 class LoginPage(parent):
@@ -61,6 +96,66 @@ class LoginPage(parent):
                 self.scroll_to_top()
                 self.click((By.XPATH, "//input[@type='submit']"))
                 self.login(username, password)
+
+
+class AlternativePersonalFilePage(parent):
+
+    @property
+    def new(self):
+        return self.New(self.driver, self.timeout, self.log)
+
+    @property
+    def general(self):
+        return self.General(self.driver, self.timeout, self.log)
+
+    class New(parent):
+
+        last_name = HTMLInput(id='lastName')
+        first_name = HTMLInput(id='firstName')
+        middle_name = HTMLInput(id='middleName')
+        birth_date = HTMLDate(id='birthDate')
+        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber')
+        user_name = HTMLInput(id='userName')
+        save = HTMLButton(xpath="//button[@value='Сохранить']")
+        cancel = HTMLButton(xpath="//button[@value='Отмена']")
+
+    class General(parent):
+
+        def general_edit(self):
+            self.click(PersonalFileLocators.General.general_edit, "Редактировать общие сведения")
+
+        def last_name(self, value):
+            self.set_text(PersonalFileLocators.General.last_name, value, "Фамилия")
+
+        def first_name(self, value):
+            self.set_text(PersonalFileLocators.General.first_name, value, "Имя")
+
+        def middle_name(self, value):
+            self.set_text(PersonalFileLocators.General.middle_name, value, "Отчество")
+
+        def gender(self, value):
+            self.set_select2(PersonalFileLocators.General.gender, value, "Пол")
+
+        def personal_file_number(self, value):
+            self.set_text(PersonalFileLocators.General.personal_file_number, value, "Номер личного дела")
+
+        def birthday(self, value):
+            self.set_date(PersonalFileLocators.General.birthday, value, "Дата рождения")
+
+        def okato(self, value):
+            self.set_text(PersonalFileLocators.General.okato, value, "Место рождения, код по ОКАТО")
+
+        def criminal_record(self, value):
+            self.set_select(value, 1, "Наличие судимости")
+
+        def last_name_changing(self, value):
+            self.set_select(value, 2, "Сведения об изменении ФИО")
+
+        def addresses_edit(self):
+            self.click(PersonalFileLocators.General.addresses_edit, "Редактировать адреса")
+
+        def contacts_edit(self):
+            self.click(PersonalFileLocators.General.contact_edit, "Редактировать контактную информацию")
 
 
 class PersonalFilePage(parent):
@@ -276,7 +371,7 @@ class SalaryPaymentsPage(parent):
 class PersonalFileDismissalPage(parent):
 
     def check(self):
-        self.click(PersonalFileDismissalLocators.check, "Флагу для выбора сотрудника")
+        self.click(PersonalFileDismissalLocators.check, "Флаг для выбора сотрудника")
 
 
 class DismissalPage(parent):
@@ -788,6 +883,14 @@ class DispensaryPlanningPage(parent):
 
 class DispensaryPage(parent):
 
+    def select_last_project(self):
+        self.wait.text_appear("Проект")
+        self.click((By.XPATH, "//button[@title='Количество элементов на странице']"))
+        sleep(1)
+        self.click((By.XPATH, "//a[@role='menuitem' and .='50']"))
+        projects = self.driver.find_elements(By.XPATH, "a[.='Проект']")
+        projects[-1:].click()
+
     def dispensary_date(self, value):
         self.set_date(DispensaryLocators.dispensary_date, value, "Дата прохождения диспансеризации")
 
@@ -1153,7 +1256,6 @@ class VacancyControlPage(parent):
 
     def checkbox_accept(self, value):
         self.set_checkbox(VacancyControlLocators.checkbox_accept, value, "Полноту, актуальность подтверждаю")
-
 
 
 class DocumentsPage(parent):

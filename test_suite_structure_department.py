@@ -7,10 +7,12 @@ class TestSuite:
     Содержание test-suite:
 
     """
+
+    driver = webdriver.Chrome(Settings.path_to_driver)
+
     @classmethod
     def setup_class(cls):
 
-        cls.driver = webdriver.Chrome(Settings.path_to_driver)
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
         cls.data = load_data("test.gossluzhba.gov.ru")

@@ -1,4 +1,5 @@
 from pages import *
+import pytest
 
 
 class TestSuite:

@@ -152,7 +152,7 @@ class TestSuite:
         data = get_data_by_value(self.data, "employees", "lastName", user)["appointment"]
 
         LoginPage(self.driver).login(data=self.hr)
-        page = StructureDetailsPage(self.driver)
+        page = StructureDetailsPage(self.driver, timeout=60)
         page.go_to(Links.staff_structure)
         page.click_by_text(department["name"])
         page.arrangement()
@@ -387,7 +387,7 @@ class TestSuite:
         LoginPage(self.driver).login(data=self.hr)
         page = DispensaryPage(self.driver)
         page.go_to(Links.dispensary_list)
-        page.click_by_text("Проект")
+        page.select_last_project()
 
         page.click_by_text("Печать приказа о диспансеризации")
 

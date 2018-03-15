@@ -8,6 +8,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 import datetime
 import os
+import requests
+from elements import HTMLInput, HTMLButton, HTMLCheckbox, HTMLSelect, HTMLLink, HTMLDate, Element
 
 
 def today():
@@ -20,7 +22,9 @@ class Browser(object):
         self.driver = driver
         self.timeout = timeout
         self.log = log
+        self.root = ""
         self.wait = Wait(self.driver, self.timeout)
+        self.check = Checker(self.driver, self.timeout)
 
     def accept_alert(self):
         try:
@@ -263,6 +267,16 @@ class Browser(object):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
 
+    def is_text_on_page(self, text):
+        return text in self.driver.page_source
+
+    def prepare_cookies_for_request(self):
+        cookies = self.driver.get_cookies()
+        s = requests.Session()
+        for cookie in cookies:
+            s.cookies.set(cookie['name'], cookie['value'])
+        return s.cookies
+
 
 class Wait(object):
     """
@@ -292,3 +306,21 @@ class Wait(object):
     def loading(self):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
+
+
+class Checker(object):
+    """
+    Methods for checking
+    """
+    def __init__(self, driver, timeout):
+        self.driver = driver
+        self.timeout = timeout
+        self.wait = Wait(self.driver, self.timeout)
+
+    def for_input(self, locator, value):
+        element = self.wait.element_appear(locator)
+        text = element.get_attribute("value")
+        if text == value:
+            return True
+        else:
+            return False
