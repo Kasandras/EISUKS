@@ -1487,10 +1487,10 @@ class DocumentsPage(parent):
                     DocumentsLocators.Education.Main.full_name_institution, value, "Полное название учебного заведения")
 
             def start_date_education(self, value):
-                self.set_text(DocumentsLocators.Education.Main.start_date_education, value, "Год начала")
+                self.set_date(DocumentsLocators.Education.Main.start_date_education, value, "Год начала")
 
             def end_date_education(self, value):
-                self.set_text(DocumentsLocators.Education.Main.end_date_education, value, "Год окончания")
+                self.set_date(DocumentsLocators.Education.Main.end_date_education, value, "Год окончания")
 
             def education_directions(self, value):
                 self.set_select2(

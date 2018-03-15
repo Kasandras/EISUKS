@@ -1,7 +1,5 @@
 from pages import *
-import pytest
-from seleniumrequests import Chrome
-import requests
+
 
 
 class TestSuite:
@@ -12,29 +10,143 @@ class TestSuite:
     def setup_class(cls):
         cls.driver.maximize_window()
         cls.driver.get(Links.main_page)
+        cls.data = load_data("gossluzhba1")
+        cls.hr = get_data_by_number(cls.data, "accounts", 0)
+        cls.admin = get_data_by_number(cls.data, "accounts", 1)
+        cls.user = get_data_by_number(cls.data, "accounts", 2)
+        cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
+        cls.user2 = get_data_by_number(cls.data, "accounts", 4)
+        execute_script(Queries.delete_from_fruk)
+        execute_script(Queries.delete_personal_file)
 
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()
 
-    def test_salary_payments(self):
+    def test_fill_resume(self):
         """
-        Формирование кадрового состава - Денежное содержание
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Заполнение резюме
         """
-        page = MainPage(self.driver)
-        page.login_button.click()
+        page = ReserveBasesPreparePage(self.driver)
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-        page = AlternativeLoginPage(self.driver)
-        # page.login(username='ivanovpa@quarta.su', password='123123/')
-        # page.login(username='petrovpa@quarta.su', password='123123/')
-        # page.login(username='ivanovpa@quarta.su', password='123123/')
-        # page.login(username='ivanovpa@quarta.su', password='123123/', full_name='П. А. Иванов')
-        page.username = "ivanovpa@quarta.su"
-        page.password = "123123/"
-        page.remember_me = True
-        page.submit.click()
+        LoginPage(self.driver).login(data=self.hr2)
+        page.go_to(Links.reserve_bases_prepare)
+        page.search(data["search"])
+        page.documents()
+        page.resume()
+        page.tab_switch(1)
+        page.click_by_text("Редактировать", 1)
+        page.upload_photo(data["photo"])
+        page.last_name(data["lastName"])
+        page.first_name(data["firstName"])
+        page.middle_name(data["middleName"])
+        page.gender(data["gender"])
+        page.tax_certificate_number(data["taxCertificateNumber"])
+        page.insurance_certificate_number(data["insuranceCertificateNumber"])
+        page.birth_date(data["birthDate"])
+        page.citizenship(data["citizenship"])
+        page.birth_place(data["birthPlace"])
+        page.was_convicted(data["wasConvicted"])
+        page.marital_statuses(data["maritalStatuses"])
+        page.name_was_changed(data["nameWasChanged"])
+        page.click_by_text("Сохранить")
+        page.click_by_text("Редактировать", 2)
+        page.work_phone(data["workPhone"])
+        page.mobile_phone(data["mobilePhone"])
+        page.additional_phone(data["additionalPhone"])
+        page.residence_phone(data["residencePhone"])
+        page.fax(data["fax"])
+        page.work_email(data["workEmail"])
+        page.personal_email(data["personalEmail"])
+        page.web(data["web"])
+        page.registration_region(data["registrationRegion"])
+        page.registration_area(data["registrationArea"])
+        page.residence_region(data["residenceRegion"])
+        page.residence_area(data["residenceArea"])
+        page.click_by_text("Сохранить")
+        page.scroll_to_top()
+        page.click_by_text("Образование")
+        page.click_by_text("Редактировать")
+        page.education_level(data["educationLevel"])
+        page.click_by_text("Сохранить")
+        sleep(1)
+        page.click_by_text("Добавить")
+        sleep(1)
+        page.education_kinds(data["educationKinds"])
+        page.education_forms(data["educationForms"])
+        page.place(data["place"])
+        page.temp_institution(data["tempInstitution"])
+        page.start_date(data["startDate"])
+        page.end_date(data["endDate"])
+        page.faculty(data["faculty"])
+        page.education_doc_number(data["educationDocNumber"])
+        page.speciality(data["speciality"])
+        page.qualification(data["qualification"])
+        page.specialization(data["specialization"])
+        page.click_by_text("Сохранить")
+        page.scroll_to_top()
+        page.click_by_text("Трудовая деятельность")
+        page.click_by_text("Добавить")
+        page.begin_date(data["beginDate"])
+        page.stop_date(data["stopDate"])
+        sleep(0.5)
+        page.organization_work(data["organization_work"])
+        page.address_organization(data["addressOrganization"])
+        page.structural_division(data["structuralDivision"])
+        page.post(data["post"])
+        page.post_levels(data["postLevels"])
+        page.employees_numbers(data["employeesNumbers"])
+        page.profile(data["profile"])
+        page.professional_activity_area(data["professionalActivityArea"])
+        page.responsibilities(data["responsibilities"])
+        page.click_by_text("Сохранить")
+        page.scroll_to_top()
+        page.click_by_text("Дополнительная информация")
+        page.click_by_text("Редактировать")
+        page.job_types(data["jobTypes"])
+        page.expectations(data["expectations"])
+        page.organization_sub_type(data["organizationSubType"])
+        page.organization(data["organization"])
+        page.organization_other(data["organizationOther"])
+        page.ready_to_move(data["readyToMove"])
+        page.salary_from(data["salaryFrom"])
+        page.salary_to(data["salaryTo"])
+        page.computer_skills(data["computerSkills"])
+        page.publications(data["publications"])
+        page.recommendations(data["recommendations"])
+        page.additional_info(data["additionalInfo"])
+        page.agree_to_process_data(data["agreeToProcessData"])
+        page.click_by_text("Сохранить", 2)
+        page.tab_close()
+        page.tab_switch(0)
 
-        sleep(4)
+    def test_fill_presentation(self):
+        """
+        Подготовка документов для включения в Федеральный резерв управленческих кадров
+        Заполнение представления
+        """
+        page = ReserveBasesPreparePage(self.driver, 3)
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
 
-
+        LoginPage(self.driver).login(data=self.hr2)
+        page.go_to(Links.reserve_bases_prepare)
+        page.search(data["search"])
+        page.documents()
+        page.presentation()
+        page.tab_switch(1)
+        sleep(2)
+        page.availability_degree(data["availabilityDegree"])
+        page.scroll_to_top()
+        sleep(1)
+        page.position(data["position"])
+        page.recomendations(data["recomendations"])
+        page.professional_achievements(data["professionalAchievements"])
+        page.developement_area(data["developementArea"])
+        page.additional_preperation_text(data["additionalPreperationText"])
+        page.click_by_text("Сохранить", 2)
+        page.wait_for_loading()
+        page.tab_close()
+        page.tab_switch(0)
 

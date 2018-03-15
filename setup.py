@@ -24,7 +24,7 @@ class Settings(object):
 
 
 def execute_script(query,
-                   server="QTESTEISUKS2",
+                   server="QTESTEISUKS",
                    database="eisuks_reserve_hr",
                    username="HRUser",
                    password="P@ssw0rd123456"):
@@ -36,7 +36,7 @@ def execute_script(query,
 
 
 class Links(object):
-    main_page = "http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
+    main_page = "http://gossluzhba.qtestweb.office.quarta-vk.ru/"
     # main_page = "https://test.gossluzhba.gov.ru/"
     dashboard = main_page + "Dashboard/Hr"
     personal_files = main_page + "PersonalData/PersonalFile#/list"
@@ -69,7 +69,7 @@ class Queries(object):
     # скрипт для удаления записи из ФРУКа
     delete_from_fruk = """
     DELETE FROM [eisuks_reserve_hr].[Reserve].[FederalReserve]
-    WHERE PersonalFilesID='704d437b-c4a2-4f04-882d-307263fd46f1';
+    WHERE PersonalFilesID='95b5360a-9507-4fc1-891b-9602d8629063';
     """
     # скрипт для удаления личного дела
     delete_personal_file = """
