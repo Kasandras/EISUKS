@@ -24,7 +24,6 @@ class Browser(object):
         self.log = log
         self.root = ""
         self.wait = Wait(self.driver, self.timeout)
-        self.check = Checker(self.driver, self.timeout)
 
     def accept_alert(self):
         try:
@@ -176,6 +175,7 @@ class Browser(object):
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
+            sleep(2)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -189,6 +189,7 @@ class Browser(object):
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
+            sleep(2)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -277,6 +278,9 @@ class Browser(object):
             s.cookies.set(cookie['name'], cookie['value'])
         return s.cookies
 
+    @staticmethod
+    def today():
+        return datetime.date.today().strftime("%d.%m.%Y")
 
 class Wait(object):
     """
@@ -307,20 +311,3 @@ class Wait(object):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
 
-
-class Checker(object):
-    """
-    Methods for checking
-    """
-    def __init__(self, driver, timeout):
-        self.driver = driver
-        self.timeout = timeout
-        self.wait = Wait(self.driver, self.timeout)
-
-    def for_input(self, locator, value):
-        element = self.wait.element_appear(locator)
-        text = element.get_attribute("value")
-        if text == value:
-            return True
-        else:
-            return False
