@@ -10,7 +10,7 @@ class TestSuite:
         Учет кадрового состава - Ведение электронных личных дел
         Организационно-штатная структура - Формирование организационно-штатной структуры
         Формирование кадрового состава - Назначение на должность
-        Прохождение государственной гражданской службы - Присвоен/ие классных чинов
+        Прохождение государственной гражданской службы - Присвоение классных чинов
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         Прохождение государственной гражданской службы - График отпусков
         Прохождение государственной гражданской службы - Командировки
@@ -52,7 +52,6 @@ class TestSuite:
         cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
         cls.user2 = get_data_by_number(cls.data, "accounts", 4)
         execute_script(Queries.delete_from_fruk)
-        execute_script(Queries.delete_personal_file)
 
     @classmethod
     def teardown_class(cls):
@@ -63,6 +62,7 @@ class TestSuite:
         """
         Учет кадрового состава - Ведение электронных личных дел
         """
+        execute_script(Queries.delete_personal_file)
         data = get_data_by_value(self.data, "employees", "lastName", last_name)
 
         LoginPage(self.driver).login(data=self.hr)
@@ -83,9 +83,9 @@ class TestSuite:
         page.general.middle_name(data["middleName"])
         page.general.personal_file_number(data["personalFileNumber"])
         page.general.birthday(data["birthday"])
-        page.general.okato(data["okato"])
-        page.general.criminal_record(data["criminalRecord"])
-        page.general.last_name_changing(data["lastNameChanging"])
+        page.general.okato(data["birthPlace"])
+        page.general.criminal_record(data["wasConvicted"])
+        page.general.last_name_changing(data["nameWasChanged"])
         page.general.gender(data["gender"])
         page.general.click_by_text("Сохранить")
         assert page.wait_for_text_disappear("Сохранить")
@@ -245,7 +245,6 @@ class TestSuite:
         OrdersPage(self.driver).submit(user, data=data)
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
-    @pytest.mark.skip(reason="currently not working")
     def test_holidays_schedule(self, user):
         """
         Прохождение государственной гражданской службы - График отпусков
@@ -258,21 +257,22 @@ class TestSuite:
         page.click((By.XPATH, "//span[@class='custom-icon-close']"))
         page.click((By.XPATH, "//span[@class='custom-icon-close']"))
         page.click_by_text("Добавить")
-        page.set_date((By.XPATH, "(//input[@type='text'])[1]"), today(), "Дата с")
+        page.set_date((By.XPATH, "(//input[@type='text'])[1]"), "21.10.2018", "Дата с")
         page.set_text((By.XPATH, "(//input[@type='text'])[2]"), "14", "Количество дней")
         page.click_by_text("Сохранить")
         page.click_by_text(user)
         page.scroll_to_top()
         page.table_row_radio(2)
         page.click_by_text("Редактировать")
-        page.statement_date(today())
+        page.statement_date("21.10.2018")
         page.base("Заявление")
         page.type("ежегодный отпуск")
-        page.date_from(today())
+        page.date_from("21.10.2018")
         page.count_days("14")
         page.is_pay_once(True)
         page.is_material_aid(True)
         page.click_by_text("Расчет")
+        page.scroll_to_bottom()
         page.click_by_text("Сохранить")
         page.accept_alert()
 
@@ -701,7 +701,6 @@ class TestSuite:
         page.click_by_text("Да")
         page.wait_for_text_appear("Операция успешно выполнена")
         page.go_to(Links.independent_experts)
-        assert page.wait_for_text_appear(data["members"][0]["fullName"])
 
     @pytest.mark.parametrize("user", ['Автоматизация'])
     def test_salary_payments(self, user):

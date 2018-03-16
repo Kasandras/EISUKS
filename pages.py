@@ -24,17 +24,18 @@ class MainPage(parent):
 
 class AlternativeLoginPage(parent):
 
-    login_button = HTMLButton(partial_link_text='Войти', label='Войти')
-    username = HTMLInput(id='UserName', label='Логин')
-    password = HTMLInput(id='Password', label='Пароль')
-    remember_me = HTMLCheckbox(id='RememberMe', label='Запомнить меня?')
-    submit = HTMLButton(xpath="//input[@value='Войти']", label='Войти')
-    cancel = HTMLButton(xpath="//input[@value='Отмена']", label='Отмена')
-    logout = HTMLButton(xpath="//input[@value='Выйти']", label='Выйти')
+    login_button = HTMLButton(partial_link_text='Войти')
+    username = HTMLInput(id='UserName')
+    password = HTMLInput(id='Password')
+    remember_me = HTMLCheckbox(id='RememberMe')
+    submit = HTMLButton(xpath="//input[@value='Войти']")
+    cancel = HTMLButton(xpath="//input[@value='Отмена']")
+    logout = HTMLButton(xpath="//input[@value='Выйти']")
     current_user = Element(xpath="//a[@href='/Cabinet']")
 
     def login(self, username=None, password=None, full_name=None, data=None):
 
+        self.log = False
         self.go_to(Links.main_page)
 
         if data:
@@ -123,17 +124,17 @@ class AlternativePersonalFilePage(parent):
 
     class General(parent):
 
-        general_edit = HTMLButton(xpath="//a[contains(@href, 'generalinfo/edit')]", label='Редактировать общие сведения')
-        last_name = HTMLInput(ng_model='model.lastName', label='Фамилия')
-        first_name = HTMLInput(ng_model='model.firstName', label='Имя')
-        middle_name = HTMLInput(ng_model='model.middleName', label='Отчество')
-        personal_file_number = HTMLInput(ng_model='model.numberPersonalCard', label='Номер личного дела')
+        general_edit = HTMLButton(xpath="//a[contains(@href, 'generalinfo/edit')]", label='Редактировать')
+        last_name = HTMLInput(ngmodel='model.lastName', label='Фамилия')
+        first_name = HTMLInput(ngmodel='model.firstName', label='Имя')
+        middle_name = HTMLInput(ngmodel='model.middleName', label='Отчество')
+        personal_file_number = HTMLInput(ngmodel='model.numberPersonalCard', label='Номер личного дела')
         gender = HTMLSelect2(select2_label='Пол', label='Пол')
         birth_date = HTMLDate(id='birthDate', label='Дата рождения')
         citizenship = HTMLSelect2(select2_label='Гражданство', label='Гражданство')
-        birth_place = HTMLInput(ng_model='model.birthPlace', label='Место рождения, код по ОКАТО')
-        was_convicted = HTMLSelect(ng_model='model.wasConvicted', label='Наличие судимостей')
-        name_was_changed = HTMLSelect(ng_model='model.nameWasChanged', label='Сведения об изменении ФИО')
+        birth_place = HTMLInput(ngmodel='model.birthPlace', label='Место рождения, код по ОКАТО')
+        was_convicted = HTMLSelect(ngmodel='model.wasConvicted', label='Наличие судимостей')
+        name_was_changed = HTMLSelect(ngmodel='model.nameWasChanged', label='Сведения об изменении ФИО')
         insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber', label='Страховой номер')
         save = HTMLButton(link_text='Сохранить', label='Сохранить')
         cancel = HTMLButton(link_text='Отмена', label='Отмена')
@@ -869,8 +870,8 @@ class DispensaryPage(parent):
         self.click((By.XPATH, "//button[@title='Количество элементов на странице']"))
         sleep(1)
         self.click((By.XPATH, "//a[@role='menuitem' and .='50']"))
-        projects = self.driver.find_elements(By.XPATH, "a[.='Проект']")
-        projects[-1:].click()
+        projects = self.driver.find_elements(By.XPATH, "//tr[contains(., 'Проект')]//input")
+        projects[-1:][0].click()
 
     def dispensary_date(self, value):
         self.set_date(DispensaryLocators.dispensary_date, value, "Дата прохождения диспансеризации")
@@ -1401,8 +1402,8 @@ class DocumentsPage(parent):
                 DocumentsLocators.PersonalContact.fact_registration_reg, value, "Фактическое проживание - регион")
 
         def address_of_residence(self, value):
-            self.set_text(DocumentsLocators.PersonalContact.address_of_residence, value, "Адрес фактического проживания")
-
+            self.set_text(DocumentsLocators.PersonalContact.address_of_residence, value,
+                          "Адрес фактического проживания")
 
     class IdentificationDocument(parent):
 
@@ -2111,10 +2112,8 @@ class OrganizationsPage(parent):
                 self.set_select2(OrganizationsLocators.Edit.Template.working_schedule, value, "Рабочее время")
 
             def type(self, value):
-                self.set_select2(
-                    OrganizationsLocators.Edit.Template.type, value, "Тип служебного контракта (трудового договора)")
-                self.set_select2(OrganizationsLocators.Edit.Template.type,
-                                 value, "Тип служебного контракта (трудового договора)")
+                self.set_select2(OrganizationsLocators.Edit.Template.type, value,
+                                 "Тип служебного контракта (трудового договора)")
 
             def location(self, value):
                 self.set_text(OrganizationsLocators.Edit.Template.location, value, "Место приема документов")
@@ -2258,7 +2257,8 @@ class VacancyCreatePage(parent):
             self.upload_file(value, 7)
 
         def structural_unit(self, value):
-            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value, "Структурное подразделение")
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value,
+                             "Структурное подразделение")
 
         def competition(self, value):
             self.set_text(VacancyCreateLocators.PostIsCompetition.competition, value, "Причина")
@@ -2455,7 +2455,7 @@ class VacancyCreatePage(parent):
 
         def professional_activity_specialization_other_text(self, value):
             self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
-                             value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
+                          value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
 
         def okato_region(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,

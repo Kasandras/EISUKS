@@ -24,7 +24,6 @@ class Browser(object):
         self.log = log
         self.root = ""
         self.wait = Wait(self.driver, self.timeout)
-        self.check = Checker(self.driver, self.timeout)
         if test:
             print("\nТест: %s\n" % test)
 
@@ -81,7 +80,8 @@ class Browser(object):
             if self.driver.current_url == url:
                 break
             sleep(1)
-        print("Переход по ссылке: %s" % url)
+        if self.log:
+            print("Переход по ссылке: %s" % url)
 
     def move_to_element(self, element):
         self.wait_for_loading()
