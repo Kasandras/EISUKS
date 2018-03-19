@@ -4,6 +4,7 @@ from pages import *
 import pytest
 
 
+
 class TestSuite:
     """
     Содержание test-suite:
