@@ -217,6 +217,61 @@
       "orderNumber": "123",
       "orderDate": "21.01.2017",
       "date": "21.01.2017"
+    },
+    {
+      "organization": "",
+      "name": "Тестовая ОШС",
+      "fot": "20",
+      "limit": "100",
+      "divisions": [
+        {
+          "parent": "",
+          "name": "Департамент государственной службы и кадров",
+          "nameGenitive": "Департамент государственной службы и кадров",
+          "nameDative": "Департамент государственной службы и кадров",
+          "nameAccusative": "Департамент государственной службы и кадров",
+          "limit": "50",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Директор департамента",
+              "amount": "1"
+            }
+          ]
+        },
+        {
+          "parent": "Департамент государственной службы и кадров",
+          "name": "Отдел кадров",
+          "nameGenitive": "Отдел кадров",
+          "nameDative": "Отдел кадров",
+          "nameAccusative": "Отдел кадров",
+          "limit": "50",
+          "code": "12",
+          "launchDate": "21.01.2017",
+          "orderNumber": "333",
+          "orderDate": "21.01.2017",
+          "staffAmount": [
+            {
+              "position": "Начальник отдела в департаменте",
+              "amount": "1"
+            },
+            {
+              "position": "Заместитель начальника отдела в департаменте",
+              "amount": "1"
+            },
+            {
+              "position": "Ведущий советник",
+              "amount": "2"
+            }
+          ]
+        }
+      ],
+      "orderNumber": "123",
+      "orderDate": "21.01.2017",
+      "date": "21.01.2017"
     }
   ],
   "advertisements": [

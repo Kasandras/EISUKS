@@ -708,10 +708,7 @@ class VacancyCreateLocators(object):
         sub_structural = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
         staff_unit = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
         work_type = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
-
         job_type = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
-
-
         position_category = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
         position_group = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
         okato_region = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")
@@ -733,9 +730,7 @@ class VacancyCreateLocators(object):
         sub_structural = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
         post = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
         work_type = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
-
         job_type = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
-
         reserve_group = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
         okato_region = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")
         okato_area = (By.XPATH, "(//div[contains(@id, 's2id')])[11]")

@@ -1420,8 +1420,8 @@ class DocumentsPage(parent):
                 DocumentsLocators.PersonalContact.fact_registration_reg, value, "Фактическое проживание - регион")
 
         def address_of_residence(self, value):
-            self.set_text(DocumentsLocators.PersonalContact.address_of_residence, value, "Адрес фактического проживания")
-
+            self.set_text(DocumentsLocators.PersonalContact.address_of_residence, value,
+                          "Адрес фактического проживания")
 
     class IdentificationDocument(parent):
 
@@ -2184,7 +2184,7 @@ class VacancyCreatePage(parent):
     def work_type_other_text(self, value):
         self.set_text(VacancyCreateLocators.work_type_other_text, value, "Уточненный профиль деятельности организации")
 
-    def job_type_other_text(self,value):
+    def job_type_other_text(self, value):
         self.set_text(VacancyCreateLocators.job_type_other_text, value,
                       "Уточнение области профессиональной деятельности")
 
@@ -2281,7 +2281,8 @@ class VacancyCreatePage(parent):
             self.upload_file(value, 7)
 
         def structural_unit(self, value):
-            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value, "Структурное подразделение")
+            self.set_select2(VacancyCreateLocators.PostIsCompetition.structural_unit, value,
+                             "Структурное подразделение")
 
         def competition(self, value):
             self.set_text(VacancyCreateLocators.PostIsCompetition.competition, value, "Причина")
@@ -2480,17 +2481,18 @@ class VacancyCreatePage(parent):
         def reserve_group(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
 
-        def professional_activity_direction(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
-                             value, "Направление профессиональной служебной деятельности")
-
-        def professional_activity_specialization(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
-                             value, "Специализация по направлению профессиональной служебной деятельности")
-
-        def professional_activity_specialization_other_text(self, value):
-            self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
-                             value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
+        # def professional_activity_direction(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
+        #                      value, "Направление профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
+        #                      value, "Специализация по направлению профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization_other_text(self, value):
+        #     self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
+        #                   value,
+        #                   "Уточненная специализация по направлению профессиональной служебной деятельности ")
 
         def okato_region(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,
