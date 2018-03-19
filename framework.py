@@ -9,7 +9,7 @@ from selenium.common.exceptions import TimeoutException
 import datetime
 import os
 import requests
-from elements import HTMLInput, HTMLButton, HTMLCheckbox, HTMLSelect, HTMLLink, HTMLDate, Element
+from elements import *
 
 
 def today():
@@ -18,12 +18,14 @@ def today():
 
 class Browser(object):
 
-    def __init__(self, driver, timeout=60, log=True):
+    def __init__(self, driver, timeout=60, log=True, test=None):
         self.driver = driver
         self.timeout = timeout
         self.log = log
         self.root = ""
         self.wait = Wait(self.driver, self.timeout)
+        if test:
+            print("\nТест: %s\n" % test)
 
     def accept_alert(self):
         try:
@@ -78,7 +80,8 @@ class Browser(object):
             if self.driver.current_url == url:
                 break
             sleep(1)
-        print("Переход по ссылке: %s" % url)
+        if self.log:
+            print("Переход по ссылке: %s" % url)
 
     def move_to_element(self, element):
         self.wait_for_loading()
@@ -189,7 +192,6 @@ class Browser(object):
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(2)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -298,11 +300,11 @@ class Wait(object):
         return WebDriverWait(self.driver, self.timeout).until(
             ec.visibility_of_element_located((By.XPATH, "//*[contains(., '%s')]" % text)))
 
-    def element_appear(self, locator):
-        return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located(locator))
+    def element_appear(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.visibility_of_element_located(locator), msg)
 
-    def element_disappear(self, locator):
-        return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator))
+    def element_disappear(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator), msg)
 
     def lamb(self, exe):
         return WebDriverWait(self.driver, self.timeout).until(exe)
@@ -311,3 +313,20 @@ class Wait(object):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
 
+
+class Checker(object):
+    """
+    Methods for checking
+    """
+    def __init__(self, driver, timeout):
+        self.driver = driver
+        self.timeout = timeout
+        self.wait = Wait(self.driver, self.timeout)
+
+    def for_input(self, locator, value):
+        element = self.wait.element_appear(locator)
+        text = element.get_attribute("value")
+        if text == value:
+            return True
+        else:
+            return False

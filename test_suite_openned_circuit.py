@@ -260,7 +260,7 @@ class TestSuite:
         sleep(5)
 
     def test_test_for_control(self):
-        self.driver.get("http://gossluzhba1.qtestweb.office.quarta-vk.ru/"
+        self.driver.get("http://gossluzhba.qtestweb.office.quarta-vk.ru/"
                         "testing/app#/testing/run/action/3e13a2e8-2594-484a-8d81-7238b10af68c")
         p = MainPage(self.driver)
         p.click((By.XPATH, "(//input[@type='radio'])[4]"), "Выбор варианта ответа")

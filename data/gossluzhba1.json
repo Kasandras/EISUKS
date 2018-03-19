@@ -36,9 +36,10 @@
       "insuranceCertificateNumber": "00193214196",
       "username": "",
       "personalFileNumber": "333",
-      "okato": "123",
-      "criminalRecord": "Нет",
-      "lastNameChanging": "Не менял",
+      "citizenship": "Гражданин Российской Федерации",
+      "birthPlace": "123",
+      "wasConvicted": "Нет",
+      "nameWasChanged": "Не менял",
       "appointment": {
         "reason": "Приказ об изменении штатного расписания",
         "duration": false,

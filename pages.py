@@ -19,7 +19,7 @@ def today():
 
 class MainPage(parent):
 
-    login_button = HTMLButton(partial_link_text='Войти')
+    login_button = HTMLButton(partial_link_text='Войти', label='Войти')
 
 
 class AlternativeLoginPage(parent):
@@ -35,6 +35,7 @@ class AlternativeLoginPage(parent):
 
     def login(self, username=None, password=None, full_name=None, data=None):
 
+        self.log = False
         self.go_to(Links.main_page)
 
         if data:
@@ -100,6 +101,8 @@ class LoginPage(parent):
 
 class AlternativePersonalFilePage(parent):
 
+    add = HTMLButton(partial_link_text='Добавить', label='Добавить')
+
     @property
     def new(self):
         return self.New(self.driver, self.timeout, self.log)
@@ -110,52 +113,31 @@ class AlternativePersonalFilePage(parent):
 
     class New(parent):
 
-        last_name = HTMLInput(id='lastName')
-        first_name = HTMLInput(id='firstName')
-        middle_name = HTMLInput(id='middleName')
-        birth_date = HTMLDate(id='birthDate')
-        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber')
-        user_name = HTMLInput(id='userName')
-        save = HTMLButton(xpath="//button[@value='Сохранить']")
-        cancel = HTMLButton(xpath="//button[@value='Отмена']")
+        last_name = HTMLInput(id='lastName', label='Фамилия')
+        first_name = HTMLInput(id='firstName', label='Имя')
+        middle_name = HTMLInput(id='middleName', label='Отчество')
+        birth_date = HTMLDate(id='birthDate', label='Дата рождения')
+        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber', label='Страховой номер')
+        user_name = HTMLInput(id='userName', label='Учетная запись')
+        save = HTMLButton(link_text='Сохранить', label='Сохранить')
+        cancel = HTMLButton(link_text='Отмена', label='Отмена')
 
     class General(parent):
 
-        def general_edit(self):
-            self.click(PersonalFileLocators.General.general_edit, "Редактировать общие сведения")
-
-        def last_name(self, value):
-            self.set_text(PersonalFileLocators.General.last_name, value, "Фамилия")
-
-        def first_name(self, value):
-            self.set_text(PersonalFileLocators.General.first_name, value, "Имя")
-
-        def middle_name(self, value):
-            self.set_text(PersonalFileLocators.General.middle_name, value, "Отчество")
-
-        def gender(self, value):
-            self.set_select2(PersonalFileLocators.General.gender, value, "Пол")
-
-        def personal_file_number(self, value):
-            self.set_text(PersonalFileLocators.General.personal_file_number, value, "Номер личного дела")
-
-        def birthday(self, value):
-            self.set_date(PersonalFileLocators.General.birthday, value, "Дата рождения")
-
-        def okato(self, value):
-            self.set_text(PersonalFileLocators.General.okato, value, "Место рождения, код по ОКАТО")
-
-        def criminal_record(self, value):
-            self.set_select(value, 1, "Наличие судимости")
-
-        def last_name_changing(self, value):
-            self.set_select(value, 2, "Сведения об изменении ФИО")
-
-        def addresses_edit(self):
-            self.click(PersonalFileLocators.General.addresses_edit, "Редактировать адреса")
-
-        def contacts_edit(self):
-            self.click(PersonalFileLocators.General.contact_edit, "Редактировать контактную информацию")
+        general_edit = HTMLButton(xpath="//a[contains(@href, 'generalinfo/edit')]", label='Редактировать')
+        last_name = HTMLInput(ngmodel='model.lastName', label='Фамилия')
+        first_name = HTMLInput(ngmodel='model.firstName', label='Имя')
+        middle_name = HTMLInput(ngmodel='model.middleName', label='Отчество')
+        personal_file_number = HTMLInput(ngmodel='model.numberPersonalCard', label='Номер личного дела')
+        gender = HTMLSelect2(select2_label='Пол', label='Пол')
+        birth_date = HTMLDate(id='birthDate', label='Дата рождения')
+        citizenship = HTMLSelect2(select2_label='Гражданство', label='Гражданство')
+        birth_place = HTMLInput(ngmodel='model.birthPlace', label='Место рождения, код по ОКАТО')
+        was_convicted = HTMLSelect(ngmodel='model.wasConvicted', label='Наличие судимостей')
+        name_was_changed = HTMLSelect(ngmodel='model.nameWasChanged', label='Сведения об изменении ФИО')
+        insurance_certificate_number = HTMLInput(id='insuranceCertificateNumber', label='Страховой номер')
+        save = HTMLButton(link_text='Сохранить', label='Сохранить')
+        cancel = HTMLButton(link_text='Отмена', label='Отмена')
 
 
 class PersonalFilePage(parent):
@@ -888,8 +870,8 @@ class DispensaryPage(parent):
         self.click((By.XPATH, "//button[@title='Количество элементов на странице']"))
         sleep(1)
         self.click((By.XPATH, "//a[@role='menuitem' and .='50']"))
-        projects = self.driver.find_elements(By.XPATH, "a[.='Проект']")
-        projects[-1:].click()
+        projects = self.driver.find_elements(By.XPATH, "//tr[contains(., 'Проект')]//input")
+        projects[-1:][0].click()
 
     def dispensary_date(self, value):
         self.set_date(DispensaryLocators.dispensary_date, value, "Дата прохождения диспансеризации")
@@ -2130,10 +2112,8 @@ class OrganizationsPage(parent):
                 self.set_select2(OrganizationsLocators.Edit.Template.working_schedule, value, "Рабочее время")
 
             def type(self, value):
-                self.set_select2(
-                    OrganizationsLocators.Edit.Template.type, value, "Тип служебного контракта (трудового договора)")
-                self.set_select2(OrganizationsLocators.Edit.Template.type,
-                                 value, "Тип служебного контракта (трудового договора)")
+                self.set_select2(OrganizationsLocators.Edit.Template.type, value,
+                                 "Тип служебного контракта (трудового договора)")
 
             def location(self, value):
                 self.set_text(OrganizationsLocators.Edit.Template.location, value, "Место приема документов")
@@ -2493,6 +2473,17 @@ class VacancyCreatePage(parent):
         #     self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
         #                   value,
         #                   "Уточненная специализация по направлению профессиональной служебной деятельности ")
+        def professional_activity_direction(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
+                             value, "Направление профессиональной служебной деятельности")
+
+        def professional_activity_specialization(self, value):
+            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
+                             value, "Специализация по направлению профессиональной служебной деятельности")
+
+        def professional_activity_specialization_other_text(self, value):
+            self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
+                          value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
 
         def okato_region(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,
