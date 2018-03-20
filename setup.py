@@ -1,6 +1,7 @@
 import json
 import os
 import pymssql
+from selenium import webdriver
 
 
 def load_data(file):
@@ -33,6 +34,15 @@ def execute_script(query,
     cursor.execute(query)
     conn.commit()
     conn.close()
+
+
+class Driver(object):
+
+    user = os.environ.get('USERNAME')
+
+    @property
+    def chromedriver(self):
+        return webdriver.Chrome("C:/Users/{0}/PycharmProject/eisuks/drivers/chromedriver.exe".format(self.user))
 
 
 class Links(object):

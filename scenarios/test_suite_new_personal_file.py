@@ -1,8 +1,9 @@
 from pages import *
+from setup import driver
 
 
 class TestSuite:
-    driver = webdriver.Chrome("drivers/chromedriver.exe")
+    driver = driver
 
     @classmethod
     def setup_class(cls):
@@ -14,9 +15,5 @@ class TestSuite:
         cls.driver.quit()
 
     def test_name(self):
-        """
-        testinfo
-        """
-
-        page = Page(self.driver, test='info')
+        print('test suite 1')
         
