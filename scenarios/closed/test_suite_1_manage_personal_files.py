@@ -1,4 +1,5 @@
 from pages import *
+import pytest
 
 
 class TestSuite:
@@ -6,7 +7,7 @@ class TestSuite:
     Сценарий: Учет кадрового состава - Ведение электронных личных дел
     """
 
-    __name__ = "123123"
+    __file__ = "123123"
 
     driver = webdriver.Chrome(path_to_driver)
 

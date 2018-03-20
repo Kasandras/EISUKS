@@ -618,6 +618,7 @@ class OrdersPage(parent):
             date = data["orderDate"]
             by = data["orderBy"]
             position = data["orderByPosition"]
+        sleep(3)
         self.click_by_text("Фильтр")
         self.set_text((By.XPATH, "//input[@type='text']"), full_name, "Фамилия Имя Отчество")
         self.click_by_text("Применить")
@@ -867,11 +868,7 @@ class DispensaryPage(parent):
 
     def select_last_project(self):
         self.wait.text_appear("Проект")
-        self.click((By.XPATH, "//button[@title='Количество элементов на странице']"))
-        sleep(1)
-        self.click((By.XPATH, "//a[@role='menuitem' and .='50']"))
-        projects = self.driver.find_elements(By.XPATH, "//tr[contains(., 'Проект')]//input")
-        projects[-1:][0].click()
+        self.driver.find_element(By.XPATH, "//tr[contains(., 'Автоматизация')]//input").click()
 
     def dispensary_date(self, value):
         self.set_date(DispensaryLocators.dispensary_date, value, "Дата прохождения диспансеризации")
