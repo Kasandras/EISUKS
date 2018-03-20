@@ -178,6 +178,7 @@ class Browser(object):
             sleep(1)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
+            sleep(2)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -279,6 +280,9 @@ class Browser(object):
             s.cookies.set(cookie['name'], cookie['value'])
         return s.cookies
 
+    @staticmethod
+    def today():
+        return datetime.date.today().strftime("%d.%m.%Y")
 
 class Wait(object):
     """

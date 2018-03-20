@@ -80,7 +80,7 @@ class Queries(object):
     # скрипт для удаления записи из ФРУКа
     delete_from_fruk = """
     DELETE FROM [eisuks_reserve_hr].[Reserve].[FederalReserve]
-    WHERE PersonalFilesID='704d437b-c4a2-4f04-882d-307263fd46f1';
+    WHERE PersonalFilesID='95b5360a-9507-4fc1-891b-9602d8629063';
     """
     # скрипт для удаления личного дела
     delete_personal_file = """

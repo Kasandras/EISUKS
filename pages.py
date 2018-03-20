@@ -1469,10 +1469,10 @@ class DocumentsPage(parent):
                     DocumentsLocators.Education.Main.full_name_institution, value, "Полное название учебного заведения")
 
             def start_date_education(self, value):
-                self.set_text(DocumentsLocators.Education.Main.start_date_education, value, "Год начала")
+                self.set_date(DocumentsLocators.Education.Main.start_date_education, value, "Год начала")
 
             def end_date_education(self, value):
-                self.set_text(DocumentsLocators.Education.Main.end_date_education, value, "Год окончания")
+                self.set_date(DocumentsLocators.Education.Main.end_date_education, value, "Год окончания")
 
             def education_directions(self, value):
                 self.set_select2(
@@ -2164,6 +2164,10 @@ class VacancyCreatePage(parent):
     def work_type_other_text(self, value):
         self.set_text(VacancyCreateLocators.work_type_other_text, value, "Уточненный профиль деятельности организации")
 
+    def job_type_other_text(self, value):
+        self.set_text(VacancyCreateLocators.job_type_other_text, value,
+                      "Уточнение области профессиональной деятельности")
+
     def salary_from(self, value):
         self.set_text(
             VacancyCreateLocators.salary_from, value, "Примерный размер денежного содержания (оплаты труда) от")
@@ -2274,6 +2278,10 @@ class VacancyCreatePage(parent):
             self.set_select2(
                 VacancyCreateLocators.PostIsCompetition.work_type, value, "Профиль деятельности организации")
 
+        def job_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.PostIsCompetition.job_type, value, "Область профессиональной деятельности")
+
         def position_category(self, value):
             self.set_select2(
                 VacancyCreateLocators.PostIsCompetition.position_category, value, "Категория вакантной должности")
@@ -2361,6 +2369,10 @@ class VacancyCreatePage(parent):
         def work_type(self, value):
             self.set_select2(VacancyCreateLocators.ReservePost.work_type, value, "Профиль деятельности организации")
 
+        def job_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReservePost.job_type, value, "Область профессиональной деятельности")
+
         def reserve_group(self, value):
             self.set_select2(VacancyCreateLocators.ReservePost.reserve_group, value, "Группа вакантной должности")
 
@@ -2442,9 +2454,25 @@ class VacancyCreatePage(parent):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.work_type,
                              value, "Профиль деятельности организации")
 
+        def job_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.ReserveGroupPosts.job_type, value, "Область профессиональной деятельности")
+
         def reserve_group(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.reserve_group, value, "Группа вакантной должности")
 
+        # def professional_activity_direction(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
+        #                      value, "Направление профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
+        #                      value, "Специализация по направлению профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization_other_text(self, value):
+        #     self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
+        #                   value,
+        #                   "Уточненная специализация по направлению профессиональной служебной деятельности ")
         def professional_activity_direction(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
                              value, "Направление профессиональной служебной деятельности")
@@ -2531,6 +2559,10 @@ class VacancyCreatePage(parent):
             self.set_select2(
                 VacancyCreateLocators.VacantStudy.work_type, value, "Профиль деятельности организации")
 
+        def job_type(self, value):
+            self.set_select2(
+                VacancyCreateLocators.VacantStudy.job_type, value, "Область профессиональной деятельности")
+
         def position_category(self, value):
             self.set_select2(
                 VacancyCreateLocators.VacantStudy.position_category, value, "Категория вакантной должности")
@@ -2598,6 +2630,9 @@ class VacancyCreatePage(parent):
 
         def work_type(self, value):
             self.set_select2(VacancyCreateLocators.VacantState.work_type, value, "Профиль деятельности организации")
+
+        def job_type(self, value):
+            self.set_select2(VacancyCreateLocators.VacantState.job_type, value, "Область профессиональной деятельности")
 
         def position_category(self, value):
             self.set_select2(VacancyCreateLocators.VacantState.position_category,
