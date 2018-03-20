@@ -1,5 +1,4 @@
 from pages import *
-import pytest
 
 
 class TestSuite:
@@ -7,7 +6,7 @@ class TestSuite:
     Содержание test-suite:
 
     """
-    driver = webdriver.Chrome(Settings.path_to_driver)
+    driver = webdriver.Chrome(path_to_driver)
 
     @classmethod
     def setup_class(cls):

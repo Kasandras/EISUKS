@@ -1,7 +1,10 @@
 import json
 import os
 import pymssql
-from selenium import webdriver
+
+active_date = "gossluzhba1"
+path_to_project = os.path.dirname(__file__)
+path_to_driver = r"{0}\drivers\chromedriver.exe".format(path_to_project)
 
 
 def load_data(file):
@@ -20,10 +23,6 @@ def get_data_by_number(data, parent, number=0):
     return data[parent][number]
 
 
-class Settings(object):
-    path_to_driver = "drivers/chromedriver.exe"
-
-
 def execute_script(query,
                    server="QTESTEISUKS",
                    database="eisuks_reserve_hr",
@@ -34,15 +33,6 @@ def execute_script(query,
     cursor.execute(query)
     conn.commit()
     conn.close()
-
-
-class Driver(object):
-
-    user = os.environ.get('USERNAME')
-
-    @property
-    def chromedriver(self):
-        return webdriver.Chrome("C:/Users/{0}/PycharmProject/eisuks/drivers/chromedriver.exe".format(self.user))
 
 
 class Links(object):

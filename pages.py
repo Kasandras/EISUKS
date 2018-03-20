@@ -2473,17 +2473,17 @@ class VacancyCreatePage(parent):
         #     self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
         #                   value,
         #                   "Уточненная специализация по направлению профессиональной служебной деятельности ")
-        def professional_activity_direction(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
-                             value, "Направление профессиональной служебной деятельности")
-
-        def professional_activity_specialization(self, value):
-            self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
-                             value, "Специализация по направлению профессиональной служебной деятельности")
-
-        def professional_activity_specialization_other_text(self, value):
-            self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
-                          value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
+        # def professional_activity_direction(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_direction,
+        #                      value, "Направление профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization(self, value):
+        #     self.set_select2(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization,
+        #                      value, "Специализация по направлению профессиональной служебной деятельности")
+        #
+        # def professional_activity_specialization_other_text(self, value):
+        #     self.set_text(VacancyCreateLocators.ReserveGroupPosts.professional_activity_specialization_other_text,
+        #                   value, "Уточненная специализация по направлению профессиональной служебной деятельности ")
 
         def okato_region(self, value):
             self.set_select2(VacancyCreateLocators.ReserveGroupPosts.okato_region,

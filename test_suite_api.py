@@ -17,7 +17,6 @@ class TestSuite:
 
         request = requests.session().get(url=url)
 
-
     def test_auth(self):
 
         url = 'http://gossluzhba1.qtestweb.office.quarta-vk.ru/#/login'
