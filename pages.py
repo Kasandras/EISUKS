@@ -867,7 +867,7 @@ class DispensaryPlanningPage(parent):
 class DispensaryPage(parent):
 
     def select_last_project(self):
-        self.wait.text_appear("Проект")
+        self.wait.text_appear("Автоматизация")
         self.driver.find_element(By.XPATH, "//tr[contains(., 'Автоматизация')]//input").click()
 
     def dispensary_date(self, value):

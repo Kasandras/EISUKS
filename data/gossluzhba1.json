@@ -3,7 +3,7 @@
     {
       "username": "AndRyb",
       "password": "123123/",
-      "fullName": "A. A. Automation"
+      "fullName": "А. А. Automation"
     },
     {
       "username": "1",
@@ -866,14 +866,14 @@
   ],
   "members": [
     {
-      "upload_photo":"photo_female.jpg",
-      "lastName":"Шабанова",
-      "firstName":"Анна",
-      "middleName":"Леонидовна",
+      "upload_photo":"photo_male.jpg",
+      "lastName":"Automation",
+      "firstName":"Automation",
+      "middleName":"Automation",
       "birthDate":"18061988",
       "insurance_certificate_number":"00102456767",
       "individual_taxpayer_number":"6449013711",
-      "email":"ahabanovaal@gmail.com",
+      "email":"Rybin@gmail.com",
       "passport_info":"4455 625896 Выдан ОВД 'Замоскворечье' 14.09.2006",
       "registration_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
       "actual_address":"г.Москва, Ленинградский проспект, д. 46, кв. 211",
