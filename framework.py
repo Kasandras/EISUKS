@@ -175,10 +175,10 @@ class Browser(object):
         if value:
             self.click(locator)
             self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
-            sleep(.1)
+            sleep(3)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(.2)
+            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -189,10 +189,10 @@ class Browser(object):
             input_field = element.find_element(By.XPATH, ".//input")
             input_field.clear()
             input_field.send_keys(value)
-            sleep(.1)
+            sleep(3)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(.2)
+            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 

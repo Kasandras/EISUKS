@@ -175,10 +175,10 @@ class Browser(object):
         if value:
             self.click(locator)
             self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
-            sleep(1)
+            sleep(3)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(2)
+            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -189,10 +189,10 @@ class Browser(object):
             input_field = element.find_element(By.XPATH, ".//input")
             input_field.clear()
             input_field.send_keys(value)
-            sleep(1)
+            sleep(3)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(2)
+            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -314,21 +314,3 @@ class Wait(object):
     def loading(self):
         WebDriverWait(self.driver, self.timeout).until_not(
             ec.visibility_of_element_located((By.XPATH, "//img[@alt='Загрузка']")))
-
-
-class Checker(object):
-    """
-    Methods for checking
-    """
-    def __init__(self, driver, timeout):
-        self.driver = driver
-        self.timeout = timeout
-        self.wait = Wait(self.driver, self.timeout)
-
-    def for_input(self, locator, value):
-        element = self.wait.element_appear(locator)
-        text = element.get_attribute("value")
-        if text == value:
-            return True
-        else:
-            return False
