@@ -53,6 +53,7 @@ class TestSuite:
         cls.user2 = get_data_by_number(cls.data, "accounts", 4)
         execute_script(Queries.delete_from_fruk)
         execute_script(Queries.delete_personal_file)
+        execute_script(Queries.delete_all_dispensary_by_account)
 
     @classmethod
     def teardown_class(cls):

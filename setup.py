@@ -67,6 +67,15 @@ class Links(object):
 
 
 class Queries(object):
+    # скрипт для удаления диспансеризации по ID учетки
+    delete_all_dispensary_by_account = """
+    DELETE FROM [eisuks_reserve_hr].[Disp].[DispensaryMains]
+    WHERE _createdBy = 'C1002563-F0C9-4AF2-91F4-4F84118DF214' AND _deletedBy IS NULL;
+    
+    DELETE FROM [eisuks_reserve_hr].[Disp].[DispensaryDetails]
+    WHERE _createdBy = 'C1002563-F0C9-4AF2-91F4-4F84118DF214' AND _deletedBy IS NULL
+    """
+
     # скрипт для удаления записи из ФРУКа
     delete_from_fruk = """
     DELETE FROM [eisuks_reserve_hr].[Reserve].[FederalReserve]
