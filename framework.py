@@ -43,7 +43,7 @@ class Browser(object):
 
     def click(self, locator, label=None):
         self.wait_for_loading()
-        element = self.wait_for_element_appear(locator)
+        element = self.wait.element_be_clickable(locator)
         self.move_to_element(element)
         element.click()
         if label and self.log:
@@ -56,7 +56,7 @@ class Browser(object):
         else:
             locator = (By.XPATH,
                        "(//*[self::a or self::button][contains(normalize-space(), '%s')])[%s]" % (text, order))
-        element = self.wait_for_element_appear(locator)
+        element = self.wait.element_be_clickable(locator)
         self.move_to_element(element)
         element.click()
         if text and self.log:
@@ -68,7 +68,7 @@ class Browser(object):
             locator = (By.XPATH, "(//input[@value='%s'])[%s]" % (value, order))
         else:
             locator = (By.XPATH, "(//input[contains(@value, '%s')])[%s]" % (value, order))
-        element = self.wait_for_element_appear(locator)
+        element = self.wait.element_be_clickable(locator)
         self.move_to_element(element)
         element.click()
         if value and self.log:
@@ -171,14 +171,22 @@ class Browser(object):
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
+    def set_select_alt(self, locator, value, label=""):
+        if value:
+            self.wait.loading()
+            element = self.wait.element_appear(locator)
+            Select(element).select_by_visible_text(value)
+            if label and self.log:
+                print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+
     def set_select2(self, locator, value, label=None):
         if value:
             self.click(locator)
             self.set_text_and_check((By.XPATH, "//div[@id='select2-drop']//input"), value)
-            sleep(3)
-            self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
+            option = self.wait.element_be_clickable(
+                (By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
+            option.click()
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
@@ -189,12 +197,15 @@ class Browser(object):
             input_field = element.find_element(By.XPATH, ".//input")
             input_field.clear()
             input_field.send_keys(value)
-            sleep(3)
             self.click((By.XPATH, "//*[@role='option'][contains(normalize-space(), '%s')]" % value))
             self.wait_for_element_disappear((By.ID, "select2-drop"))
-            sleep(3)
             if label and self.log:
                 print("[%s] [%s] выбор из списка значения \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
+
+    def set_radio_by_order(self, order=1, label=None):
+        self.click((By.XPATH, "(//input[@type='radio'])[%s]" % order))
+        if label and self.log:
+            print("[%s] [%s] выбор переключателя" % (strftime("%H:%M:%S", localtime()), label))
 
     def table_select_row(self, order=1, label=None):
         self.wait_for_loading()
@@ -307,6 +318,9 @@ class Wait(object):
 
     def element_disappear(self, locator, msg=""):
         return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator), msg)
+
+    def element_be_clickable(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.element_to_be_clickable(locator), msg)
 
     def lamb(self, exe):
         return WebDriverWait(self.driver, self.timeout).until(exe)

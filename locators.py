@@ -917,3 +917,134 @@ class ReserveBasesPrepareLocators(object):
     professional_achievements = (By.XPATH, "(//textarea)[2]")
     developement_area = (By.XPATH, "(//textarea)[3]")
     additional_preperation_text = (By.XPATH, "(//textarea)[4]")
+
+
+class PresentationLocators(object):
+    position = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+    availability_degree = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+    positions = (By.XPATH, "//input[@ng-model='model.position']")
+    recommendations = (By.XPATH, "(//textarea)[1]")
+    professional_achievements = (By.XPATH, "(//textarea)[2]")
+    development_area = (By.XPATH, "(//textarea)[3]")
+    additional_preparation = (By.XPATH, "(//textarea)[4]")
+    submit = (By.XPATH, "//button[@data-ng-click='save()']")
+
+
+class ApplicationFormLocators(object):
+
+    class Info(object):
+        # Общие сведения
+        last_name = (By.XPATH, "//input[@ng-model='model.generalInformation.lastName']")
+        first_name = (By.XPATH, "//input[@ng-model='model.generalInformation.firstName']")
+        middle_name = (By.XPATH, "//input[@ng-model='model.generalInformation.middleName']")
+        have_not_middle_name = (By.XPATH, "//*[@id='notExistMiddleName']")
+        gender = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        tax_certificate_number = (By.XPATH, "//*[@name='taxCertificateNumber']")
+        have_not_tax_certificate_number = (By.XPATH, "//*[@id='notExistTaxCertificateNumber']")
+        insurance_certificate_number = (By.XPATH, "//*[@name='insuranceCertificateNumber']")
+        birth_date = (By.XPATH, "//*[@id='birthDate']")
+        citizenship = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        citizenship_was_changed = (By.XPATH, "//*[@name='generalInformation.CitizenshipWasChanged']")
+        subject = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        area = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        birth_place = (By.XPATH, "//*[@name='generalInformation.BirthPlace']")
+        was_convicted = (By.XPATH, "//*[@name='wasConvicted']")
+        marital_status = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        name_was_changed = (By.XPATH, "//*[@name='generalInformation.NameWasChanged']")
+        was_abroad = (By.XPATH, "//*[@name='wasAbroad']")
+        additional_info = (By.XPATH, "//*[@data-ng-model='model.additionalInfo']")
+        # Контактная информация
+        work_phone = (By.XPATH, "//*[@id='workPhone']")
+        personal_phone = (By.XPATH, "//input[@ng-model='model.mobilePhone']")
+        addition_phone = (By.XPATH, "//input[@ng-model='model.additionalPhone']")
+        fax = (By.XPATH, "//input[@ng-model='model.fax']")
+        work_mail = (By.XPATH, "//input[@ng-model='model.workEmail']")
+        personal_mail = (By.XPATH, "//input[@ng-model='model.personalEmail']")
+        personal_site = (By.XPATH, "//input[@ng-model='model.webAddress']")
+        register_subject = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        register_area = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        register_address = (By.XPATH, "//*[@id='addressOfRegistration']")
+        temporarily_register_subject = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        temporarily_register_area = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        temporarily_register_address = (By.XPATH, "//*[@ng-model='model.addressOfTemporaryRegistration']")
+        actual_register_subject = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        actual_register_area = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+        actual_register_address = (By.XPATH, "//*[@id='addressOfResidence']")
+        # Кнопки Сохранить и Отмена
+        submit = (By.XPATH, "//a[@data-ng-click='save()']")
+        cancel = (By.XPATH, "//a[.='Отмена']")
+
+    class Documents(object):
+        type = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        series = (By.XPATH, "//*[@id='series']")
+        number = (By.XPATH, "//*[@id='number']")
+        date_from = (By.XPATH, "//*[@id='dateIssued']")
+        date_to = (By.XPATH, "//*[@id='dateEnd']")
+        by = (By.XPATH, "//*[@data-ng-model='editmodel.issuedBy']")
+        code = (By.XPATH, "//*[@data-ng-model='editmodel.issuedCode']")
+        note = (By.XPATH, "//*[@data-ng-model='editmodel.note']")
+
+    class Education(object):
+        level = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        have_not_secondary = (By.XPATH, "//*[@id='graduateNotExist']")
+        have_not_advanced_degree = (By.XPATH, "//*[@id='academicStatusNotExist']")
+        have_not_languages = (By.XPATH, "//*[@id='foreignLanguagesNotSpeaks']")
+        have_not_additional_education = (By.XPATH, "//*[@id='additionalEducationNotExist']")
+
+        class Main(object):
+            type = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+            form = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+            placement = (By.XPATH, "//*[@name='place']")
+            full_name = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+            is_state = (By.XPATH, "//*[@data-ng-model='editmodel.isStateInstitution']")
+            date_from = (By.XPATH, "//*[@id='startDate']")
+            date_to = (By.XPATH, "//*[@id='endDate']")
+            direction = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+            faculty = (By.XPATH, "//*[@data-ng-model='editmodel.faculty']")
+            degree_number = (By.XPATH, "//*[@name='educationDocNumber']")
+            degree_date = (By.XPATH, "//*[@id='educationDocDate']")
+            is_honours_degree = (By.XPATH, "//*[@data-ng-model='editmodel.withHonorsDiploma']")
+            speciality = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+            is_different_speciality = (By.XPATH, "//*[@id='isOtherSpeciality']")
+            other_speciality = (By.XPATH, "//*[@data-ng-model='editmodel.specialityOther']")
+            degree_qualification = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+            is_different_degree_qualification = (By.XPATH, "//*[@id='isOtherQualification']")
+            other_qualification = (By.XPATH, "//*[@data-ng-model='editmodel.qualificationOther']")
+            degree_speciality = (By.XPATH, "//*[@data-ng-model='editmodel.specialization']")
+            is_main = (By.XPATH, "//*[@data-ng-model='editmodel.isMain']")
+            note = (By.XPATH, "//*[@data-ng-model='editmodel.note']")
+            level_modal = (By.XPATH, "//div[@class='modal-content']//div[contains(@id, 's2id')]")
+            submit_modal = (By.XPATH, "//div[@class='modal-content']//button[.='Сохранить']")
+
+        class Secondary(object):
+            type = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+            placement = (By.XPATH, "(//*[@data-ng-model='editmodel.place'])[2]")
+            full_name = (By.XPATH, "(//*[@name='institutionText'])[2]")
+            is_state = (By.XPATH, "//*[@id='egcisStateInstitution']")
+            date_from = (By.XPATH, "(//*[@data-ng-model='editmodel.startDate'])[2]")
+            date_to = (By.XPATH, "//*[@id='egc_endDate']")
+            advanced_degree = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+            advanced_degree_date = (By.XPATH, "//*[@id='academicDegreeDate']")
+            industry = (By.XPATH, "(//div[contains(@id, 's2id')])[9]")
+            degree_number = (By.XPATH, "//*[@name='diplomNumber']")
+            degree_date = (By.XPATH, "//*[@name='egc_diplomDate']")
+
+        class Degree(object):
+            type = (By.XPATH, "(//div[contains(@id, 's2id')])[10]")
+            date = (By.XPATH, "//*[@name='assigmentDate']")
+            degree_number = (By.XPATH, "(//*[@name='diplomNumber'])[2]")
+
+    class LabourActivity(object):
+        pass
+
+    class Promotions(object):
+        pass
+
+    class Access(object):
+        pass
+
+    class Military(object):
+        pass
+
+    class Relatives(object):
+        pass
