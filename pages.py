@@ -2955,3 +2955,22 @@ class ReserveBasesPreparePage(parent):
 
     def additional_preperation_text(self, value):
         self.set_text(ReserveBasesPrepareLocators.additional_preperation_text, value, "additionalPreperationText")
+
+
+class IssuanceOfTicket(parent):
+
+    select_employee = HTMLLink(partial_link_text='Автоматизация Автоматизация Автоматизация')
+    accounting_issuance_of_ticket = HTMLLink(partial_link_text='Учет выдачи удостоверений')
+    add = HTMLButton(xpath="//*[@data-ng-click='add();']", label='Добавить')
+    number_ticket = HTMLInput(id='numIdentityCard', label='№ удостоверения')
+    date_issuance = HTMLDate(id='dateStart', label='Дата выдачи')
+    reason_issuance = HTMLSelect2(xpath="//select[@ng-model='editmodel.baseIssueID']/*[value='0']",
+                                  label='Основание выдачи удостоверения')
+    requisites_order = HTMLInput(datangmodel="editmodel.orderAppointmentDetails",
+                                 label='Реквизиты приказа о назначении')
+    save = HTMLButton(partial_link_text='Сохранить', label='Сохранить')
+
+
+
+
+

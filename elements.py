@@ -21,6 +21,7 @@ _LOCATOR_MAP = {
 
 _USER_LOCATOR_MAP = {
     'ngmodel': "//*[@ng-model='{0}']",
+    'datangmodel': "//*[@data-ng-model='{0}']",
     'select2_label': "//label[contains(., '{0}')]/following::*//span[@id]"
 }
 

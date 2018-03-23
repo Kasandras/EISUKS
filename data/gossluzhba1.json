@@ -227,10 +227,10 @@
       "divisions": [
         {
           "parent": "",
-          "name": "Департамент государственной службы и кадров",
-          "nameGenitive": "Департамент государственной службы и кадров",
-          "nameDative": "Департамент государственной службы и кадров",
-          "nameAccusative": "Департамент государственной службы и кадров",
+          "name": "Департамент автоматизации",
+          "nameGenitive": "Департамент автоматизации",
+          "nameDative": "Департамент автоматизации",
+          "nameAccusative": "Департамент автоматизации",
           "limit": "50",
           "code": "12",
           "launchDate": "21.01.2017",
@@ -238,13 +238,13 @@
           "orderDate": "21.01.2017",
           "staffAmount": [
             {
-              "position": "Директор департамента",
+              "position": "Муниципальный инспектор",
               "amount": "1"
             }
           ]
         },
         {
-          "parent": "Департамент государственной службы и кадров",
+          "parent": "Департамент автоматизации",
           "name": "Отдел кадров",
           "nameGenitive": "Отдел кадров",
           "nameDative": "Отдел кадров",
@@ -256,15 +256,15 @@
           "orderDate": "21.01.2017",
           "staffAmount": [
             {
-              "position": "Начальник отдела в департаменте",
+              "position": "Главный специалист-эксперт",
               "amount": "1"
             },
             {
-              "position": "Заместитель начальника отдела в департаменте",
+              "position": "Ведущий специалист-эксперт",
               "amount": "1"
             },
             {
-              "position": "Ведущий советник",
+              "position": "Старший специалист",
               "amount": "2"
             }
           ]
@@ -318,13 +318,16 @@
     {
       "POST_IS_COMPETITION_TRUE":"",
       "type_vacancy":"Вакансия для замещения вакантной должности",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition": false,
       "competition": "Замещение",
       "reason":"",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
-      "staff_unit":"Начальник отдела в департаменте",
+      "staff_unit":"Главный специалист-эксперт",
+      "key_word": "Главный",
+      "category_job": "Специалисты",
+      "group_job": "Старшая",
       "post":"",
       "work_type":"Другое",
       "work_type_other_text":"Разведка полезных ископаемых",
@@ -340,6 +343,7 @@
       "business_trip":"10% служебного времени",
       "work_schedule":"5-ти дневная с.н. с 09-00 до 18-00",
       "work_day":"Нормированный",
+      "normal_workday":"Да",
       "work_contract":"Бессрочный",
       "social_package_text":"Медицинское страхование",
       "social_package_files":"Проверочный.pdf",
@@ -377,12 +381,12 @@
     {
       "POST_IS_COMPETITION_FALSE":"",
       "type_vacancy":"Вакансия для замещения вакантной должности",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition":"",
       "reason":"Производственная необходимость",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
-      "staff_unit":"Заместитель начальника отдела в департаменте",
+      "staff_unit":"Ведущий специалист-эксперт",
       "post":"",
       "work_type":"Другое",
       "work_type_other_text":"Разведка полезных ископаемых",
@@ -434,14 +438,14 @@
     {
       "RESERVE_POST":"",
       "type_vacancy":"Вакансия для включения в резерв",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition":"",
       "reason":"",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
       "staff_unit":"",
       "reserve":"На конкретную должность",
-      "post":"Ведущий советник",
+      "post":"Старший специалист",
       "work_type":"Другое",
       "work_type_other_text":"Разведка полезных ископаемых",
       "job_type": "Другое",
@@ -492,10 +496,10 @@
     {
       "RESERVE_GROUP_POSTS":"",
       "type_vacancy":"Вакансия для включения в резерв",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition":"",
       "reason":"",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
       "staff_unit":"",
       "reserve":"На группу должностей",
@@ -553,10 +557,10 @@
     {
       "VACANT_STUDY":"",
       "type_vacancy":"Вакансия для проведения целевого обучения",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition":"",
       "reason":"",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
       "staff_unit":"",
       "reserve":"",
@@ -611,12 +615,12 @@
     {
       "VACANT_STATE":"",
       "type_vacancy":"Вакансия в штате",
-      "organization":"Министерство природных ресурсов и экологии Российской Федерации",
+      "organization":"Automation",
       "is_competition":"",
       "reason":"",
-      "structural_unit":"Департамент государственной службы и кадров",
+      "structural_unit":"Департамент автоматизации",
       "sub_structural":"Отдел кадров",
-      "staff_unit":"Ведущий советник",
+      "staff_unit":"Старший специалист",
       "reserve":"",
       "post":"",
       "work_type":"Другое",
@@ -1092,6 +1096,14 @@
     "close": "Закрыта",
     "archive": "Архив",
     "comment": "Необходимо более подробно указать сведения в поле 'Краткое описание должностных обязанностей'"
+    }
+  ],
+  "issuance_of_ticket":[
+    {
+      "number_ticket": "352",
+      "date_issuance": "05042016",
+      "reason_issuance": "назначение на должность",
+      "requisites_order": "№ приказа:322; дата приказа: 21.01.2017"
     }
   ]
 }
