@@ -10,7 +10,7 @@ class TestSuite:
         Учет кадрового состава - Ведение электронных личных дел
         Организационно-штатная структура - Формирование организационно-штатной структуры
         Формирование кадрового состава - Назначение на должность
-        Прохождение государственной гражданской службы - Присвоен/ие классных чинов
+        Прохождение государственной гражданской службы - Присвоение классных чинов
         Прохождение государственной гражданской службы - Отпуска на государственной гражданской службе
         Прохождение государственной гражданской службы - График отпусков
         Прохождение государственной гражданской службы - Командировки
@@ -51,9 +51,9 @@ class TestSuite:
         cls.user = get_data_by_number(cls.data, "accounts", 2)
         cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
         cls.user2 = get_data_by_number(cls.data, "accounts", 4)
-        execute_script(Queries.delete_from_fruk)
-        execute_script(Queries.delete_personal_file)
-        execute_script(Queries.delete_all_dispensary_by_account)
+        # execute_script(Queries.delete_from_fruk)
+        # execute_script(Queries.delete_personal_file)
+        # execute_script(Queries.delete_all_dispensary_by_account)
 
     @classmethod
     def teardown_class(cls):
@@ -993,9 +993,9 @@ class TestSuite:
         Добавление новой записи
         """
         page = ReserveBasesPreparePage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr2)
+        LoginPage(self.driver).login(data=self.hr)
         page.go_to(Links.reserve_bases_prepare)
         page.click_by_text("Добавить")
         page.personal_file(data["personalFile"])
@@ -1010,14 +1010,16 @@ class TestSuite:
         Заполнение резюме
         """
         page = ReserveBasesPreparePage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr2)
+        LoginPage(self.driver).login(data=self.hr)
         page.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         page.documents()
         page.resume()
         page.tab_switch(1)
+
+        # Заполнение раздела "Общие сведения"
         page.click_by_text("Редактировать", 1)
         page.upload_photo(data["photo"])
         page.last_name(data["lastName"])
@@ -1033,6 +1035,8 @@ class TestSuite:
         page.marital_statuses(data["maritalStatuses"])
         page.name_was_changed(data["nameWasChanged"])
         page.click_by_text("Сохранить")
+
+        # Заполнение раздела Контактная информация
         page.click_by_text("Редактировать", 2)
         page.work_phone(data["workPhone"])
         page.mobile_phone(data["mobilePhone"])
@@ -1048,13 +1052,13 @@ class TestSuite:
         page.residence_area(data["residenceArea"])
         page.click_by_text("Сохранить")
         page.scroll_to_top()
+
         page.click_by_text("Образование")
         page.click_by_text("Редактировать")
         page.education_level(data["educationLevel"])
         page.click_by_text("Сохранить")
-        sleep(1)
+        page.wait.text_disappear("Сохранить")
         page.click_by_text("Добавить")
-        sleep(1)
         page.education_kinds(data["educationKinds"])
         page.education_forms(data["educationForms"])
         page.place(data["place"])
@@ -1108,28 +1112,20 @@ class TestSuite:
         Подготовка документов для включения в Федеральный резерв управленческих кадров
         Заполнение представления
         """
-        page = ReserveBasesPreparePage(self.driver, 3)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
+        page = PresentationPage(self.driver)
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr2)
-        page.go_to(Links.reserve_bases_prepare)
-        page.search(data["search"])
-        page.documents()
-        page.presentation()
-        page.tab_switch(1)
-        sleep(2)
-        page.availability_degree(data["availabilityDegree"])
-        page.scroll_to_top()
-        sleep(1)
+        LoginPage(self.driver).login(data=self.hr)
+        page.go_to(Links.presentation_page)
         page.position(data["position"])
-        page.recomendations(data["recomendations"])
+        page.availability_degree(data["availabilityDegree"])
+        page.positions(data["positions"])
+        page.recommendations(data["presentationRecommendations"])
         page.professional_achievements(data["professionalAchievements"])
-        page.developement_area(data["developementArea"])
-        page.additional_preperation_text(data["additionalPreperationText"])
-        page.click_by_text("Сохранить", 2)
-        page.wait_for_loading()
-        page.tab_close()
-        page.tab_switch(0)
+        page.development_area(data["developmentArea"])
+        page.additional_preparation(data["additionalPreparation"])
+        page.submit()
+        page.wait.text_disappear("Сохранить")
 
     def test_send_resume(self):
         """
@@ -1137,9 +1133,9 @@ class TestSuite:
         Отправка на рассмотрение
         """
         page = ReserveBasesPreparePage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Дроздов")
+        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr2)
+        LoginPage(self.driver).login(data=self.hr)
         page.go_to(Links.reserve_bases_prepare)
         page.search(data["search"])
         sleep(3)
@@ -1175,7 +1171,7 @@ class TestSuite:
         """Вкладка "Документы" страницы "Документы" """
         data = get_data_by_value(self.data["application_form"], "documents", "type_doc", "Скан-копия паспорта")
 
-        LoginPage(self.driver).login(data=self.hr2)
+        LoginPage(self.driver).login(data=self.hr)
         page = DocumentsPage(self.driver).documents
         page.scroll_to_bottom()
         page.click_by_text("Документы", 2)
@@ -1189,336 +1185,324 @@ class TestSuite:
         sleep(2)
         page.click_by_text("Сохранить")
 
-    def test_doc_appform_personal_main(self):
-        """Анкеты - раздел "Личные сведения", блок "Общие сведения" """
-        data = get_data_by_value(self.data["application_form"], "personal_main", "upload_photo", "photo_male.jpg")
+    def test_application_form(self):
 
-        LoginPage(self.driver).login(data=self.hr2)
-        parent(self.driver).go_to(Links.application_form)
-        page = DocumentsPage(self.driver, 3).personal_main
-        # Если действующая анкета присутствует на странице, удаляем и создаём новую,
-        # проверяя добавление анкет
-        sleep(5)
+        data = self.data["applicationForms"][0]['info']
+
+        LoginPage(self.driver).login(data=self.hr)
+
+        page = ApplicationFormPage(self.driver)
+        page.go_to(Links.application_form)
+        page.wait.text_appear("Анкеты")
         if "Действующая" in self.driver.page_source:
-            page.selection_radio()
+            page.set_radio_by_order(order=1)
             page.click_by_text("Удалить")
             page.click_by_text("Да")
-            page.click_by_text("Добавить")
+        page.click_by_text("Добавить")
+
+        # Заполнение раздела Личные сведения
+        page.info.last_name(data['lastName'])
+        page.info.first_name(data['firstName'])
+        page.info.have_not_middle_name(data['haveNotMiddleName'])
+        page.info.gender(data['gender'])
+        page.info.have_not_tax_certificate_number(data["haveNotTaxCertificateNumber"])
+        page.info.insurance_certificate_number(data['insuranceCertificateNumber'])
+        page.info.birth_date(data['birthDate'])
+        page.info.citizenship(data['citizenship'])
+        page.info.citizenship_was_changed(data['citizenshipWasChanged'])
+        page.info.subject(data['subject'])
+        page.info.area(data['area'])
+        page.info.birth_place(data['birthPlace'])
+        page.info.was_convicted(data['wasConvicted'])
+        page.info.marital_status(data['maritalStatus'])
+        page.info.name_was_changed(data['nameWasChanged'])
+        page.info.was_abroad(data['wasAbroad'])
+        page.info.additional_info(data['additionalInfo'])
+        page.info.click_by_text("Сохранить")
+        page.info.wait.text_disappear("Сохранить")
+        page.info.click_by_text("Редактировать", order=2)
+        page.info.work_phone(data['workPhone'])
+        page.info.personal_phone(data['personalPhone'])
+        page.info.addition_phone(data['additionPhone'])
+        page.info.fax(data['fax'])
+        page.info.work_mail(data['workMail'])
+        page.info.personal_mail(data['personalMail'])
+        page.info.personal_site(data['personalSite'])
+        page.info.register_subject(data['registerSubject'])
+        page.info.register_area(data['registerArea'])
+        page.info.register_address(data['registerAddress'])
+        page.info.temporarily_register_subject(data['temporarilyRegisterSubject'])
+        page.info.temporarily_register_area(data['temporarilyRegisterArea'])
+        page.info.temporarily_register_address(data['temporarilyRegisterAddress'])
+        page.info.actual_register_subject(data['actualRegisterSubject'])
+        page.info.actual_register_area(data['actualRegisterArea'])
+        page.info.actual_register_address(data['actualRegisterAddress'])
+        page.info.click_by_text("Сохранить")
+        page.info.wait.text_disappear("Сохранить")
+        page.info.scroll_to_top()
+
+        data = self.data["applicationForms"][0]['documents']
+
+        # Заполнение раздела Документы, удостоверяющие личность
+        page.click_by_text("Документы, удостоверяющие личность")
+        for document in data:
+            page.documents.click_by_text("Добавить")
+            page.documents.type(document['type'])
+            page.documents.series(document['series'])
+            page.documents.number(document['number'])
+            page.documents.date_from(document['dateFrom'])
+            page.documents.date_to(document['dateTo'])
+            page.documents.by(document['by'])
+            page.documents.code(document['code'])
+            page.documents.note(document['note'])
+            page.documents.click_by_text("Сохранить")
+            page.documents.wait.text_disappear("Сохранить")
+            page.documents.scroll_to_top()
+
+        data = self.data["applicationForms"][0]['education']
+
+        # Заполнение раздела Образование - Основное профессиональное образование
+        page.click_by_text("Образование")
+        page.education.click_by_text("Редактировать")
+        page.education.level(data['level'])
+        page.education.click_by_text('Сохранить')
+        page.education.wait.text_disappear('Сохранить')
+        for main in data['main']:
+            page.education.click_by_text('Добавить')
+            page.education.main.wait.text_appear("Сохранить")
+            page.education.main.type(main['type'])
+            page.education.main.form(main['form'])
+            page.education.main.placement(main['placement'])
+            page.education.main.full_name(main['fullName'])
+            page.education.main.is_state(main['isState'])
+            page.education.main.date_from(main['dateFrom'])
+            page.education.main.date_to(main['dateTo'])
+            page.education.main.direction(main['direction'])
+            page.education.main.faculty(main['faculty'])
+            page.education.main.degree_number(main['degreeNumber'])
+            page.education.main.degree_date(main['degreeDate'])
+            page.education.main.is_honours_degree(main['isHonoursDegree'])
+            if main['isDifferentSpeciality']:
+                page.education.main.is_different_speciality(main['isDifferentSpeciality'])
+                page.education.main.other_speciality(main['otherSpeciality'])
+            else:
+                page.education.main.speciality(main['speciality'])
+
+            if main['isDifferentDegreeQualification']:
+                page.education.main.is_different_degree_qualification(main['isDifferentDegreeQualification'])
+                page.education.main.other_qualification(main['otherQualification'])
+            else:
+                page.education.main.degree_qualification(main['degreeQualification'])
+            page.education.main.degree_speciality(main['degreeSpeciality'])
+            page.education.main.is_main(main['isMain'])
+            page.education.main.note(main['note'])
+            page.education.main.click_by_text("Сохранить")
+            page.education.main.level_modal(data['level'])
+            page.education.main.submit_modal()
+            page.education.main.wait.text_disappear("Сохранить")
+            page.education.main.scroll_to_top()
+
+        # Заполнение раздела
+        # Образование - Послевузовское профессиональное образование: аспирантура, адъюнктура, докторантура
+        if data['haveNotSecondary']:
+            page.education.have_not_secondary(data['haveNotSecondary'])
         else:
-            page.click_by_text("Добавить")
-            page.click_by_text("Анкета 667-р")
-            page.click_by_text("Редактировать")
-        sleep(1)
-        page.wait_for_text_appear("Загрузить")
-        page.upload_photo(data["upload_photo"])
-        page.last_name(data["last_name"])
-        page.first_name(data["first_name"])
-        page.middle_name(data["middle_name"])
-        page.gender(data["gender"])
-        page.individual_taxpayer_number(data["individual_taxpayer_number"])
-        page.insurance_certificate_number(data["insurance_certificate_number"])
-        page.birth_date(data["birth_date"])
-        page.citizenship(data["citizenship"])
-        page.change_citizenship(data["change_citizenship"])
-        page.birthplace(data["birthplace"])
-        page.was_convicted(data["was_convicted"])
-        page.marital_statuses(data["marital_statuses"])
-        page.name_was_changed(data["name_was_changed"])
-        page.was_abroad(data["was_abroad"])
-        page.click_by_text("Сохранить")
-        sleep(1)
+            for secondary in data['secondary']:
+                page.education.click_by_text("Добавить", order=2)
+                page.education.secondary.wait.text_appear("Сохранить")
+                page.education.secondary.type(secondary['type'])
+                page.education.secondary.placement(secondary['placement'])
+                page.education.secondary.full_name(secondary['fullName'])
+                page.education.secondary.is_state(secondary['isState'])
+                page.education.secondary.date_from(secondary['dateFrom'])
+                page.education.secondary.date_to(secondary['dateTo'])
+                page.education.secondary.advanced_degree(secondary['advancedDegree'])
+                page.education.secondary.advanced_degree_date(secondary['advancedDegreeDate'])
+                page.education.secondary.industry(secondary['industry'])
+                page.education.secondary.degree_number(secondary['degreeNumber'])
+                page.education.secondary.degree_date(secondary['degreeDate'])
+                page.education.secondary.click_by_text("Сохранить", order=2)
+                page.education.secondary.wait.text_disappear("Сохранить")
 
-    def test_doc_appform_personal_contact(self):
-        """Анкеты - раздел "Личные сведения", блок "Контакты" """
-        data = get_data_by_value(self.data["application_form"], "personal_contact", "work_phone", "9453513517")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).personal_contact
-        if "Загрузить" in self.driver.page_source:
-            page.click_by_text("Редактировать")
+        # Заполнение раздела Образование - Ученое звание
+        if data['haveNotAdvancedDegree']:
+            page.education.have_not_advanced_degree(data['haveNotAdvancedDegree'])
         else:
-            page.click_by_text("Редактировать", 2)
-        page.work_phone(data["work_phone"])
-        page.mobile_phone(data["mobile_phone"])
-        page.additional_phone(data["additional_phone"])
-        page.fax(data["fax"])
-        page.work_email(data["work_email"])
-        page.personal_email(data["personal_email"])
-        page.web_address(data["web_address"])
-        page.permanent_registration_sub(data["permanent_registration_sub"])
-        page.permanent_registration_reg(data["permanent_registration_reg"])
-        page.temp_registration_sub(data["temp_registration_sub"])
-        page.temp_registration_reg(data["temp_registration_reg"])
-        page.fact_registration_sub(data["fact_registration_sub"])
-        page.fact_registration_reg(data["fact_registration_reg"])
-        page.address_of_residence(data["address_of_residence"])
-        page.click_by_text("Сохранить")
+            for degree in data['advancedDegrees']:
+                page.education.click_by_text("Добавить", order=3)
+                page.education.degree.wait.text_appear("Сохранить")
+                page.education.degree.type(degree['type'])
+                page.education.degree.date(degree['date'])
+                page.education.degree.degree_number(degree['degreeNumber'])
+                page.education.degree.click_by_text("Сохранить", order=3)
+                page.education.degree.wait.text_disappear("Сохранить")
+                page.education.degree.scroll_to_top()
 
-    def test_doc_appform_identification_document(self):
-        """Анкеты - раздел "Документы" """
-        data = get_data_by_value(self.data["application_form"],
-                                 "identification_document", "type_document", "Паспорт гражданина РФ")
+        # Заполнение раздела Образование - Знание иностранных языков
+        if data['haveNotLanguages']:
+            page.education.have_not_advanced_degree(data['haveNotLanguages'])
+        else:
+            for language in data['languages']:
+                page.education.click_by_text("Добавить", order=4)
+                page.education.language.type(language['type'])
+                page.education.language.level(language['level'])
+                page.education.language.click_by_text("Сохранить", order=4)
+                page.education.language.wait.text_disappear("Сохранить")
 
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).identification_document
-        page.click_by_text("Документы, удостоверяющие")
-        page.click_by_text("Добавить")
-        page.type_document(data["type_document"])
-        page.series(data["series"])
-        page.number(data["number"])
-        page.date_issued(data["date_issued"])
-        page.issue_by(data["issue_by"])
-        page.issue_code(data["issue_code"])
-        page.click_by_text("Сохранить")
-        sleep(1)
+        # Заполнение раздела Образование - Дополнительное профессиональное образование
+        if data['haveNotAdditionalEducation']:
+            page.education.have_not_additional_education(data['haveNotAdditionalEducation'])
+        else:
+            for additional in data['additionalEducations']:
+                page.education.click_by_text("Добавить", order=5)
+                page.education.additional.direction(additional['direction'])
+                page.education.additional.program_type(additional['programType'])
+                page.education.additional.speciality(additional['speciality'])
+                page.education.additional.program_name(additional['programName'])
+                page.education.additional.form(additional['form'])
+                page.education.additional.placement(additional['placement'])
+                page.education.additional.name(additional['name'])
+                page.education.additional.is_state(additional['isState'])
+                page.education.additional.date_from(additional['dateFrom'])
+                page.education.additional.date_to(additional['dateTo'])
+                page.education.additional.hours(additional['hours'])
+                page.education.additional.document(additional['document'])
+                page.education.additional.document_date(additional['documentDate'])
+                page.education.additional.finance_source(additional['financeSource'])
+                page.education.additional.is_education_aboard(additional['isEducationAboard'])
+                page.education.language.click_by_text("Сохранить", order=5)
+                page.education.language.wait.text_disappear("Сохранить")
 
-    def test_doc_appform_education_main(self):
-        """Анкеты - раздел "Образование", блок "Основное" """
-        data = get_data_by_value(self.data["application_form"],
-                                 "education_main", "education_level", "Высшее образование")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        page = DocumentsPage(self.driver).education.main
-        DocumentsPage(self.driver).has_appform()
-        page.click_by_text("Образование")
-        page.click_by_text("Редактировать")
-        page.education_level(data["education_level"])
-        page.click_by_text("Сохранить")
-        sleep(1)
-        page.click_by_text("Добавить")
-        page.education(data["education"])
-        page.education_form(data["education_form"])
-        page.place_institution(data["place_institution"])
-        page.full_name_institution(data["full_name_institution"])
-        page.start_date_education(data["start_date_education"])
-        page.end_date_education(data["end_date_education"])
-        page.education_directions(data["education_directions"])
-        page.faculty(data["faculty"])
-        page.education_doc_number(data["education_doc_number"])
-        page.speciality(data["speciality"])
-        page.qualification(data["qualification"])
-        page.specialization(data["specialization"])
-        page.is_main(data["is_main"])
-        page.education_doc_date(data["education_doc_date"])
-        page.click_by_text("Сохранить")
-        page.click_by_text("Сохранить", 6)
-
-    def test_doc_appform_education_egc(self):
-        """Анкеты - раздел "Образование", блок "Послевузовское" """
-        data = get_data_by_value(self.data["application_form"], "education_egc", "education", "Аспирантура")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).education.egc
-        page.click_by_text("Образование")
-        page.click_by_text("Добавить", 2)
-        page.wait_for_loading()
-        page.education(data["education"])
-        page.place(data["place"])
-        page.name_institution(data["name_institution"])
-        page.start_date(data["start_date"])
-        page.academic_degree(data["academic_degree"])
-        page.academic_degree_date(data["academic_degree_date"])
-        page.end_date(data["end_date"])
-        page.knowledge_branches(data["knowledge_branches"])
-        page.diplom_number(data["diplom_number"])
-        page.diplom_date(data["diplom_date"])
-        page.click_by_text("Сохранить", 2)
-        sleep(1)
-
-    def test_doc_appform_education_degree(self):
-        """Анкеты - раздел "Образование", блок "Ученое звание" """
-        data = get_data_by_value(self.data["application_form"], "education_degree", "academic_statuses", "Доцент")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).education.degree
-        page.click_by_text("Образование")
-        page.click_by_text("Добавить", 3)
-        page.academic_statuses(data["academic_statuses"])
-        page.diplom_number(data["diplom_number"])
-        page.assigment_date(data["assigment_date"])
-        page.click_by_text("Сохранить", 3)
-
-    def test_doc_appform_education_languages(self):
-        """Анкеты - раздел "Образование", блок "Знание иностранных языков" """
-        data = get_data_by_value(self.data["application_form"], "education_languages", "languages", "Немецкий")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).education.languages
-        page.click_by_text("Образование")
-        page.click_by_text("Добавить", 4)
-        page.languages(data["languages"])
-        page.language_degrees(data["language_degrees"])
-        page.click_by_text("Сохранить", 4)
-
-    def test_doc_appform_education_dpo(self):
-        """Анкеты - раздел "Образование", блок "Дополнительное профессиональное образование" """
-        data = get_data_by_value(self.data["application_form"],
-                                 "education_dpo", "education_direction", "Организационно-экономическое")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).education.dpo
-        page.click_by_text("Образование")
-        page.scroll_to_bottom()
-        page.click_by_text("Добавить", 5)
-        page.wait_for_loading()
-        page.education_direction(data["education_direction"])
-        page.education_kind(data["education_kind"])
-        page.kind(data["kind"])
-        page.name_program(data["name_program"])
-        page.education_form(data["education_form"])
-        page.place(data["place"])
-        page.name_institution(data["name_institution"])
-        page.start_date(data["start_date"])
-        page.end_date(data["end_date"])
-        page.hours(data["hours"])
-        page.document_number(data["document_number"])
-        page.funding_sources(data["funding_sources"])
-        page.document_date(data["document_date"])
-        page.click_by_text("Сохранить", 5)
-
-    def test_doc_appform_labor_activity(self):
-        """Анкеты - раздел "Трудовая деятельность" """
-        data = get_data_by_value(self.data["application_form"], "labor_activity", "start_date", "20092009")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).labor_activity
-        page.click_by_text("Трудовая деятельность")
-        page.click_by_text("Добавить")
-        page.start_date(data["start_date"])
-        page.post(data["post"])
-        page.organization(data["organization"])
-        page.address_organization(data["address_organization"])
-        page.employees_number(data["employees_number"])
-        page.subject(data["subject"])
-        page.region(data["region"])
-        page.profile(data["profile"])
-        page.is_elective(data["is_elective"])
-        page.post_level(data["post_level"])
-        page.activity_area(data["activity_area"])
-        page.structural_division(data["structural_division"])
-        page.responsibilities(data["responsibilities"])
-        page.click_by_text("Сохранить")
-
-    def test_doc_appform_class_rank(self):
-        """Анкеты - раздел "Трудовая деятельность", блок классных чинов"""
-        data = get_data_by_value(self.data["application_form"], "class_rank", "has_class_rank", "Да")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).class_rank
-        page.click_by_text("Трудовая деятельность")
-        page.click_by_text("Редактировать", 3)
-        sleep(1)
-        page.has_class_rank(data["has_class_rank"])
-        page.class_rank(data["class_rank"])
-        sleep(1)
-        page.assigned_by(data["assigned_by"])
-        page.assigned_date(data["assigned_date"])
-        page.has_government_service(data["has_government_service"])
-        page.org_sub_types(data["org_sub_types"])
-        page.organization_name(data["organization_name"])
-        page.computer_skills(data["computer_skills"])
-        page.publications(data["publications"])
-        page.recommendations(data["recommendations"])
         page.scroll_to_top()
-        page.click_by_text("Сохранить", 3)
+        data = self.data["applicationForms"][0]['labourActivity']
 
-    def test_doc_appform_specialization(self):
-        """Анкеты - раздел "Трудовая деятельность" анкеты, блок специализации"""
-        data = get_data_by_value(self.data["application_form"],
-                                 "specialization", "specialization", "Экономика и финансы")
-
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).specialization
+        # Заполнение раздела Трудовая деятельность - Информация о месте работы
         page.click_by_text("Трудовая деятельность")
-        page.click_by_text("Добавить", 3)
-        page.scroll_to_bottom()
-        sleep(1)
-        page.specialization(data["specialization"])
-        page.is_main(data["is_main"])
-        page.click_by_text("Сохранить", 3)
-        sleep(5)
+        if data['haveNotExperience']:
+            page.labour_activity.have_not_additional_education(data['haveNotExperience'])
+        else:
+            for main in data['main']:
+                page.education.click_by_text("Добавить")
+                page.labour_activity.main.date_from(main['dateFrom'])
+                page.labour_activity.main.date_to(main['dateTo'])
+                page.labour_activity.main.position(main['position'])
+                page.labour_activity.main.organization_name(main['organizationName'])
+                page.labour_activity.main.organization_address(main['organizationAddress'])
+                page.labour_activity.main.employees_amount(main['employeesAmount'])
+                page.labour_activity.main.organization_subject(main['organizationSubject'])
+                page.labour_activity.main.organization_area(main['organizationArea'])
+                page.labour_activity.main.organization_profile(main['organizationProfile'])
+                page.labour_activity.main.is_selective_position(main['isSelectivePosition'])
+                page.labour_activity.main.post_level(main['postLevel'])
+                page.labour_activity.main.professional_field(main['professionalField'])
+                page.labour_activity.main.department(main['department'])
+                page.labour_activity.main.functions(main['functions'])
+                for activity in main['projectActivities']:
+                    page.education.click_by_text("Добавить", order=2)
+                    page.labour_activity.main.project_activity.budget(activity['budget'])
+                    page.labour_activity.main.project_activity.role(activity['role'])
+                    page.labour_activity.main.project_activity.project_scale(activity['projectScale'])
+                    page.labour_activity.main.project_activity.description(activity['description'])
+                    page.education.language.click_by_text("Сохранить", order=2)
+                    page.education.language.wait.text_disappear("Сохранить")
+                page.education.language.click_by_text("Сохранить")
+                page.education.language.wait.text_disappear("Сохранить")
 
-    def test_doc_appform_award(self):
-        """Анкеты - раздел "Поощрения" анкеты"""
-        data = get_data_by_value(self.data["application_form"], "award", "type", "благодарность")
+        # Заполнение раздела Трудовая деятельность - Дополнительная информация
+        additional = data['additional']
+        page.labour_activity.click_by_text("Редактировать", order=3)
+        page.labour_activity.additional.has_class_rank(additional['hasClassRank'])
+        if data['additional']['hasClassRank'] == "Да":
+            page.labour_activity.additional.class_rank_name(additional['classRankName'])
+            page.labour_activity.additional.class_rank_date(additional['classRankDate'])
+            page.labour_activity.additional.class_rank_by(additional['classRankBy'])
+        page.labour_activity.additional.is_state(additional['stateOrMunicipalServices'])
+        page.labour_activity.additional.personal_computer(additional['personalComputer'])
+        page.labour_activity.additional.publications(additional['publications'])
+        page.labour_activity.additional.recommendations(additional['recommendation'])
+        page.labour_activity.additional.click_by_text("Сохранить", order=3)
 
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).award
+        # Заполнение раздела Трудовая деятельность - Специализация
+        for speciality in data["specialities"]:
+            page.labour_activity.click_by_text("Добавить", order=3)
+            page.labour_activity.speciality.name(speciality["name"])
+            page.labour_activity.speciality.type(speciality["type"])
+            page.labour_activity.speciality.click_by_text("Сохранить", order=3)
+
+        page.scroll_to_top()
+        data = self.data["applicationForms"][0]["promotions"]
+
+        # Заполнение раздела Поощрения
         page.click_by_text("Поощрения")
-        page.click_by_text("Добавить")
-        page.type(data["type"])
-        page.name(data["name"])
-        page.date(data["date"])
-        page.click_by_text("Сохранить")
-        sleep(1)
+        if data['haveNotPromotions']:
+            page.promotions.have_not_promotions(data["haveNotPromotions"])
+        else:
+            for promotion in data["promotions"]:
+                page.promotions.click_by_text("Добавить")
+                page.promotions.type(promotion["type"])
+                page.promotions.name(promotion["name"])
+                page.promotions.date(promotion["date"])
+                page.promotions.click_by_text("Сохранить")
 
-    def test_doc_appform_state_secret(self):
-        """Анкеты - раздел "Допуск к государственной тайне" """
-        data = get_data_by_value(self.data["application_form"], "state_secret", "admission_form", "Вторая форма")
+        page.scroll_to_top()
+        data = self.data["applicationForms"][0]["access"]
 
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).state_secret
+        # Заполнение раздела Доступ к государственной тайне
         page.click_by_text("Допуск к государственной тайне")
-        page.click_by_text("Добавить")
-        page.admission_form(data["admission_form"])
-        page.approval_number(data["approval_number"])
-        page.issue_date(data["issue_date"])
-        page.click_by_text("Сохранить")
-        sleep(1)
+        if data['haveNotAccess']:
+            page.access.have_not_access(data["haveNotAccess"])
+        else:
+            for access in data["accesses"]:
+                page.access.click_by_text("Добавить")
+                page.access.form(access["form"])
+                page.access.number(access["number"])
+                page.access.date(access["date"])
+                page.access.click_by_text("Сохранить")
 
-    def test_doc_appform_military(self):
-        """Анкеты - раздел "Воинский учет" """
-        data = get_data_by_value(self.data["application_form"], "military", "rank", "ефрейтор")
+        page.scroll_to_top()
+        data = self.data["applicationForms"][0]["military"]
 
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).military
+        # Заполнение раздела Воинский учет
         page.click_by_text("Воинский учет")
         page.click_by_text("Редактировать")
-        sleep(1)
-        page.rank(data["rank"])
-        page.duty(data["duty"])
-        page.has_service(data["has_service"])
-        page.arm_kind(data["arm_kind"])
-        page.service_from(data["service_from"])
-        page.service_to(data["service_to"])
-        page.click_by_text("Сохранить")
+        page.military.obligations(data["obligations"])
+        page.military.rank(data["rank"])
+        page.military.has_done(data["hasDone"])
+        if data["hasDone"]:
+            page.military.date_from(data["dateFrom"])
+            page.military.date_to(data["dateTo"])
+            page.military.type(data["type"])
+        page.military.click_by_text("Сохранить")
 
-    def test_doc_appform_kin(self):
-        """Анкеты - раздел "Сведения о близких родственниках" """
-        data = get_data_by_value(self.data["application_form"], "kin", "kin_ship", "Сын")
+        page.scroll_to_top()
+        data = self.data["applicationForms"][0]["relatives"]
 
-        LoginPage(self.driver).login(data=self.hr2)
-        DocumentsPage(self.driver).has_appform()
-        page = DocumentsPage(self.driver).kin
+        # Заполнение раздела Сведения о близких родственниках
         page.click_by_text("Сведения о близких родственниках")
-        page.click_by_text("Добавить")
-        page.kin_ship(data["kin_ship"])
-        page.last_name(data["last_name"])
-        page.first_name(data["first_name"])
-        page.middle_name(data["middle_name"])
-        page.name_changes(data["name_changes"])
-        page.birth_country(data["birth_country"])
-        page.birth_region(data["birth_region"])
-        sleep(1)
-        page.birth_area(data["birth_area"])
-        page.birth_place(data["birth_place"])
-        page.work_place(data["work_place"])
-        page.living_country(data["living_country"])
-        page.living_address(data["living_address"])
-        page.birth_date(data["birth_date"])
-        page.click_by_text("Сохранить")
+        if data['haveNotRelatives']:
+            page.relatives.have_not_relatives(data['haveNotRelatives'])
+        else:
+            for member in data['members']:
+                page.relatives.click_by_text("Добавить")
+                page.relatives.degree(member["degree"])
+                page.relatives.last_name(member["lastName"])
+                page.relatives.first_name(member["firstName"])
+                page.relatives.middle_name(member["middleName"])
+                page.relatives.changed_name(member["changedName"])
+                page.relatives.birth_date(member["birthDate"])
+                page.relatives.birth_place_country(member["birthPlaceCountry"])
+                if member["country"] == "Россия":
+                    page.relatives.birth_place_subject(member["birthPlaceSubject"])
+                    page.relatives.birth_place_area(member["birthPlaceArea"])
+                page.relatives.birth_place(member["birthPlace"])
+                page.relatives.work_place(member["workPlace"])
+                page.relatives.country(member["country"])
+                page.relatives.is_resident(member["isResident"])
+                page.relatives.residence_permit(member["residencePermit"])
+                if member["country"] != "Россия":
+                    page.relatives.resident_date(member["residentDate"])
+                page.relatives.address(member["address"])
+                page.relatives.click_by_text("Сохранить")
 
     def test_vacancy_control_invite(self):
         """

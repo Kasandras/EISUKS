@@ -26,6 +26,234 @@
       "fullName": "А. Л. Шабанова"
     }
   ],
+  "applicationForms": [
+    {
+      "info": {
+        "lastName": "Рыбин",
+        "firstName": "Андрей",
+        "middleName": "",
+        "haveNotMiddleName": true,
+        "gender": "Мужской",
+        "taxCertificateNumber": "",
+        "haveNotTaxCertificateNumber": true,
+        "insuranceCertificateNumber": "113-351-751 16",
+        "birthDate": "04.04.1970",
+        "citizenship": "Гражданин Российской Федерации",
+        "citizenshipWasChanged": "Нет",
+        "subject": "Алтайский край",
+        "area": "Белогорский район",
+        "birthPlace": "г. Москва",
+        "wasConvicted": "Нет",
+        "maritalStatus": "Никогда не состоял(а) в браке",
+        "nameWasChanged": "Не менял",
+        "wasAbroad": "Нет",
+        "additionalInfo": "Дополнительные сведения",
+        "workPhone": "788 888-88-88",
+        "personalPhone": "122 222-22-22",
+        "additionPhone": "344 444-44-44",
+        "fax": "555 555-55-55",
+        "workMail": "work.mail@mail.com",
+        "personalMail": "personal.mail@mail.com",
+        "personalSite": "http://www.site.com",
+        "registerSubject": "Алтайский край",
+        "registerArea": "Алейский район",
+        "registerAddress": "Москва, ул. Парковая, 21",
+        "temporarilyRegisterSubject": "Алтайский край",
+        "temporarilyRegisterArea": "Алейский район",
+        "temporarilyRegisterAddress": "Москва, ул. Парковая, 21",
+        "actualRegisterSubject": "Алтайский край",
+        "actualRegisterArea": "Алейский район",
+        "actualRegisterAddress": "Москва, ул. Парковая, 21"
+      },
+      "documents": [
+        {
+          "type": "Паспорт гражданина РФ",
+          "series": "6112",
+          "number": "435223",
+          "dateFrom": "21.10.2000",
+          "dateTo": "",
+          "by": "ОВД УВД МВД",
+          "code": "122-322",
+          "note": "Примечание"
+        }
+      ],
+      "education": {
+        "level": "Высшее образование – магистратура",
+        "main": [
+          {
+            "type": "Высшее образование – бакалавриат",
+            "form": "Очное",
+            "placement": "Москва, ул. Скворцова, 3",
+            "fullName": "\"Военный университет\" Министерства обороны Российской Федерации",
+            "isState": true,
+            "dateFrom": "01.01.1985",
+            "dateTo": "01.01.1990",
+            "direction": "Юриспруденция",
+            "faculty": "Факультет",
+            "degreeNumber": "333",
+            "degreeDate": "01.01.1990",
+            "isHonoursDegree": true,
+            "speciality": "Астрономия",
+            "isDifferentSpeciality": true,
+            "otherSpeciality": "Другая специальность",
+            "degreeQualification": "Бакалавр математики",
+            "isDifferentDegreeQualification": true,
+            "otherQualification": "Другая квалификация",
+            "degreeSpeciality": "",
+            "isMain": true,
+            "note": "Примечание"
+          }
+        ],
+        "secondary": [
+          {
+            "type": "Аспирантура",
+            "placement": "Моква, ул. Колокольцева, 3",
+            "fullName": "Полное название учебного заведения",
+            "isState": true,
+            "dateFrom": "2000",
+            "dateTo": "2003",
+            "advancedDegree": "Доктор наук",
+            "advancedDegreeDate": "01.01.2003",
+            "industry": "Математика",
+            "degreeNumber": "233",
+            "degreeDate": "01.01.2003"
+          }
+        ],
+        "haveNotSecondary": false,
+        "advancedDegrees": [
+          {
+            "type": "Академик Российской Академии Наук",
+            "date": "01.01.2003",
+            "degreeNumber": "3322"
+          }
+        ],
+        "haveNotAdvancedDegree": false,
+        "languages": [
+          {
+            "type": "Аймара",
+            "level": "Владеет свободно"
+          }
+        ],
+        "haveNotLanguages": false,
+        "additionalEducations": [
+          {
+            "direction": "Управленческое",
+            "programType": "Повышение квалификации",
+            "speciality": "Вид повышения",
+            "programName": "Название программы",
+            "form": "Очное",
+            "placement": "Москва, ул. Сельскохозяйственная, 5",
+            "name": "Название учебного заведения",
+            "isState": true,
+            "dateFrom": "2003",
+            "dateTo": "2006",
+            "hours": "134",
+            "document": "Наименование 44",
+            "documentDate": "01.01.2006",
+            "financeSource": "За счет средств Федерального бюджета",
+            "isEducationAboard": true
+          }
+        ],
+        "haveNotAdditionalEducation": false
+      },
+      "labourActivity": {
+        "main": [
+          {
+            "dateFrom": "22.03.2007",
+            "dateTo": "",
+            "position": "Специалист",
+            "organizationName": "Automation",
+            "organizationAddress": "Москва, Москворецкая набережная, д7с1",
+            "employeesAmount": "101 - 1000 человек",
+            "organizationSubject": "Алтайский край",
+            "organizationArea": "Алейский район",
+            "organizationProfile": "Текстильное производство",
+            "isSelectivePosition": false,
+            "postLevel": "Специалист",
+            "professionalField": "Деятельность по профилю организации",
+            "department": "Подразделение",
+            "functions": "Функции",
+            "projectActivities": [
+              {
+                "budget": "333",
+                "role": "Роль",
+                "projectScale": "Локальный",
+                "description": "Описание"
+              }
+            ]
+          }
+        ],
+        "haveNotExperience": false,
+        "additional": {
+          "hasClassRank": "Да",
+          "classRankName": "Классный чин",
+          "classRankDate": "01.01.2005",
+          "classRankBy": "Министерство",
+          "stateOrMunicipalServices": false,
+          "personalComputer": "Владею",
+          "publications": "Публикации",
+          "recommendation": "Рекомендации"
+        },
+        "specialities": [
+          {
+            "name": "Агропромышленный комплекс",
+            "type": "Основная"
+          }
+        ]
+      },
+      "promotions": {
+        "promotions": [
+          {
+            "type": "благодарность",
+            "name": "Наименование",
+            "date": "01.01.2007"
+          }
+        ],
+        "haveNotPromotions": false
+      },
+      "access": {
+        "accesses": [
+          {
+            "form": "Первая форма",
+            "number": "233",
+            "date": "01.01.2008"
+          }
+        ],
+        "haveNotAccess": false
+      },
+      "military": {
+        "obligations": "Военнослужащий",
+        "rank": "адмирал",
+        "hasDone": true,
+        "dateFrom": "01.01.1990",
+        "dateTo": "01.01.1992",
+        "type": "Род войск"
+      },
+      "relatives": {
+        "members": [
+          {
+            "degree": "Отец",
+            "lastName": "Рыбин",
+            "firstName": "Сергей",
+            "middleName": "Сергеевич",
+            "changedName": "Не менял",
+            "birthDate": "01.02.1940",
+            "birthPlaceCountry": "Россия",
+            "birthPlaceSubject": "Алтайский край",
+            "birthPlaceArea": "Алейский район",
+            "birthPlace": "Москва",
+            "workPlace": "Алтайский край",
+            "country": "Россия",
+            "isResident": true,
+            "residencePermit": false,
+            "residentDate": "21.04.1990",
+            "address": "Москва, ул. Скворцова, 6"
+          }
+        ],
+        "haveNotRelatives": false
+      }
+    }
+  ],
   "employees": [
     {
       "lastName": "Автоматизация",
@@ -798,7 +1026,7 @@
       "personalFile":"Авто",
       "presentationReserveLevel":"Базовый",
       "gradeOfPost":"0",
-      "search":"Авто",
+      "search":"Тест",
       "photo":"photo_male.jpg",
       "firstName":"Авто",
       "lastName":"Тест",
@@ -829,8 +1057,8 @@
       "educationForms":"Очное",
       "place":"г. Москва",
       "tempInstitution":"МАДИ",
-      "startDate":"1998",
-      "endDate":"2003",
+      "startDate":"01.01.1998",
+      "endDate":"01.01.2003",
       "faculty":"Математика",
       "educationDocNumber":"ПБ-7845",
       "speciality":"Математика",
@@ -850,7 +1078,7 @@
       "jobTypes":"Другое",
       "expectations":"Просторное рабочее место",
       "organizationSubType":"Городской округ",
-      "organization":"ФТС",
+      "organization":"Automation",
       "organizationOther":"Не указано",
       "readyToMove":"Нет",
       "salaryFrom":"50000",
@@ -860,12 +1088,13 @@
       "recommendations":"За время работы в компании зарекомендовал себя пунктуальным работником",
       "additionalInfo":"Не указано",
       "agreeToProcessData": true,
-      "availabilityDegree":"Средняя",
       "position":"Специалист",
-      "recomendations":"Иванов С.М.; начальник отдела бухгалтерии; 495 111-11-11",
+      "availabilityDegree":"Средняя",
+      "positions": "Специались; Специалист-эксперт",
+      "presentationRecommendations":"Иванов С.М.; начальник отдела бухгалтерии; 495 111-11-11",
       "professionalAchievements":"Упростил документооборот",
-      "developementArea":"Участие в проектах, где сотрудник может получить ценный опыт",
-      "additionalPreperationText":"Профпереподготовка"
+      "developmentArea":"Участие в проектах, где сотрудник может получить ценный опыт",
+      "additionalPreparation":"Профпереподготовка"
     }
   ],
   "members": [

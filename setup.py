@@ -3,6 +3,7 @@ import os
 import pymssql
 
 active_date = "gossluzhba1"
+personal_file_id = "8a3ef24f-d746-417d-b88b-cd60860cc6d5"
 path_to_project = os.path.dirname(__file__)
 path_to_driver = r"{0}\drivers\chromedriver.exe".format(path_to_project)
 
@@ -39,6 +40,7 @@ class Links(object):
     main_page = "http://gossluzhba.qtestweb.office.quarta-vk.ru/"
     # main_page = "https://test.gossluzhba.gov.ru/"
     dashboard = main_page + "Dashboard/Hr"
+    application_form = main_page + "Documents/Home#/layout/applicationForm/list"
     create_personal_file = main_page + "PersonalData/PersonalFile#/00000000-0000-0000-0000-000000000000/generalinfo/create"
     personal_files = main_page + "PersonalData/PersonalFile#/list"
     staff_structure = main_page + "Staff/Structure#/"
@@ -58,14 +60,13 @@ class Links(object):
     holidays = main_page + "Staff/HolidayStaffProcedure"
     holidays_schedule = main_page + "TimeSheet/HolidaySchedule#/list"
     ranks = main_page + "Staff/RankStaffProcedure"
-    application_form = main_page + "Documents/Home#/layout/applicationForm/list"
     profile = main_page + "Member/Profile#/view"
     reserve_view_federal = main_page + "Reserve/View#/federal"
     reserve_bases_prepare = main_page + "Reserve/Prepare#/federal"
     permission_read_resume = main_page + "Admin/Role#/permissions/00000000-0000-0002-ffff-ffffffffffff/permission/d1eb4a97-a6fc-4f12-89fe-21d472926148"
     manage_reserve_bases = main_page + "Classifier/Classifier#/reservebases/list"
-    state_civil_service = main_page + "http://gossluzhba.qtestweb.office.quarta-vk.ru/Dashboard/Hr/" \
-                                      "Process/772e28d6-720d-4bf0-993a-c55e18d266ef"
+    resume_page = main_page + "PersonalData/Resume/#/{0}/personal-information/view".format(personal_file_id)
+    presentation_page = main_page + "PersonalData/PersonalFile#/{0}/presentation".format(personal_file_id)
 
 
 class Queries(object):
@@ -81,8 +82,8 @@ class Queries(object):
     # скрипт для удаления записи из ФРУКа
     delete_from_fruk = """
     DELETE FROM [eisuks_reserve_hr].[Reserve].[FederalReserve]
-    WHERE PersonalFilesID='95b5360a-9507-4fc1-891b-9602d8629063';
-    """
+    WHERE PersonalFilesID='{0}';
+    """.format(personal_file_id)
     # скрипт для удаления личного дела
     delete_personal_file = """
     Declare     @FistName   nvarchar(500)     = 'Автоматизация'

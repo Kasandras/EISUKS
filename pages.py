@@ -2957,6 +2957,690 @@ class ReserveBasesPreparePage(parent):
         self.set_text(ReserveBasesPrepareLocators.additional_preperation_text, value, "additionalPreperationText")
 
 
+class PresentationPage(parent):
+
+    def position(self, value):
+        self.set_select2(PresentationLocators.position, value, "Должность")
+
+    def availability_degree(self, value):
+        self.set_select2(PresentationLocators.availability_degree, value, "Степень готовности")
+
+    def positions(self, value):
+        self.set_text(PresentationLocators.positions, value, "Целевые должности")
+
+    def recommendations(self, value):
+        self.set_text(PresentationLocators.recommendations, value, "Рекомендации")
+
+    def professional_achievements(self, value):
+        self.set_text(PresentationLocators.professional_achievements, value, "Профессиональные достижения")
+
+    def development_area(self, value):
+        self.set_text(PresentationLocators.development_area, value, "Области для развития")
+
+    def additional_preparation(self, value):
+        self.set_text(PresentationLocators.additional_preparation, value, "Дополнительная подготовка")
+
+    def submit(self):
+        self.click(PresentationLocators.submit, "Сохранить")
+
+
+class ApplicationFormPage(parent):
+
+    @property
+    def info(self):
+        return self.Info(self.driver, self.timeout, self.log)
+
+    @property
+    def documents(self):
+        return self.Documents(self.driver, self.timeout, self.log)
+
+    @property
+    def education(self):
+        return self.Education(self.driver, self.timeout, self.log)
+
+    @property
+    def labour_activity(self):
+        return self.LabourActivity(self.driver, self.timeout, self.log)
+
+    @property
+    def promotions(self):
+        return self.Promotions(self.driver, self.timeout, self.log)
+
+    @property
+    def access(self):
+        return self.Access(self.driver, self.timeout, self.log)
+
+    @property
+    def military(self):
+        return self.Military(self.driver, self.timeout, self.log)
+
+    @property
+    def relatives(self):
+        return self.Relatives(self.driver, self.timeout, self.log)
+
+    class Info(parent):
+
+        def last_name(self, value):
+            self.set_text(ApplicationFormLocators.Info.last_name, value, "Фамилия")
+
+        def first_name(self, value):
+            self.set_text(ApplicationFormLocators.Info.first_name, value, "Имя")
+
+        def middle_name(self, value):
+            self.set_text(ApplicationFormLocators.Info.middle_name, value, "Отчество")
+
+        def have_not_middle_name(self, value):
+            self.set_checkbox(ApplicationFormLocators.Info.have_not_middle_name, value, "Имеется отчество?")
+
+        def gender(self, value):
+            self.set_select2(ApplicationFormLocators.Info.gender, value, "Пол")
+
+        def tax_certificate_number(self, value):
+            self.set_text(ApplicationFormLocators.Info.tax_certificate_number, value,
+                          "Индивидуальный номер налогоплательщика")
+
+        def have_not_tax_certificate_number(self, value):
+            self.set_checkbox(ApplicationFormLocators.Info.have_not_tax_certificate_number, value, "Имеется ИНН?")
+
+        def insurance_certificate_number(self, value):
+            self.set_text(ApplicationFormLocators.Info.insurance_certificate_number, value,
+                          "Страховой номер индивидуального лицевого счета (СНИЛС)")
+
+        def birth_date(self, value):
+            self.set_date(ApplicationFormLocators.Info.birth_date, value, "Дата рождения")
+
+        def citizenship(self, value):
+            self.set_select2(ApplicationFormLocators.Info.citizenship, value, "Гражданство")
+
+        def citizenship_was_changed(self, value):
+            self.set_select_alt(ApplicationFormLocators.Info.citizenship_was_changed, value, "Изменение гражданства")
+
+        def subject(self, value):
+            self.set_select2(ApplicationFormLocators.Info.subject, value, "Место рождения – субъект")
+
+        def area(self, value):
+            self.set_select2(ApplicationFormLocators.Info.area, value, "Место рождения – регион")
+
+        def birth_place(self, value):
+            self.set_text(ApplicationFormLocators.Info.birth_place, value, "Место рождения")
+
+        def was_convicted(self, value):
+            self.set_select_alt(ApplicationFormLocators.Info.was_convicted, value, "Наличие судимостей")
+
+        def marital_status(self, value):
+            self.set_select2(ApplicationFormLocators.Info.marital_status, value, "Семейное положение")
+
+        def name_was_changed(self, value):
+            self.set_select_alt(ApplicationFormLocators.Info.name_was_changed, value, "Сведения об изменении ФИО")
+
+        def was_abroad(self, value):
+            self.set_select_alt(ApplicationFormLocators.Info.was_abroad, value, "Пребывание за границей")
+
+        def additional_info(self, value):
+            self.set_text(ApplicationFormLocators.Info.additional_info, value, "Дополнительные сведения")
+
+        def work_phone(self, value):
+            self.set_text(ApplicationFormLocators.Info.work_phone, value, "Рабочий телефон")
+
+        def personal_phone(self, value):
+            self.set_text(ApplicationFormLocators.Info.personal_phone, value, "Мобильный телефон")
+
+        def addition_phone(self, value):
+            self.set_text(ApplicationFormLocators.Info.addition_phone, value, "Дополнительный телефон")
+
+        def fax(self, value):
+            self.set_text(ApplicationFormLocators.Info.fax, value, "Факс")
+
+        def work_mail(self, value):
+            self.set_text(ApplicationFormLocators.Info.work_mail, value, "Рабочая электронная почта")
+
+        def personal_mail(self, value):
+            self.set_text(ApplicationFormLocators.Info.personal_mail, value, "Персональная электронная почта")
+
+        def personal_site(self, value):
+            self.set_text(ApplicationFormLocators.Info.personal_site, value, "Персональная интернет-страница")
+
+        def register_subject(self, value):
+            self.set_select2(ApplicationFormLocators.Info.register_subject, value, "Постоянная регистрация - субъект")
+
+        def register_area(self, value):
+            self.set_select2(ApplicationFormLocators.Info.register_area, value, "Постоянная регистрация - регион")
+
+        def register_address(self, value):
+            self.set_text(ApplicationFormLocators.Info.register_address, value, "Адрес по месту регистрации")
+
+        def temporarily_register_subject(self, value):
+            self.set_select2(ApplicationFormLocators.Info.temporarily_register_subject, value,
+                             "Временная регистрация - субъект")
+
+        def temporarily_register_area(self, value):
+            self.set_select2(ApplicationFormLocators.Info.temporarily_register_area, value,
+                             "Временная регистрация - регион")
+
+        def temporarily_register_address(self, value):
+            self.set_text(ApplicationFormLocators.Info.temporarily_register_address, value,
+                          "Адрес по месту временной регистрации")
+
+        def actual_register_subject(self, value):
+            self.set_select2(ApplicationFormLocators.Info.actual_register_subject, value,
+                          "Фактическое проживание - субъект")
+
+        def actual_register_area(self, value):
+            self.set_select2(ApplicationFormLocators.Info.actual_register_area, value, "Фактическое проживание - регион")
+
+        def actual_register_address(self, value):
+            self.set_text(ApplicationFormLocators.Info.actual_register_address, value, "Адрес фактического проживания")
+
+    class Documents(parent):
+
+        def type(self, value):
+            self.set_select2(ApplicationFormLocators.Documents.type, value, "Тип документа")
+
+        def series(self, value):
+            self.set_text(ApplicationFormLocators.Documents.series, value, "Серия")
+
+        def number(self, value):
+            self.set_text(ApplicationFormLocators.Documents.number, value, "Номер")
+
+        def date_from(self, value):
+            self.set_date(ApplicationFormLocators.Documents.date_from, value, "Дата выдачи")
+
+        def date_to(self, value):
+            self.set_date(ApplicationFormLocators.Documents.date_to, value, "Дата окончания действия")
+
+        def by(self, value):
+            self.set_text(ApplicationFormLocators.Documents.by, value, "Кем выдан")
+
+        def code(self, value):
+            self.set_text(ApplicationFormLocators.Documents.code, value, "Код подразделения")
+
+        def note(self, value):
+            self.set_text(ApplicationFormLocators.Documents.note, value, "Примечание")
+
+    class Education(parent):
+
+        @property
+        def main(self):
+            return self.Main(self.driver, self.timeout, self.log)
+
+        @property
+        def secondary(self):
+            return self.Secondary(self.driver, self.timeout, self.log)
+
+        @property
+        def degree(self):
+            return self.Degree(self.driver, self.timeout, self.log)
+
+        @property
+        def language(self):
+            return self.Language(self.driver, self.timeout, self.log)
+
+        @property
+        def additional(self):
+            return self.Additional(self.driver, self.timeout, self.log)
+
+        def level(self, value):
+            self.set_select2(ApplicationFormLocators.Education.level, value, "Уровень образования")
+
+        def have_not_secondary(self, value):
+            self.set_checkbox(ApplicationFormLocators.Education.have_not_secondary, value,
+                              "Получали послевузовское образование?")
+
+        def have_not_advanced_degree(self, value):
+            self.set_checkbox(ApplicationFormLocators.Education.have_not_secondary, value,
+                              "Получали ученное звание?")
+
+        def have_not_languages(self, value):
+            self.set_checkbox(ApplicationFormLocators.Education.have_not_languages, value,
+                              "Владеете дополнительными языками?")
+
+        def have_not_additional_education(self, value):
+            self.set_checkbox(ApplicationFormLocators.Education.have_not_additional_education, value,
+                              "Получали дополнительное профессиональное образование?")
+
+        class Main(parent):
+
+            def type(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.type, value, "Образование")
+
+            def form(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.form, value, "Форма обучения")
+
+            def placement(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.placement, value,
+                              "Расположение учебного заведения")
+
+            def full_name(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.full_name, value,
+                                 "Полное название учебного заведения")
+
+            def is_state(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Main.is_state, value,
+                                  "Государственное учебное заведение?")
+
+            def date_from(self, value):
+                self.set_date(ApplicationFormLocators.Education.Main.date_from, value, "Дата начала")
+
+            def date_to(self, value):
+                self.set_date(ApplicationFormLocators.Education.Main.date_to, value,
+                              "Дата окончания")
+
+            def direction(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.direction, value,
+                                 "Направление образования (форма 1ГС)")
+
+            def faculty(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.faculty, value, "Факультет")
+
+            def degree_number(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.degree_number, value, "Номер диплома")
+
+            def degree_date(self, value):
+                self.set_date(ApplicationFormLocators.Education.Main.degree_date, value, "Дата выдачи диплома")
+
+            def is_honours_degree(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Main.is_honours_degree, value, "Диплом с отличием")
+
+            def speciality(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.speciality, value,
+                                 "Специальность / направление подготовки по диплому")
+
+            def is_different_speciality(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Main.is_different_speciality, value,
+                                  "Другая специальность?")
+
+            def other_speciality(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.other_speciality, value, "Другая специальность")
+
+            def degree_qualification(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.degree_qualification, value,
+                                 "Квалификация по диплому")
+
+            def is_different_degree_qualification(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Main.is_different_degree_qualification, value,
+                                  "Другая квалификация?")
+
+            def other_qualification(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.other_qualification, value, "Другая квалификация")
+
+            def degree_speciality(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.degree_speciality, value,
+                              "Специализация по диплому")
+
+            def is_main(self, value):
+                sleep(1)
+                self.set_checkbox(ApplicationFormLocators.Education.Main.is_main, value, "Основное?")
+
+            def note(self, value):
+                self.set_text(ApplicationFormLocators.Education.Main.note, value, "Примечание")
+
+            def level_modal(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Main.level_modal, value, "Образовательный уровень")
+
+            def submit_modal(self):
+                self.click(ApplicationFormLocators.Education.Main.submit_modal, "Сохранить")
+
+        class Secondary(parent):
+
+            def type(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Secondary.type, value,
+                                 "Послевузовское профессиональное образование")
+
+            def placement(self, value):
+                self.set_text(ApplicationFormLocators.Education.Secondary.placement, value,
+                              "Расположение учебного заведения")
+
+            def full_name(self, value):
+                self.set_text(ApplicationFormLocators.Education.Secondary.full_name, value,
+                              "Название учебного заведения")
+
+            def is_state(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Secondary.is_state, value,
+                                  "Государственное учебное заведение?")
+
+            def date_from(self, value):
+                self.set_text(ApplicationFormLocators.Education.Secondary.date_from, value,
+                              "Год начала")
+
+            def date_to(self, value):
+                self.set_text(ApplicationFormLocators.Education.Secondary.date_to, value, "Год окончания")
+
+            def advanced_degree(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Secondary.advanced_degree, value, "Ученая степень")
+
+            def advanced_degree_date(self, value):
+                self.set_date(ApplicationFormLocators.Education.Secondary.advanced_degree_date, value,
+                              "Дата присвоения ученой степени")
+
+            def industry(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Secondary.industry, value, "Отрасль наук")
+
+            def degree_number(self, value):
+                self.set_text(ApplicationFormLocators.Education.Secondary.degree_number, value, "Номер диплома")
+
+            def degree_date(self, value):
+                self.set_date(ApplicationFormLocators.Education.Secondary.degree_date, value, "Дата выдачи диплома")
+
+        class Degree(parent):
+
+            def type(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Degree.type, value, "Ученое звание")
+
+            def date(self, value):
+                self.set_date(ApplicationFormLocators.Education.Degree.date, value, "Дата присвоения ученого звания")
+
+            def degree_number(self, value):
+                self.set_text(ApplicationFormLocators.Education.Degree.degree_number, value, "Номер аттестата")
+
+        class Language(parent):
+
+            def type(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Language.type, value, "Язык")
+
+            def level(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Language.level, value, "Уровень владения")
+
+        class Additional(parent):
+
+            def direction(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.direction, value,
+                                 "Направление подготовки")
+
+            def program_type(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.program_type, value,
+                                 "Вид образовательной программы")
+
+            def speciality(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.speciality, value,
+                              "Вид повышения квалификации")
+
+            def program_name(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.program_name, value,
+                              "Название программы")
+
+            def form(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.form, value,
+                                 "Форма обучения")
+
+            def placement(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.placement, value,
+                              "Расположение учебного заведения")
+
+            def name(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.name, value,
+                              "Наименование учебного заведения")
+
+            def is_state(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Additional.is_state, value,
+                                  "Государственное учебное заведение?")
+
+            def date_from(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.date_from, value,
+                                 "Год начала")
+
+            def date_to(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.date_to, value,
+                                 "Год окончания")
+
+            def hours(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.hours, value,
+                              "Количество часов")
+
+            def document(self, value):
+                self.set_text(ApplicationFormLocators.Education.Additional.document, value,
+                              "Документ о ДПО (наименование, номер)")
+
+            def document_date(self, value):
+                self.set_date(ApplicationFormLocators.Education.Additional.document_date, value,
+                              "Дата документа о ДПО")
+
+            def finance_source(self, value):
+                self.set_select2(ApplicationFormLocators.Education.Additional.finance_source, value,
+                                 "Источник финансирования")
+
+            def is_education_aboard(self, value):
+                self.set_checkbox(ApplicationFormLocators.Education.Additional.is_education_aboard, value,
+                                  "Обучен за пределами РФ?")
+
+    class LabourActivity(parent):
+
+        @property
+        def main(self):
+            return self.Main(self.driver, self.timeout, self.log)
+
+        @property
+        def additional(self):
+            return self.Additional(self.driver, self.timeout, self.log)
+
+        @property
+        def speciality(self):
+            return self.Speciality(self.driver, self.timeout, self.log)
+
+        def have_not_experience(self, value):
+            self.set_checkbox(ApplicationFormLocators.LabourActivity.haveNotExperience, value, "Опыта работы не имею")
+
+        class Main(parent):
+
+            @property
+            def project_activity(self):
+                return self.ProjectActivity(self.driver, self.timeout, self.log)
+
+            def date_from(self, value):
+                self.set_date(ApplicationFormLocators.LabourActivity.Main.date_from, value, "Начало деятельности")
+
+            def date_to(self, value):
+                self.set_date(ApplicationFormLocators.LabourActivity.Main.date_to, value, "Окончание деятельности")
+
+            def position(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Main.position, value, "Должность")
+
+            def organization_name(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Main.organization_name, value, "Организация")
+
+            def organization_address(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Main.organization_address, value,
+                              "Адрес организации")
+
+            def employees_amount(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.employees_amount, value,
+                                 "Количество сотрудников")
+
+            def organization_subject(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.organization_subject, value,
+                                 "Субъект расположения организации")
+
+            def organization_area(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.organization_area, value,
+                                 "Регион расположения организации")
+
+            def organization_profile(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.organization_profile, value,
+                                 "Профиль деятельности организации")
+
+            def is_selective_position(self, value):
+                self.set_checkbox(ApplicationFormLocators.LabourActivity.Main.is_selective_position, value,
+                                  "Выборная должность?")
+
+            def post_level(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.post_level, value, "Уровень должности")
+
+            def professional_field(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Main.professional_field, value,
+                                 "Область профессиональной деятельности")
+
+            def department(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Main.department, value, "Подразделение")
+
+            def functions(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Main.functions, value, "Функции/обязанности")
+
+            class ProjectActivity(parent):
+
+                def budget(self, value):
+                    self.set_text(ApplicationFormLocators.LabourActivity.Main.ProjectActivity.budget, value,
+                                  "Бюджет (тыс. руб.)")
+
+                def role(self, value):
+                    self.set_text(ApplicationFormLocators.LabourActivity.Main.ProjectActivity.role, value,
+                                  "Роль")
+
+                def project_scale(self, value):
+                    self.set_select2(ApplicationFormLocators.LabourActivity.Main.ProjectActivity.project_scale, value,
+                                     "Масштаб проекта")
+
+                def description(self, value):
+                    self.set_text(ApplicationFormLocators.LabourActivity.Main.ProjectActivity.description, value,
+                                  "Описание проекта")
+
+        class Additional(parent):
+
+            def has_class_rank(self, value):
+                self.set_select_alt(ApplicationFormLocators.LabourActivity.Additional.has_class_rank, value,
+                                    "Имеется ли классный чин?")
+
+            def class_rank_name(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Additional.class_rank_name, value,
+                              "Классный чин")
+
+            def class_rank_date(self, value):
+                self.set_date(ApplicationFormLocators.LabourActivity.Additional.class_rank_date, value,
+                              "Когда присвоен")
+
+            def class_rank_by(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Additional.class_rank_by, value,
+                              "Кем присвоен")
+
+            def is_state(self, value):
+                self.set_checkbox(ApplicationFormLocators.LabourActivity.Additional.is_state, value,
+                                  "Государственная или муниципальная служба?")
+
+            def personal_computer(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Additional.personal_computer, value,
+                              "Владение персональным компьютером")
+
+            def publications(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Additional.publications, value,
+                              "Публикации")
+
+            def recommendations(self, value):
+                self.set_text(ApplicationFormLocators.LabourActivity.Additional.recommendations, value,
+                              "Рекомендации")
+
+        class Speciality(parent):
+
+            def name(self, value):
+                self.set_select2(ApplicationFormLocators.LabourActivity.Speciality.name, value, "Специализация")
+
+            def type(self, value):
+                self.set_select_alt(ApplicationFormLocators.LabourActivity.Speciality.type, value, "Вид")
+
+    class Promotions(parent):
+
+        def type(self, value):
+            self.set_select2(ApplicationFormLocators.Promotions.type, value, "Вид")
+
+        def name(self, value):
+            self.set_text(ApplicationFormLocators.Promotions.name, value, "Наименование")
+
+        def date(self, value):
+            self.set_date(ApplicationFormLocators.Promotions.date, value, "Дата")
+
+        def have_not_promotions(self, value):
+            self.set_checkbox(ApplicationFormLocators.Promotions.have_not_promotions, value,
+                              "Государственных наград, иных наград и знаков отличия не имею")
+
+    class Access(parent):
+
+        def form(self, value):
+            self.set_select2(ApplicationFormLocators.Access.form, value, "Форма допуска")
+
+        def number(self, value):
+            self.set_text(ApplicationFormLocators.Access.number, value, "Номер допуска")
+
+        def date(self, value):
+            self.set_date(ApplicationFormLocators.Access.date, value, "Дата")
+
+        def have_not_access(self, value):
+            self.set_checkbox(ApplicationFormLocators.Access.have_not_access, value,
+                              "Допуск к государственной тайне не оформлялся")
+
+    class Military(parent):
+
+        def obligations(self, value):
+            self.set_select2(ApplicationFormLocators.Military.obligations, value, "Воинская обязанность")
+
+        def rank(self, value):
+            self.set_select2(ApplicationFormLocators.Military.rank, value, "Воинское звание")
+
+        def has_done(self, value):
+            self.set_checkbox(ApplicationFormLocators.Military.has_done, value, "Проходили ли срочную военную службу?")
+
+        def date_from(self, value):
+            self.set_date(ApplicationFormLocators.Military.date_from, value, "Начало службы")
+
+        def date_to(self, value):
+            self.set_date(ApplicationFormLocators.Military.date_to, value, "Окончание службы")
+
+        def type(self, value):
+            self.set_text(ApplicationFormLocators.Military.type, value, "Род войск")
+
+    class Relatives(parent):
+
+        def degree(self, value):
+            self.set_select2(ApplicationFormLocators.Relatives.degree, value, "Степень родства")
+
+        def last_name(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.last_name, value, "Фамилия")
+
+        def first_name(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.first_name, value, "Имя")
+
+        def middle_name(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.middle_name, value, "Отчество")
+
+        def changed_name(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.changed_name, value,
+                          "Изменения ФИО (старое значение, дата, причина)")
+
+        def birth_date(self, value):
+            self.set_date(ApplicationFormLocators.Relatives.birth_date, value, "Дата рождения")
+
+        def birth_place_country(self, value):
+            self.set_select2(ApplicationFormLocators.Relatives.birth_place_country, value, "Место рождения (страна)")
+
+        def birth_place_subject(self, value):
+            self.set_select2(ApplicationFormLocators.Relatives.birth_place_subject, value, "Место рождения (субъект)")
+
+        def birth_place_area(self, value):
+            self.set_select2(ApplicationFormLocators.Relatives.birth_place_area, value, "Место рождения (район)")
+
+        def birth_place(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.birth_place, value, "Место рождения")
+
+        def work_place(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.work_place, value,
+                          "Место работы (наименование и адрес организации), должность")
+
+        def country(self, value):
+            self.set_select2(ApplicationFormLocators.Relatives.country, value, "Cтрана проживания")
+
+        def is_resident(self, value):
+            self.set_checkbox(ApplicationFormLocators.Relatives.is_resident, value, "За границей не проживал")
+
+        def residence_permit(self, value):
+            self.set_checkbox(ApplicationFormLocators.Relatives.residence_permit, value, "Оформляет вид на жительство")
+
+        def resident_date(self, value):
+            self.set_date(ApplicationFormLocators.Relatives.resident_date, value,
+                          "С какого времени проживает за границей?")
+
+        def address(self, value):
+            self.set_text(ApplicationFormLocators.Relatives.address, value, "Домашний адрес")
+
+        def have_not_relatives(self, value):
+            self.set_checkbox(ApplicationFormLocators.Relatives.have_not_relatives, value,
+                              "Близких родственников не имею")
+
 class IssuanceOfTicket(parent):
 
     select_employee = HTMLLink(partial_link_text='Автоматизация Автоматизация Автоматизация')
