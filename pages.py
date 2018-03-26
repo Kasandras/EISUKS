@@ -3123,10 +3123,11 @@ class ApplicationFormPage(parent):
 
         def actual_register_subject(self, value):
             self.set_select2(ApplicationFormLocators.Info.actual_register_subject, value,
-                          "Фактическое проживание - субъект")
+                             "Фактическое проживание - субъект")
 
         def actual_register_area(self, value):
-            self.set_select2(ApplicationFormLocators.Info.actual_register_area, value, "Фактическое проживание - регион")
+            self.set_select2(ApplicationFormLocators.Info.actual_register_area, value,
+                             "Фактическое проживание - регион")
 
         def actual_register_address(self, value):
             self.set_text(ApplicationFormLocators.Info.actual_register_address, value, "Адрес фактического проживания")
@@ -3641,6 +3642,7 @@ class ApplicationFormPage(parent):
             self.set_checkbox(ApplicationFormLocators.Relatives.have_not_relatives, value,
                               "Близких родственников не имею")
 
+
 class IssuanceOfTicket(parent):
 
     select_employee = HTMLLink(partial_link_text='Автоматизация Автоматизация Автоматизация')
@@ -3661,11 +3663,3 @@ class IssuanceOfTicket(parent):
     saving_changes = HTMLButton(xpath="//button[@ng-click='save()']", label='Сохранить')
     mass_replacement = HTMLButton(xpath="//button[contains(., 'Массовая замена')]", label='Массовая замена')
     replace = HTMLButton(xpath="value='Заменить'", label='Заменить')
-
-
-
-
-
-
-
-
