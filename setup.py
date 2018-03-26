@@ -60,7 +60,6 @@ class Links(object):
     holidays = main_page + "Staff/HolidayStaffProcedure"
     holidays_schedule = main_page + "TimeSheet/HolidaySchedule#/list"
     ranks = main_page + "Staff/RankStaffProcedure"
-    application_form = main_page + "Documents/Home#/layout/applicationForm/list"
     profile = main_page + "Member/Profile#/view"
     reserve_view_federal = main_page + "Reserve/View#/federal"
     reserve_bases_prepare = main_page + "Reserve/Prepare#/federal"

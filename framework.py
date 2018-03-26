@@ -113,7 +113,7 @@ class Browser(object):
     def set_text(self, locator, value, label=None):
         if value:
             self.wait_for_loading()
-            element = self.wait_for_element_appear(locator)
+            element = self.wait.element_be_clickable(locator)
             element.clear()
             element.send_keys(value)
             if label and self.log:
@@ -122,7 +122,7 @@ class Browser(object):
     def set_text_and_check(self, locator, value, label=None):
         if value:
             self.wait_for_loading()
-            element = self.wait_for_element_appear(locator)
+            element = self.wait.element_be_clickable(locator)
             element.clear()
             element.send_keys(value)
             WebDriverWait(self.driver, self.timeout).until(lambda x: element.get_attribute("value") == value)
@@ -134,15 +134,16 @@ class Browser(object):
             if value == "=":
                 value = today()
             self.wait_for_loading()
-            element = self.wait_for_element_appear(locator)
+            element = self.wait.element_be_clickable(locator)
             element.clear()
             element.send_keys(value + Keys.TAB)
             if label and self.log:
                 print("[%s] [%s] заполнение значением \"%s\"" % (strftime("%H:%M:%S", localtime()), label, value))
 
     def set_checkbox(self, locator, value=True, label=None):
-        element = self.wait_for_element_appear(locator)
+        element = self.wait.element_be_clickable(locator)
         if element.is_selected() != value:
+            self.move_to_element(element)
             element.click()
             if label and self.log:
                 print("[%s] [%s] установка флага в положение \"%s\"" % (strftime("%H:%M:%S",
@@ -151,6 +152,7 @@ class Browser(object):
     def set_checkbox_by_order(self, order=1, value=True, label=None):
         element = self.wait_for_element_appear((By.XPATH, "(//input[@type='checkbox'])[%s]" % order))
         if element.is_selected() != value:
+            self.move_to_element(element)
             element.click()
             if label and self.log:
                 print("[%s] [%s] установка флага в положение \"%s\"" % (strftime("%H:%M:%S",

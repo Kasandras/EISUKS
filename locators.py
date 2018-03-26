@@ -1034,17 +1034,102 @@ class ApplicationFormLocators(object):
             date = (By.XPATH, "//*[@name='assigmentDate']")
             degree_number = (By.XPATH, "(//*[@name='diplomNumber'])[2]")
 
+        class Language(object):
+            type = (By.XPATH, "(//div[contains(@id, 's2id')])[11]")
+            level = (By.XPATH, "(//div[contains(@id, 's2id')])[12]")
+
+        class Additional(object):
+            direction = (By.XPATH, "(//div[contains(@id, 's2id')])[13]")
+            program_type = (By.XPATH, "(//div[contains(@id, 's2id')])[14]")
+            speciality = (By.XPATH, "(//*[@name='speciality'])[2]")
+            program_name = (By.XPATH, "//*[@data-ng-model='editmodel.title']")
+            form = (By.XPATH, "(//div[contains(@id, 's2id')])[15]")
+            placement = (By.XPATH, "(//*[@data-ng-model='editmodel.place'])[3]")
+            name = (By.XPATH, "(//*[@data-ng-model='editmodel.institutionText'])[2]")
+            is_state = (By.XPATH, "//*[@id='eacisStateInstitution']")
+            date_from = (By.XPATH, "(//div[contains(@id, 's2id')])[16]")
+            date_to = (By.XPATH, "(//div[contains(@id, 's2id')])[17]")
+            hours = (By.XPATH, "//*[@data-ng-model='editmodel.hours']")
+            document = (By.XPATH, "//*[@name='documentNumber']")
+            document_date = (By.XPATH, "//*[@name='documentDate']")
+            finance_source = (By.XPATH, "(//div[contains(@id, 's2id')])[18]")
+            is_education_aboard = (By.XPATH, "//*[@id='isForeignEducation']")
+
     class LabourActivity(object):
-        pass
+
+        haveNotExperience = (By.XPATH, "//*[@id='expirienseNotExist']")
+
+        class Main(object):
+            date_from = (By.XPATH, "//*[@id='beginDate']")
+            date_to = (By.XPATH, "//*[@ng-model='lac.editmodel.endDate']//input")
+            position = (By.XPATH, "//*[@name='post']")
+            organization_name = (By.XPATH, "//*[@name='organization']")
+            organization_address = (By.XPATH, "//*[@name='addressOrganization']")
+            employees_amount = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+            organization_subject = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+            organization_area = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+            organization_profile = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+            is_selective_position = (By.XPATH, "//*[@ng-model='lac.editmodel.isElective']")
+            post_level = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+            professional_field = (By.XPATH, "(//div[contains(@id, 's2id')])[6]")
+            department = (By.XPATH, "//*[@id='structuralDivision']")
+            functions = (By.XPATH, "//*[@id='responsibilities']")
+
+            class ProjectActivity(object):
+                budget = (By.XPATH, "//*[@data-ng-model='proj.editmodel.budget']")
+                role = (By.XPATH, "//*[@data-ng-model='proj.editmodel.role']")
+                project_scale = (By.XPATH, "(//div[contains(@id, 's2id')])[7]")
+                description = (By.XPATH, "//*[@data-ng-model='proj.editmodel.description']")
+
+        class Additional(object):
+            has_class_rank = (By.XPATH, "//*[@name='hasClassRank']")
+            class_rank_name = (By.XPATH, "//*[@name='classRank']")
+            class_rank_date = (By.XPATH, "//*[@ng-model='model.classRankAssignedDate']//input")
+            class_rank_by = (By.XPATH, "//*[@name='classRankAssignedBy']")
+            is_state = (By.XPATH, "//*[@ng-model='model.hasGovernmentService']")
+            personal_computer = (By.XPATH, "//*[@ng-model='model.computerSkills']")
+            publications = (By.XPATH, "//*[@ng-model='model.publications']")
+            recommendations = (By.XPATH, "//*[@ng-model='model.recommendations']")
+
+        class Speciality(object):
+            name = (By.XPATH, "(//div[contains(@id, 's2id')])[8]")
+            type = (By.XPATH, "//*[@name='isMain']")
 
     class Promotions(object):
-        pass
+        type = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        name = (By.XPATH, "//*[@id='name']")
+        date = (By.XPATH, "//*[@name='dateAwarding']")
+        have_not_promotions = (By.XPATH, "//*[@id='awardsNotExist']")
 
     class Access(object):
-        pass
+        form = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        number = (By.XPATH, "//*[@name='approvalNumber']")
+        date = (By.XPATH, "//*[@name='issueDate']")
+        have_not_access = (By.XPATH, "//*[@id='secretAdmissionNotExist']")
 
     class Military(object):
-        pass
+        obligations = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        rank = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        has_done = (By.XPATH, "//*[@ng-model='model.hasMilitaryService']")
+        date_from = (By.XPATH, "//*[@data-ng-model='model.militaryServiceFrom']//input")
+        date_to = (By.XPATH, "//*[@data-ng-model='model.militaryServiceTo']//input")
+        type = (By.XPATH, "//*[@ng-model='model.armKind']")
 
     class Relatives(object):
-        pass
+        degree = (By.XPATH, "(//div[contains(@id, 's2id')])[1]")
+        last_name = (By.XPATH, "//*[@name='lastName']")
+        first_name = (By.XPATH, "//*[@name='firstName']")
+        middle_name = (By.XPATH, "//*[@name='middleName']")
+        changed_name = (By.XPATH, "//*[@ng-model='rin.editmodel.nameChanges']")
+        birth_date = (By.XPATH, "//*[@name='birthDate']")
+        birth_place_country = (By.XPATH, "(//div[contains(@id, 's2id')])[2]")
+        birth_place_subject = (By.XPATH, "(//div[contains(@id, 's2id')])[3]")
+        birth_place_area = (By.XPATH, "(//div[contains(@id, 's2id')])[4]")
+        birth_place = (By.XPATH, "//*[@name='birthPlace']")
+        work_place = (By.XPATH, "//*[@name='workPlace']")
+        country = (By.XPATH, "(//div[contains(@id, 's2id')])[5]")
+        is_resident = (By.XPATH, "//*[@id='notLivingAbroad']")
+        residence_permit = (By.XPATH, "//*[@id='isPrepareResidenceOtherCountryDeparture']")
+        resident_date = (By.XPATH, "//*[@data-ng-model='rin.editmodel.livingAbroadDate']")
+        address = (By.XPATH, "//*[@data-ng-model='rin.editmodel.livingAddress']")
+        have_not_relatives = (By.XPATH, "relativeNotExist")

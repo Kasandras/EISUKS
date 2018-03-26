@@ -253,7 +253,7 @@ class HTMLCheckbox(Element):
         return self._element.is_selected()
 
 
-class HTMLRadioButton(Element):
+class HTMLRadioButton(HTMLCheckbox):
 
     _click_log = _LOG_PHRASES['radio_click']
     _set_log = _LOG_PHRASES['radio_set']

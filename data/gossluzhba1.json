@@ -135,11 +135,11 @@
           }
         ],
         "haveNotLanguages": false,
-        "additionalEducation": [
+        "additionalEducations": [
           {
             "direction": "Управленческое",
             "programType": "Повышение квалификации",
-            "qualifyType": "Вид повышения",
+            "speciality": "Вид повышения",
             "programName": "Название программы",
             "form": "Очное",
             "placement": "Москва, ул. Сельскохозяйственная, 5",
@@ -157,7 +157,7 @@
         "haveNotAdditionalEducation": false
       },
       "labourActivity": {
-        "information": [
+        "main": [
           {
             "dateFrom": "22.03.2007",
             "dateTo": "",
@@ -167,7 +167,7 @@
             "employeesAmount": "101 - 1000 человек",
             "organizationSubject": "Алтайский край",
             "organizationArea": "Алейский район",
-            "organizationProfile": "Тестильное производство",
+            "organizationProfile": "Текстильное производство",
             "isSelectivePosition": false,
             "postLevel": "Специалист",
             "professionalField": "Деятельность по профилю организации",
@@ -177,14 +177,14 @@
               {
                 "budget": "333",
                 "role": "Роль",
-                "projectScale": "Локальнаый",
+                "projectScale": "Локальный",
                 "description": "Описание"
               }
             ]
           }
         ],
         "haveNotExperience": false,
-        "additionalInformation": {
+        "additional": {
           "hasClassRank": "Да",
           "classRankName": "Классный чин",
           "classRankDate": "01.01.2005",
@@ -194,29 +194,33 @@
           "publications": "Публикации",
           "recommendation": "Рекомендации"
         },
-        "speciality": [
+        "specialities": [
           {
             "name": "Агропромышленный комплекс",
             "type": "Основная"
           }
         ]
       },
-      "promotions": [
-        {
-          "type": "благодарность",
-          "name": "Наименование",
-          "date": "01.01.2007"
-        }
-      ],
-      "haveNotPromotions": false,
-      "access": [
-        {
-          "form": "Первая форма",
-          "number": "233",
-          "date": "01.01.2008"
-        }
-      ],
-      "haveNotAccess": false,
+      "promotions": {
+        "promotions": [
+          {
+            "type": "благодарность",
+            "name": "Наименование",
+            "date": "01.01.2007"
+          }
+        ],
+        "haveNotPromotions": false
+      },
+      "access": {
+        "accesses": [
+          {
+            "form": "Первая форма",
+            "number": "233",
+            "date": "01.01.2008"
+          }
+        ],
+        "haveNotAccess": false
+      },
       "military": {
         "obligations": "Военнослужащий",
         "rank": "адмирал",
@@ -225,25 +229,29 @@
         "dateTo": "01.01.1992",
         "type": "Род войск"
       },
-      "relativesInfo": [
-        {
-          "degree": "Отец",
-          "lastName": "Рыбин",
-          "firstName": "Сергей",
-          "middleName": "Сергеевич",
-          "changedName": "Не менял",
-          "birthDate": "01.02.1940",
-          "birthPlaceCountry": "Россия",
-          "birthPlaceSubject": "Алтайский край",
-          "birthPlaceArea": "Алейский район",
-          "workPlace": "Алтайский край",
-          "country": "Россия",
-          "isResident": true,
-          "residencePermit": false,
-          "address": "Москва, ул. Скворцова, 6"
-        }
-      ],
-      "haveNotRelatives": false
+      "relatives": {
+        "members": [
+          {
+            "degree": "Отец",
+            "lastName": "Рыбин",
+            "firstName": "Сергей",
+            "middleName": "Сергеевич",
+            "changedName": "Не менял",
+            "birthDate": "01.02.1940",
+            "birthPlaceCountry": "Россия",
+            "birthPlaceSubject": "Алтайский край",
+            "birthPlaceArea": "Алейский район",
+            "birthPlace": "Москва",
+            "workPlace": "Алтайский край",
+            "country": "Россия",
+            "isResident": true,
+            "residencePermit": false,
+            "residentDate": "21.04.1990",
+            "address": "Москва, ул. Скворцова, 6"
+          }
+        ],
+        "haveNotRelatives": false
+      }
     }
   ],
   "employees": [
