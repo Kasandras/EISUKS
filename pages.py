@@ -2964,11 +2964,22 @@ class IssuanceOfTicket(parent):
     add = HTMLButton(xpath="//*[@data-ng-click='add();']", label='Добавить')
     number_ticket = HTMLInput(id='numIdentityCard', label='№ удостоверения')
     date_issuance = HTMLDate(id='dateStart', label='Дата выдачи')
-    reason_issuance = HTMLSelect2(xpath="//select[@ng-model='editmodel.baseIssueID']/*[value='0']",
-                                  label='Основание выдачи удостоверения')
+    reason_issuance = HTMLSelect(ngmodel='editmodel.baseIssueID', label='Основание выдачи удостоверения')
     requisites_order = HTMLInput(datangmodel="editmodel.orderAppointmentDetails",
                                  label='Реквизиты приказа о назначении')
-    save = HTMLButton(partial_link_text='Сохранить', label='Сохранить')
+    save = HTMLButton(xpath="//input[@value='Сохранить']", label='Сохранить')
+    cabinet = HTMLButton(xpath="//a[@href='/Cabinet']", label='Сохранить')
+    state_civil_service = HTMLButton(xpath="//a[contains(., 'Прохождение государственной ')")
+    Passage_of_the_state_civil_service = HTMLLink(link_text='Прохождение государственной гражданской службы')
+    accounting_issuance_of_service_ticket = HTMLLink(link_text='Учет выдачи служебных удостоверений')
+    checkbox = HTMLCheckbox(xpath="//input[@type='checkbox']")
+    edit = HTMLButton(xpath="//button[contains(., 'Редактировать')]", label='Редактировать')
+    saving_changes = HTMLButton(xpath="//button[@ng-click='save()']", label='Сохранить')
+    mass_replacement = HTMLButton(xpath="//button[contains(., 'Массовая замена')]", label='Массовая замена')
+    replace = HTMLButton(xpath="value='Заменить'", label='Заменить')
+
+
+
 
 
 

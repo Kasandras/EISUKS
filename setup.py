@@ -64,6 +64,8 @@ class Links(object):
     reserve_bases_prepare = main_page + "Reserve/Prepare#/federal"
     permission_read_resume = main_page + "Admin/Role#/permissions/00000000-0000-0002-ffff-ffffffffffff/permission/d1eb4a97-a6fc-4f12-89fe-21d472926148"
     manage_reserve_bases = main_page + "Classifier/Classifier#/reservebases/list"
+    state_civil_service = main_page + "http://gossluzhba.qtestweb.office.quarta-vk.ru/Dashboard/Hr/" \
+                                      "Process/772e28d6-720d-4bf0-993a-c55e18d266ef"
 
 
 class Queries(object):

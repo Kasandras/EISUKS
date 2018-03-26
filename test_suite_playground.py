@@ -29,18 +29,51 @@ class TestSuite:
         """
         LoginPage(self.driver).login(data=self.hr)
         page = IssuanceOfTicket(self.driver)
-        data = get_data_by_value(self.data, "issuance_of_ticket", "number_ticket", "352")
         page.go_to(Links.personal_files)
         page.select_employee.click()
         page.accounting_issuance_of_ticket.click()
         page.scroll_to_top()
-        page.wait_for_text_appear("Нет данных")
-        page.add.click()
-        page.number_ticket = data["number_ticket"]
-        page.date_issuance = data["date_issuance"]
-        page.reason_issuance.click()
-        page.requisites_order == data["requisites_order"]
-        page.save.click()
+
+        for ticket in self.data['insuranceTickets']:
+            page.add.click()
+            page.number_ticket = ticket["number"]
+            page.date_issuance = ticket["date"]
+            page.reason_issuance = ticket["reason"]
+            print(page.requisites_order)
+            assert(page.requisites_order == ticket["requisites"])
+            page.save.click()
+
+        page.cabinet.click()
+        page.Passage_of_the_state_civil_service.click()
+        page.accounting_issuance_of_service_ticket.click()
+        page.checkbox.click_by_order(2)
+        page.edit.click()
+        page.wait.text_appear("Редактирование удостоверения")
+        page.number_ticket = "354"
+        page.saving_changes.click()
+        page.checkbox.click_by_order(3)
+        page.edit.click()
+        page.wait.text_appear("Редактирование удостоверения")
+        page.number_ticket = "355"
+        page.saving_changes.click()
+        page.checkbox.click_by_order(2)
+        page.checkbox.click_by_order(3)
+        page.mass_replacement.click()
+        page.wait_for_text_appear("Массовая замена удостоверений")
+        page.reason_issuance = "изменение наименования организации"
+        page.replace.click()
+        sleep(5)
+
+
+
+
+
+
+
+        sleep(10)
+
+
+
 
     # def test_profile(self):
     #     """

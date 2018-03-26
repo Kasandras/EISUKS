@@ -253,8 +253,13 @@ class HTMLCheckbox(Element):
     def is_selected(self):
         return self._element.is_selected()
 
+    def click_by_order(self, order=1):
+        locator = (By.XPATH, "({0})[{1}]".format(self._locator[1], order))
+        element = self._wait.element_be_clickable(locator)
+        element.click()
 
-class HTMLRadioButton(Element):
+
+class HTMLRadioButton(HTMLCheckbox):
 
     _click_log = _LOG_PHRASES['radio_click']
     _set_log = _LOG_PHRASES['radio_set']

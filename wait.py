@@ -25,6 +25,9 @@ class Wait(object):
     def element_disappear(self, locator, msg=""):
         return WebDriverWait(self.driver, self.timeout).until(ec.invisibility_of_element_located(locator), msg)
 
+    def element_be_clickable(self, locator, msg=""):
+        return WebDriverWait(self.driver, self.timeout).until(ec.element_to_be_clickable(locator), msg)
+
     def lamb(self, exe):
         return WebDriverWait(self.driver, self.timeout).until(exe)
 
