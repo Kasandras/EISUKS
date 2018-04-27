@@ -9,7 +9,6 @@ from selenium.common.exceptions import TimeoutException
 import datetime
 import os
 import requests
-from elements import *
 
 
 def today():

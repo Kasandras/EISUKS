@@ -8,6 +8,7 @@ class TestSuite:
     """
     Содержание test-suite:
         Учет кадрового состава - Ведение электронных личных дел
+        Учет кадрового состава - Журнал передачи личных дел
         Организационно-штатная структура - Формирование организационно-штатной структуры
         Формирование кадрового состава - Назначение на должность
         Прохождение государственной гражданской службы - Присвоение классных чинов
@@ -52,14 +53,15 @@ class TestSuite:
         cls.hr2 = get_data_by_number(cls.data, "accounts", 3)
         cls.user2 = get_data_by_number(cls.data, "accounts", 4)
         # execute_script(Queries.delete_from_fruk)
-        # execute_script(Queries.delete_personal_file)
+        # execute_script(Queries.delete_personal_file.format("Автоматизация", "Автоматизация", "Автоматизация"))
+        # execute_script(Queries.delete_personal_file.format("Тест", "Авто", "Резерв"))
         # execute_script(Queries.delete_all_dispensary_by_account)
 
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()
 
-    @pytest.mark.parametrize("last_name", ["Автоматизация"])
+    @pytest.mark.parametrize("last_name", ["Автоматизация", "Тест"])
     def test_new_personal_file(self, last_name):
         """
         Учет кадрового состава - Ведение электронных личных дел
@@ -69,27 +71,27 @@ class TestSuite:
         LoginPage(self.driver).login(data=self.hr)
         page = PersonalFilePage(self.driver)
         page.go_to(Links.personal_files)
-        page.click_by_text("Добавить")
-        page.new.last_name(data["lastName"])
-        page.new.first_name(data["firstName"])
-        page.new.middle_name(data["middleName"])
-        page.new.birthday(data["birthday"])
-        page.new.insurance_certificate_number(data["insuranceCertificateNumber"])
-        page.new.username(data["username"])
-        page.new.click_by_text("Сохранить")
-        page.wait_for_text_appear("Личные сведения")
-        page.general.general_edit()
-        page.general.last_name(data["lastName"])
-        page.general.first_name(data["firstName"])
-        page.general.middle_name(data["middleName"])
-        page.general.personal_file_number(data["personalFileNumber"])
-        page.general.birthday(data["birthday"])
-        page.general.okato(data["birthPlace"])
-        page.general.criminal_record(data["wasConvicted"])
-        page.general.last_name_changing(data["nameWasChanged"])
-        page.general.gender(data["gender"])
-        page.general.click_by_text("Сохранить")
-        assert page.wait_for_text_disappear("Сохранить")
+
+        page.add.click()
+        page.new.last_name = data["lastName"]
+        page.new.first_name = data["firstName"]
+        page.new.middle_name = data["middleName"]
+        page.new.birth_date = data["birthDate"]
+        page.new.insurance_certificate_number = data["insuranceCertificateNumber"]
+        page.new.username = data["username"]
+        page.new.save.click_and_wait_till_disappear()
+
+        page.general.general_edit.click()
+        page.general.last_name = data["lastName"]
+        page.general.first_name = data["firstName"]
+        page.general.middle_name = data["middleName"]
+        page.general.personal_file_number = data["personalFileNumber"]
+        page.general.gender = data["gender"]
+        page.general.birth_date = data["birthDate"]
+        page.general.birth_place = data["birthPlace"]
+        page.general.was_convicted = data["wasConvicted"]
+        page.general.name_was_changed = data["nameWasChanged"]
+        page.general.save.click_and_wait_till_disappear()
 
     def test_new_department(self):
         """
@@ -179,7 +181,6 @@ class TestSuite:
         page.department_select(department["divisions"][0]["name"])
         page.wait_for_text_appear("Создать")
 
-    # тесты Головинского
     @pytest.mark.parametrize("user", ['Автоматизация'])
     def test_ranks(self, user):
         """
@@ -449,14 +450,6 @@ class TestSuite:
         page.scroll_to_top()
         page.click_by_text("Добавить")
 
-        page.reason(data["reason"])
-        page.order_number(data["number"])
-        page.order_date(data["date"])
-        page.period_from(data["periodFrom"])
-        page.period_to(data["periodTo"])
-        page.action_date(data["actionDate"])
-        page.action(data["action"])
-        page.explanatory_date(data["explanatoryDate"])
         page.enforcement_reason(data["enforcementReason"])
         page.type(data["type"])
         page.copy_date(data["copyDate"])
@@ -642,6 +635,28 @@ class TestSuite:
         page.click_by_text("Пригласить")
         page.click_by_text("Направить приглашение")
 
+    @pytest.mark.parametrize("user", ['Автоматизация'])
+    def test_subsidy(self, user):
+        """
+        Государственных гарантий гражданских служащих - Предоставление единовременной субсидии на приобретение жилого помещения
+        """
+        data = get_data_by_value(self.data, "employees", "lastName", user)["salaryPayment"]
+
+        LoginPage(self.driver).login(data=self.hr)
+        page = SubsidyPage(self.driver)
+        page.go_to(Links.personal_files)
+        page.search(user)
+        page.click_by_text(user)
+        page.click_by_text("Сведения о субсидиях")
+
+        page.add.click()
+        page.date.set_today()
+        page.reason = "проживает в общежитии"
+        page.save.click_and_wait_till_disappear()
+
+        page.go_to(Links.subsidy)
+        OrdersPage(self.driver).submit(user, data=data)
+
     def test_commissions(self):
         """
         Формирование кадрового состава - Комиссии
@@ -772,6 +787,34 @@ class TestSuite:
         page.click_by_text(department["name"])
         page.arrangement()
         page.click_by_text("Показать все")
+
+    @pytest.mark.parametrize("user", ['Автоматизация'])
+    def test_personal_file_transfer(self, user):
+        """
+        Учет кадрового состава - Журнал передачи личных дел
+        """
+
+        data = get_data_by_value(self.data, "employees", "lastName", user)
+
+        LoginPage(self.driver).login(username="ivanovpa@quarta.su", password="123123/")
+        page = PersonalFilePage(self.driver)
+        page.go_to(Links.create_personal_file)
+        page.new.last_name = data["lastName"]
+        page.new.first_name = data["firstName"]
+        page.new.middle_name = data["middleName"]
+        page.new.birth_date = data["birthDate"]
+        page.new.insurance_certificate_number = data["insuranceCertificateNumber"]
+        page.new.save.click()
+        page.new.accept_transfer.click()
+        page.new.wait.text_appear('Запрос на передачу ЛД успешно сформирован')
+
+        page = PersonalFileTransferPage(self.driver)
+        page.go_to(Links.main_page)
+        LoginPage(self.driver).login(username="AndRyb", password="123123/")
+        page.go_to(Links.transfer)
+        page.select_transfer.click()
+        page.transfer.click()
+        page.wait.text_appear("Операция выполнена успешно")
 
     def test_organizations(self):
         """
@@ -1009,123 +1052,123 @@ class TestSuite:
         Подготовка документов для включения в Федеральный резерв управленческих кадров
         Заполнение резюме
         """
-        page = ReserveBasesPreparePage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
+        if execute_script_with_return(Queries.get_personal_file_id):
+            page = ReserveBasesPreparePage(self.driver)
+            data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr)
-        page.go_to(Links.reserve_bases_prepare)
-        page.search(data["search"])
-        page.documents()
-        page.resume()
-        page.tab_switch(1)
+            LoginPage(self.driver).login(data=self.hr)
+            page.go_to(Links.resume_page.format(execute_script_with_return(Queries.get_personal_file_id)))
 
-        # Заполнение раздела "Общие сведения"
-        page.click_by_text("Редактировать", 1)
-        page.upload_photo(data["photo"])
-        page.last_name(data["lastName"])
-        page.first_name(data["firstName"])
-        page.middle_name(data["middleName"])
-        page.gender(data["gender"])
-        page.tax_certificate_number(data["taxCertificateNumber"])
-        page.insurance_certificate_number(data["insuranceCertificateNumber"])
-        page.birth_date(data["birthDate"])
-        page.citizenship(data["citizenship"])
-        page.birth_place(data["birthPlace"])
-        page.was_convicted(data["wasConvicted"])
-        page.marital_statuses(data["maritalStatuses"])
-        page.name_was_changed(data["nameWasChanged"])
-        page.click_by_text("Сохранить")
+            # Заполнение раздела "Общие сведения"
+            page.click_by_text("Редактировать", 1)
+            page.upload_photo(data["photo"])
+            page.last_name(data["lastName"])
+            page.first_name(data["firstName"])
+            page.middle_name(data["middleName"])
+            page.gender(data["gender"])
+            page.tax_certificate_number(data["taxCertificateNumber"])
+            page.insurance_certificate_number(data["insuranceCertificateNumber"])
+            page.birth_date(data["birthDate"])
+            page.citizenship(data["citizenship"])
+            page.birth_place(data["birthPlace"])
+            page.was_convicted(data["wasConvicted"])
+            page.marital_statuses(data["maritalStatuses"])
+            page.name_was_changed(data["nameWasChanged"])
+            page.click_by_text("Сохранить")
 
-        # Заполнение раздела Контактная информация
-        page.click_by_text("Редактировать", 2)
-        page.work_phone(data["workPhone"])
-        page.mobile_phone(data["mobilePhone"])
-        page.additional_phone(data["additionalPhone"])
-        page.residence_phone(data["residencePhone"])
-        page.fax(data["fax"])
-        page.work_email(data["workEmail"])
-        page.personal_email(data["personalEmail"])
-        page.web(data["web"])
-        page.registration_region(data["registrationRegion"])
-        page.registration_area(data["registrationArea"])
-        page.residence_region(data["residenceRegion"])
-        page.residence_area(data["residenceArea"])
-        page.click_by_text("Сохранить")
-        page.scroll_to_top()
+            # Заполнение раздела Контактная информация
+            page.click_by_text("Редактировать", 2)
+            page.work_phone(data["workPhone"])
+            page.mobile_phone(data["mobilePhone"])
+            page.additional_phone(data["additionalPhone"])
+            page.residence_phone(data["residencePhone"])
+            page.fax(data["fax"])
+            page.work_email(data["workEmail"])
+            page.personal_email(data["personalEmail"])
+            page.web(data["web"])
+            page.registration_region(data["registrationRegion"])
+            page.registration_area(data["registrationArea"])
+            page.residence_region(data["residenceRegion"])
+            page.residence_area(data["residenceArea"])
+            page.click_by_text("Сохранить")
+            page.scroll_to_top()
 
-        page.click_by_text("Образование")
-        page.click_by_text("Редактировать")
-        page.education_level(data["educationLevel"])
-        page.click_by_text("Сохранить")
-        page.wait.text_disappear("Сохранить")
-        page.click_by_text("Добавить")
-        page.education_kinds(data["educationKinds"])
-        page.education_forms(data["educationForms"])
-        page.place(data["place"])
-        page.temp_institution(data["tempInstitution"])
-        page.start_date(data["startDate"])
-        page.end_date(data["endDate"])
-        page.faculty(data["faculty"])
-        page.education_doc_number(data["educationDocNumber"])
-        page.speciality(data["speciality"])
-        page.qualification(data["qualification"])
-        page.specialization(data["specialization"])
-        page.click_by_text("Сохранить")
-        page.scroll_to_top()
-        page.click_by_text("Трудовая деятельность")
-        page.click_by_text("Добавить")
-        page.begin_date(data["beginDate"])
-        page.stop_date(data["stopDate"])
-        sleep(0.5)
-        page.organization_work(data["organization_work"])
-        page.address_organization(data["addressOrganization"])
-        page.structural_division(data["structuralDivision"])
-        page.post(data["post"])
-        page.post_levels(data["postLevels"])
-        page.employees_numbers(data["employeesNumbers"])
-        page.profile(data["profile"])
-        page.professional_activity_area(data["professionalActivityArea"])
-        page.responsibilities(data["responsibilities"])
-        page.click_by_text("Сохранить")
-        page.scroll_to_top()
-        page.click_by_text("Дополнительная информация")
-        page.click_by_text("Редактировать")
-        page.job_types(data["jobTypes"])
-        page.expectations(data["expectations"])
-        page.organization_sub_type(data["organizationSubType"])
-        page.organization(data["organization"])
-        page.organization_other(data["organizationOther"])
-        page.ready_to_move(data["readyToMove"])
-        page.salary_from(data["salaryFrom"])
-        page.salary_to(data["salaryTo"])
-        page.computer_skills(data["computerSkills"])
-        page.publications(data["publications"])
-        page.recommendations(data["recommendations"])
-        page.additional_info(data["additionalInfo"])
-        page.agree_to_process_data(data["agreeToProcessData"])
-        page.click_by_text("Сохранить", 2)
-        page.tab_close()
-        page.tab_switch(0)
+            page.click_by_text("Образование")
+            page.click_by_text("Редактировать")
+            page.education_level(data["educationLevel"])
+            page.click_by_text("Сохранить")
+            page.wait.text_disappear("Сохранить")
+            page.click_by_text("Добавить")
+            page.education_kinds(data["educationKinds"])
+            page.education_forms(data["educationForms"])
+            page.place(data["place"])
+            page.temp_institution(data["tempInstitution"])
+            page.start_date(data["startDate"])
+            page.end_date(data["endDate"])
+            page.faculty(data["faculty"])
+            page.education_doc_number(data["educationDocNumber"])
+            page.speciality(data["speciality"])
+            page.qualification(data["qualification"])
+            page.specialization(data["specialization"])
+            page.click_by_text("Сохранить")
+            page.scroll_to_top()
+            page.click_by_text("Трудовая деятельность")
+            page.click_by_text("Добавить")
+            page.begin_date(data["beginDate"])
+            page.stop_date(data["stopDate"])
+            sleep(0.5)
+            page.organization_work(data["organization_work"])
+            page.address_organization(data["addressOrganization"])
+            page.structural_division(data["structuralDivision"])
+            page.post(data["post"])
+            page.post_levels(data["postLevels"])
+            page.employees_numbers(data["employeesNumbers"])
+            page.profile(data["profile"])
+            page.professional_activity_area(data["professionalActivityArea"])
+            page.responsibilities(data["responsibilities"])
+            page.click_by_text("Сохранить")
+            page.scroll_to_top()
+            page.click_by_text("Дополнительная информация")
+            page.click_by_text("Редактировать")
+            page.job_types(data["jobTypes"])
+            page.expectations(data["expectations"])
+            page.organization_sub_type(data["organizationSubType"])
+            page.organization(data["organization"])
+            page.organization_other(data["organizationOther"])
+            page.ready_to_move(data["readyToMove"])
+            page.salary_from(data["salaryFrom"])
+            page.salary_to(data["salaryTo"])
+            page.computer_skills(data["computerSkills"])
+            page.publications(data["publications"])
+            page.recommendations(data["recommendations"])
+            page.additional_info(data["additionalInfo"])
+            page.agree_to_process_data(data["agreeToProcessData"])
+            page.click_by_text("Сохранить", 2)
+        else:
+            print("Личное дело для тестирования отсутствует в системе!")
 
     def test_fill_presentation(self):
         """
         Подготовка документов для включения в Федеральный резерв управленческих кадров
         Заполнение представления
         """
-        page = PresentationPage(self.driver)
-        data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
+        if execute_script_with_return(Queries.get_personal_file_id):
+            page = PresentationPage(self.driver)
+            data = get_data_by_value(self.data, "reserve_bases_prepare", "personalFile", "Авто")
 
-        LoginPage(self.driver).login(data=self.hr)
-        page.go_to(Links.presentation_page)
-        page.position(data["position"])
-        page.availability_degree(data["availabilityDegree"])
-        page.positions(data["positions"])
-        page.recommendations(data["presentationRecommendations"])
-        page.professional_achievements(data["professionalAchievements"])
-        page.development_area(data["developmentArea"])
-        page.additional_preparation(data["additionalPreparation"])
-        page.submit()
-        page.wait.text_disappear("Сохранить")
+            LoginPage(self.driver).login(data=self.hr)
+            page.go_to(Links.presentation_page.format(execute_script_with_return(Queries.get_personal_file_id)))
+            page.position(data["position"])
+            page.availability_degree(data["availabilityDegree"])
+            page.positions(data["positions"])
+            page.recommendations(data["presentationRecommendations"])
+            page.professional_achievements(data["professionalAchievements"])
+            page.development_area(data["developmentArea"])
+            page.additional_preparation(data["additionalPreparation"])
+            page.submit()
+            page.wait.text_disappear("Сохранить")
+        else:
+            print("Личное дело для тестирования отсутствует в системе!")
 
     def test_send_resume(self):
         """
@@ -1331,6 +1374,7 @@ class TestSuite:
             for degree in data['advancedDegrees']:
                 page.education.click_by_text("Добавить", order=3)
                 page.education.degree.wait.text_appear("Сохранить")
+                page.scroll_to_top()
                 page.education.degree.type(degree['type'])
                 page.education.degree.date(degree['date'])
                 page.education.degree.degree_number(degree['degreeNumber'])
@@ -1651,7 +1695,6 @@ class TestSuite:
         sleep(1)
         page.type_vacancy(data["type_vacancy"])
         page.organization(data["organization"])
-        # page.click_by_text("Закрыть", 2) нет такой кнопки
         page.wait_for_text_appear("Структурное подразделение")
         if order == 1:
             sleep(2)
@@ -1702,18 +1745,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.post_is_competition.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.post_is_competition.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(4, False)
-            # page.sel()
-            # page.scroll_to_top()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.post_is_competition.organization_address(data["organization_address"])
@@ -1760,7 +1791,6 @@ class TestSuite:
             page.post_is_competition.job_responsibility_files(data["job_responsibility_files"])
             page.post_is_competition.position_rules_files(data["position_rules_files"])
             page.click_by_text("Квалификационные требования")
-            # page.post_is_competition.education_level(data["education_level"])
             page.post_is_competition.government_experience(data["government_experience"])
             page.post_is_competition.professional_experience(data["professional_experience"])
             page.knowledge_description_text(data["knowledge_description_text"])
@@ -1772,18 +1802,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.post_is_competition.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.post_is_competition.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(4, False)
-            # page.sel()
-            # page.scroll_to_top()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.post_is_competition.organization_address(data["organization_address"])
@@ -1839,18 +1857,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.reserve_post.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.reserve_post.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(3, False)
-            # page.sel()
-            # page.scroll_to_top()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.reserve_post.organization_address(data["organization_address"])
@@ -1873,10 +1879,6 @@ class TestSuite:
             page.reserve_group_posts.job_type(data["job_type"])
             page.job_type_other_text(data["job_type_other_text"])
             page.reserve_group_posts.reserve_group(data["reserve_group"])
-            # page.reserve_group_posts.professional_activity_direction(data["professional_activity_direction"])
-            # page.reserve_group_posts.professional_activity_specialization(data["professional_activity_specialization"])
-            # page.reserve_group_posts.professional_activity_specialization_other_text(
-            #    data["professional_activity_specialization_other_text"])
             page.reserve_group_posts.okato_region(data["okato_region"])
             page.reserve_group_posts.okato_area(data["okato_area"])
             page.salary_from(data["salary_from"])
@@ -1909,18 +1911,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.reserve_group_posts.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.reserve_group_posts.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(3, False)
-            # page.sel()
-            # page.scroll_to_top()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.reserve_group_posts.organization_address(data["organization_address"])
@@ -1975,18 +1965,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.vacant_study.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.vacant_study.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(2, False)
-            # page.sel_study()
-            # page.scroll_to_top()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.vacant_study.organization_address(data["organization_address"])
@@ -2079,17 +2057,6 @@ class TestSuite:
             page.expiry_date(data["expiry_date"])
             page.registration_address(data["registration_address"])
             page.registration_time(data["registration_time"])
-            # page.click_by_text("Добавить")
-            # page.post_is_competition.document_type(data["document_type"])
-            # page.description(data["description"])
-            # page.post_is_competition.template_file(data["template_file"])
-            # sleep(1)
-            # page.click_by_text("Добавить", 2)
-            # sleep(1)
-            # page.set_checkbox_by_order(4, False)
-            # page.sel()
-            # page.delete()
-            # sleep(1)
             page.click_by_text("Контакты")
             page.wait_for_text_appear("Почтовый адрес")
             page.post_is_competition.organization_address(data["organization_address"])
@@ -2284,6 +2251,3 @@ class TestSuite:
         page.create_date(today())
         page.click_by_text("Применить")
         assert page.is_date_vacancy()
-
-
-
